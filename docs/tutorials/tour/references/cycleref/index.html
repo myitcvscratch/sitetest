@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.67.0" />
+
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>Cycles in Fields | CUE</title><meta property="og:title" content="Cycles in Fields" />
+<meta property="og:description" content="Also, we know that unifying a field with itself will result in the same value. Thus if we have a cycle between some fields, all we need to do is ignore the cycle and unify their values once to achieve the same result as merging them ad infinitum.
+
+cycleref.cue  labels: selectors labels: {app: &#34;foo&#34;} selectors: labels selectors: {name: &#34;bar&#34;}  $ cue eval cycleref.cue  labels: { name: &#34;bar&#34; app: &#34;foo&#34; } selectors: { name: &#34;bar&#34; app: &#34;foo&#34; }  " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://cuelang.org/docs/tutorials/tour/references/cycleref/" />
+<meta property="og:site_name" content="CUE" />
+<meta itemprop="name" content="Cycles in Fields">
+<meta itemprop="description" content="Also, we know that unifying a field with itself will result in the same value. Thus if we have a cycle between some fields, all we need to do is ignore the cycle and unify their values once to achieve the same result as merging them ad infinitum.
+
+cycleref.cue  labels: selectors labels: {app: &#34;foo&#34;} selectors: labels selectors: {name: &#34;bar&#34;}  $ cue eval cycleref.cue  labels: { name: &#34;bar&#34; app: &#34;foo&#34; } selectors: { name: &#34;bar&#34; app: &#34;foo&#34; }  ">
+
+<meta itemprop="wordCount" content="77">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Cycles in Fields"/>
+<meta name="twitter:description" content="Also, we know that unifying a field with itself will result in the same value. Thus if we have a cycle between some fields, all we need to do is ignore the cycle and unify their values once to achieve the same result as merging them ad infinitum.
+
+cycleref.cue  labels: selectors labels: {app: &#34;foo&#34;} selectors: labels selectors: {name: &#34;bar&#34;}  $ cue eval cycleref.cue  labels: { name: &#34;bar&#34; app: &#34;foo&#34; } selectors: { name: &#34;bar&#34; app: &#34;foo&#34; }  "/>
+
+
+
+
+
+<link rel="preload" href="/scss/main.min.f56d687752891909019b7a425ae3aefe3e6508a54e92b7a1dc91a12c9a948211.css" as="style">
+<link href="/scss/main.min.f56d687752891909019b7a425ae3aefe3e6508a54e92b7a1dc91a12c9a948211.css" rel="stylesheet" integrity="">
+
+
+<link rel="stylesheet" type="text/css" href=https://cuelang.org/css/asciinema-player.css />
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+    <title>Cycles in Fields | CUE</title>
+  </head>
+  <body class="td-page">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/">
+		<span class="navbar-logo"></span><span class="text-uppercase font-weight-bold">CUE</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/" ><span>Documentation</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/community/" ><span>Community</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				<a class="nav-link" href="https://github.com/cuelang/cue" target="_blank" ><span>GitHub</span></a>
+			</li>
+			
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+
+
+
+
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  
+  <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+    
+    
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Documentation</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="docs">
+      
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/about/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">About</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsabout">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/install/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Getting Started</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsinstall">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/usecases/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Use Cases</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsusecases">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesconfiguration" href="/docs/usecases/configuration/">Configuration</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesvalidation" href="/docs/usecases/validation/">Data Validation</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesdatadef" href="/docs/usecases/datadef/">Schema Definition</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesgenerate" href="/docs/usecases/generate/">Code Generation and Extraction</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesquery" href="/docs/usecases/query/">Querying</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesscripting" href="/docs/usecases/scripting/">Scripting</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/integrations/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Integrations</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsintegrations">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsjson" href="/docs/integrations/json/">JSON</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsyaml" href="/docs/integrations/yaml/">YAML</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsgo" href="/docs/integrations/go/">Go</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsprotobuf" href="/docs/integrations/protobuf/">Protobuf</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsopenapi" href="/docs/integrations/openapi/">OpenAPI and CRDs</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsk8s" href="/docs/integrations/k8s/">Kubernetes</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/concepts/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Concepts</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsconcepts">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconceptslogic" href="/docs/concepts/logic/">The Logic of CUE</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/concepts/packages/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Modules, Packages, and Instances</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsconceptspackages">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/tutorials/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Tutorials</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="docstutorials">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docstutorialskubernetes" href="/docs/tutorials/kubernetes/"></a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/references/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">References</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsreferences">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsreferencesspec" href="/docs/references/spec/">Language Specification</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+  </nav>
+</div>
+
+
+
+
+          </div>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+            
+
+
+
+
+
+
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+
+
+
+
+
+<a href="https://github.com/cuelang/cuelang.org/edit/master/content/en/docs/tutorials/tour/references/cycleref.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+<a href="https://github.com/cuelang/cuelang.org/issues/new?title=Cycles%20in%20Fields" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+
+
+<a href="https://github.com/cuelang/cue/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
+
+</div>
+
+
+
+
+
+
+
+
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+  
+
+            <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	<ol class="breadcrumb spb-1">
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://cuelang.org/docs/">Documentation</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://cuelang.org/docs/tutorials/">Tutorials</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://cuelang.org/docs/tutorials/tour/references/">References and Visibility</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item active" aria-current="page">
+	<a href="https://cuelang.org/docs/tutorials/tour/references/cycleref/">Cycles in Fields</a>
+</li>
+
+	</ol>
+</nav	>
+
+            
+
+next: <a href="https://cuelang.org/docs/tutorials/tour/references/hidden/">Hidden Fields</a>
+<p>
+<div class="td-content">
+<h2>Cycles in Fields</h2>
+
+<p>Also, we know that unifying a field with itself will result in the same value.
+Thus if we have a cycle between some fields, all we need to do is ignore
+the cycle and unify their values once to achieve the same result as
+merging them ad infinitum.</p>
+<p><a id="td-block-padding" class="td-offset-anchor"></a></p>
+<section class="row td-box td-box--white td-box--gradient td-box--height-auto">
+<div class="col-lg-6 mr-0">
+<i>cycleref.cue</i>
+<p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000">labels</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000">selectors</span>
+<span style="color:#000">labels</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span><span style="color:#000">app</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;foo&#34;</span><span style="color:#000;font-weight:bold">}</span>
+
+<span style="color:#000">selectors</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000">labels</span>
+<span style="color:#000">selectors</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span><span style="color:#000">name</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;bar&#34;</span><span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<br>
+</div>
+<div class="col-lg-6 ml-0"><i>$ cue eval cycleref.cue</i>
+<p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000">labels</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#000">name</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;bar&#34;</span>
+    <span style="color:#000">app</span><span style="color:#000;font-weight:bold">:</span>  <span style="color:#4e9a06">&#34;foo&#34;</span>
+<span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000">selectors</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#000">name</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;bar&#34;</span>
+    <span style="color:#000">app</span><span style="color:#000;font-weight:bold">:</span>  <span style="color:#4e9a06">&#34;foo&#34;</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+</div>
+</section>
+
+
+</div>
+
+          </main>
+        </div>
+      </div>
+      
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code' ],
+    ignoreClass: "mermaid",
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+
+<link href="https://cuelang.org/mermaid/mermaid.css" rel="stylesheet" />
+<script src="https://cuelang.org/mermaid/mermaid.js"></script>
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        flowchart: {
+            curve: 'basis'
+        }
+    });
+</script>
+
+
+    </div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+<script src="/js/main.min.2187fca64cce5b93625c3b6ebbc286d5a6026eaa944cef7319ed98d12dd39c91.js" integrity="sha256-IYf8pkzOW5NiXDtuu8KG1aYCbqqUTO9zGe2Y0S3TnJE=" crossorigin="anonymous"></script>
+
+<script src=https://cuelang.org/js/asciinema-player.js></script>
+
+  </body>
+</html>

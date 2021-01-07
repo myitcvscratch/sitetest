@@ -1,0 +1,2909 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.67.0" />
+
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>Language Specification | CUE</title><meta property="og:title" content="Language Specification" />
+<meta property="og:description" content="The CUE Language Specification Introduction This is a reference manual for the CUE data constraint language. CUE, pronounced cue or Q, is a general-purpose and strongly typed constraint-based language. It can be used for data templating, data validation, code generation, scripting, and many other applications involving structured data. The CUE tooling, layered on top of CUE, provides a general purpose scripting language for creating scripts as well as simple servers, also expressed in CUE." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://cuelang.org/docs/references/spec/" />
+<meta property="og:site_name" content="CUE" />
+<meta itemprop="name" content="Language Specification">
+<meta itemprop="description" content="The CUE Language Specification Introduction This is a reference manual for the CUE data constraint language. CUE, pronounced cue or Q, is a general-purpose and strongly typed constraint-based language. It can be used for data templating, data validation, code generation, scripting, and many other applications involving structured data. The CUE tooling, layered on top of CUE, provides a general purpose scripting language for creating scripts as well as simple servers, also expressed in CUE.">
+
+<meta itemprop="wordCount" content="11609">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Language Specification"/>
+<meta name="twitter:description" content="The CUE Language Specification Introduction This is a reference manual for the CUE data constraint language. CUE, pronounced cue or Q, is a general-purpose and strongly typed constraint-based language. It can be used for data templating, data validation, code generation, scripting, and many other applications involving structured data. The CUE tooling, layered on top of CUE, provides a general purpose scripting language for creating scripts as well as simple servers, also expressed in CUE."/>
+
+
+
+
+
+<link rel="preload" href="/scss/main.min.f56d687752891909019b7a425ae3aefe3e6508a54e92b7a1dc91a12c9a948211.css" as="style">
+<link href="/scss/main.min.f56d687752891909019b7a425ae3aefe3e6508a54e92b7a1dc91a12c9a948211.css" rel="stylesheet" integrity="">
+
+
+<link rel="stylesheet" type="text/css" href=https://cuelang.org/css/asciinema-player.css />
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+    <title>Language Specification | CUE</title>
+  </head>
+  <body class="td-page">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/">
+		<span class="navbar-logo"></span><span class="text-uppercase font-weight-bold">CUE</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/" ><span>Documentation</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/community/" ><span>Community</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				<a class="nav-link" href="https://github.com/cuelang/cue" target="_blank" ><span>GitHub</span></a>
+			</li>
+			
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+
+
+
+
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  
+  <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+    
+    
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Documentation</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="docs">
+      
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/about/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">About</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsabout">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/install/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Getting Started</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsinstall">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/usecases/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Use Cases</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsusecases">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesconfiguration" href="/docs/usecases/configuration/">Configuration</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesvalidation" href="/docs/usecases/validation/">Data Validation</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesdatadef" href="/docs/usecases/datadef/">Schema Definition</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesgenerate" href="/docs/usecases/generate/">Code Generation and Extraction</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesquery" href="/docs/usecases/query/">Querying</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesscripting" href="/docs/usecases/scripting/">Scripting</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/integrations/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Integrations</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsintegrations">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsjson" href="/docs/integrations/json/">JSON</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsyaml" href="/docs/integrations/yaml/">YAML</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsgo" href="/docs/integrations/go/">Go</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsprotobuf" href="/docs/integrations/protobuf/">Protobuf</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsopenapi" href="/docs/integrations/openapi/">OpenAPI and CRDs</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsk8s" href="/docs/integrations/k8s/">Kubernetes</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/concepts/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Concepts</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsconcepts">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconceptslogic" href="/docs/concepts/logic/">The Logic of CUE</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/concepts/packages/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Modules, Packages, and Instances</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsconceptspackages">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/tutorials/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Tutorials</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docstutorials">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docstutorialskubernetes" href="/docs/tutorials/kubernetes/"></a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/references/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">References</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="docsreferences">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-docsreferencesspec" href="/docs/references/spec/">Language Specification</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+  </nav>
+</div>
+
+
+
+
+          </div>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+            
+
+
+
+
+
+
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+
+
+
+
+
+<a href="https://github.com/cuelang/cuelang.org/edit/master/content/en/docs/references/spec.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+<a href="https://github.com/cuelang/cuelang.org/issues/new?title=Language%20Specification" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+
+
+<a href="https://github.com/cuelang/cue/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
+
+</div>
+
+
+
+
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#notation">Notation</a></li>
+    <li><a href="#source-code-representation">Source code representation</a>
+      <ul>
+        <li><a href="#characters">Characters</a></li>
+        <li><a href="#letters-and-digits">Letters and digits</a></li>
+      </ul>
+    </li>
+    <li><a href="#lexical-elements">Lexical elements</a>
+      <ul>
+        <li><a href="#comments">Comments</a></li>
+        <li><a href="#tokens">Tokens</a></li>
+        <li><a href="#commas">Commas</a></li>
+        <li><a href="#identifiers">Identifiers</a></li>
+        <li><a href="#keywords">Keywords</a>
+          <ul>
+            <li><a href="#values">Values</a></li>
+            <li><a href="#preamble">Preamble</a></li>
+            <li><a href="#comprehension-clauses">Comprehension clauses</a></li>
+            <li><a href="#arithmetic">Arithmetic</a></li>
+          </ul>
+        </li>
+        <li><a href="#operators-and-punctuation">Operators and punctuation</a></li>
+        <li><a href="#integer-literals">Integer literals</a></li>
+        <li><a href="#decimal-floating-point-literals">Decimal floating-point literals</a></li>
+        <li><a href="#string-and-byte-sequence-literals">String and byte sequence literals</a></li>
+      </ul>
+    </li>
+    <li><a href="#values-1">Values</a>
+      <ul>
+        <li><a href="#unification">Unification</a></li>
+        <li><a href="#disjunction">Disjunction</a>
+          <ul>
+            <li><a href="#default-values">Default values</a></li>
+          </ul>
+        </li>
+        <li><a href="#bottom-and-errors">Bottom and errors</a></li>
+        <li><a href="#top">Top</a></li>
+        <li><a href="#null">Null</a></li>
+        <li><a href="#boolean-values">Boolean values</a></li>
+        <li><a href="#numeric-values">Numeric values</a></li>
+        <li><a href="#strings">Strings</a></li>
+        <li><a href="#bytes">Bytes</a></li>
+        <li><a href="#bounds">Bounds</a></li>
+        <li><a href="#structs">Structs</a>
+          <ul>
+            <li><a href="#closed-structs">Closed structs</a></li>
+            <li><a href="#embedding">Embedding</a></li>
+            <li><a href="#definitions-and-hidden-fields">Definitions and hidden fields</a></li>
+            <li><a href="#attributes">Attributes</a></li>
+            <li><a href="#aliases">Aliases</a></li>
+            <li><a href="#let-declarations">Let declarations</a></li>
+            <li><a href="#shorthand-notation-for-nested-structs">Shorthand notation for nested structs</a></li>
+          </ul>
+        </li>
+        <li><a href="#lists">Lists</a></li>
+      </ul>
+    </li>
+    <li><a href="#declarations-and-scopes">Declarations and Scopes</a>
+      <ul>
+        <li><a href="#blocks">Blocks</a></li>
+        <li><a href="#declarations-and-scope">Declarations and scope</a></li>
+        <li><a href="#predeclared-identifiers">Predeclared identifiers</a></li>
+        <li><a href="#exported-identifiers">Exported identifiers</a></li>
+        <li><a href="#uniqueness-of-identifiers">Uniqueness of identifiers</a></li>
+        <li><a href="#field-declarations">Field declarations</a></li>
+        <li><a href="#let-declarations-1">Let declarations</a></li>
+      </ul>
+    </li>
+    <li><a href="#expressions">Expressions</a>
+      <ul>
+        <li><a href="#operands">Operands</a></li>
+        <li><a href="#qualified-identifiers">Qualified identifiers</a></li>
+        <li><a href="#references">References</a></li>
+        <li><a href="#primary-expressions">Primary expressions</a></li>
+        <li><a href="#selectors">Selectors</a></li>
+        <li><a href="#index-expressions">Index expressions</a></li>
+        <li><a href="#operators">Operators</a>
+          <ul>
+            <li><a href="#operator-precedence">Operator precedence</a></li>
+            <li><a href="#arithmetic-operators">Arithmetic operators</a></li>
+            <li><a href="#integer-operators">Integer operators</a></li>
+            <li><a href="#decimal-floating-point-operators">Decimal floating-point operators</a></li>
+            <li><a href="#list-operators">List operators</a></li>
+            <li><a href="#string-operators">String operators</a></li>
+            <li><a href="#logical-operators">Logical operators</a></li>
+          </ul>
+        </li>
+        <li><a href="#calls">Calls</a></li>
+        <li><a href="#comprehensions">Comprehensions</a></li>
+        <li><a href="#string-interpolation">String interpolation</a></li>
+      </ul>
+    </li>
+    <li><a href="#builtin-functions">Builtin Functions</a>
+      <ul>
+        <li><a href="#len"><code>len</code></a></li>
+        <li><a href="#close"><code>close</code></a></li>
+        <li><a href="#and"><code>and</code></a></li>
+        <li><a href="#or"><code>or</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#cycles">Cycles</a>
+      <ul>
+        <li><a href="#reference-cycles">Reference cycles</a>
+          <ul>
+            <li><a href="#expressions-that-unify-an-atom-with-an-expression">Expressions that unify an atom with an expression</a></li>
+            <li><a href="#field-values">Field values</a></li>
+          </ul>
+        </li>
+        <li><a href="#structural-cycles">Structural cycles</a></li>
+      </ul>
+    </li>
+    <li><a href="#modules-instances-and-packages">Modules, instances, and packages</a>
+      <ul>
+        <li><a href="#source-file-organization">Source file organization</a></li>
+        <li><a href="#package-clause">Package clause</a></li>
+        <li><a href="#modules-and-instances">Modules and instances</a></li>
+        <li><a href="#import-declarations">Import declarations</a></li>
+        <li><a href="#an-example-package">An example package</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+  
+
+            <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	<ol class="breadcrumb spb-1">
+		
+
+
+
+
+
+
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://cuelang.org/docs/">Documentation</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://cuelang.org/docs/references/">References</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item active" aria-current="page">
+	<a href="https://cuelang.org/docs/references/spec/">Language Specification</a>
+</li>
+
+	</ol>
+</nav	>
+
+            
+
+<div class="td-content">
+<h1 id="the-cue-language-specification">The CUE Language Specification</h1>
+<h2 id="introduction">Introduction</h2>
+<p>This is a reference manual for the CUE data constraint language.
+CUE, pronounced cue or Q, is a general-purpose and strongly typed
+constraint-based language.
+It can be used for data templating, data validation, code generation, scripting,
+and many other applications involving structured data.
+The CUE tooling, layered on top of CUE, provides
+a general purpose scripting language for creating scripts as well as
+simple servers, also expressed in CUE.</p>
+<p>CUE was designed with cloud configuration, and related systems, in mind,
+but is not limited to this domain.
+It derives its formalism from relational programming languages.
+This formalism allows for managing and reasoning over large amounts of
+data in a straightforward manner.</p>
+<p>The grammar is compact and regular, allowing for easy analysis by automatic
+tools such as integrated development environments.</p>
+<p>This document is maintained by <a href="mailto:mpvl@golang.org">mpvl@golang.org</a>.
+CUE has a lot of similarities with the Go language. This document draws heavily
+from the Go specification as a result.</p>
+<p>CUE draws its influence from many languages.
+Its main influences were BCL/ GCL (internal to Google),
+LKB (LinGO), Go, and JSON.
+Others are Swift, Typescript, Javascript, Prolog, NCL (internal to Google),
+Jsonnet, HCL, Flabbergast, Nix, JSONPath, Haskell, Objective-C, and Python.</p>
+<h2 id="notation">Notation</h2>
+<p>The syntax is specified using Extended Backus-Naur Form (EBNF):</p>
+<pre><code>Production  = production_name &quot;=&quot; [ Expression ] &quot;.&quot; .
+Expression  = Alternative { &quot;|&quot; Alternative } .
+Alternative = Term { Term } .
+Term        = production_name | token [ &quot;…&quot; token ] | Group | Option | Repetition .
+Group       = &quot;(&quot; Expression &quot;)&quot; .
+Option      = &quot;[&quot; Expression &quot;]&quot; .
+Repetition  = &quot;{&quot; Expression &quot;}&quot; .
+</code></pre><p>Productions are expressions constructed from terms and the following operators,
+in increasing precedence:</p>
+<pre><code>|   alternation
+()  grouping
+[]  option (0 or 1 times)
+{}  repetition (0 to n times)
+</code></pre><p>Lower-case production names are used to identify lexical tokens. Non-terminals
+are in CamelCase. Lexical tokens are enclosed in double quotes &quot;&rdquo; or back quotes
+``.</p>
+<p>The form a … b represents the set of characters from a through b as
+alternatives. The horizontal ellipsis … is also used elsewhere in the spec to
+informally denote various enumerations or code snippets that are not further
+specified. The character … (as opposed to the three characters &hellip;) is not a
+token of the CUE language.</p>
+<h2 id="source-code-representation">Source code representation</h2>
+<p>Source code is Unicode text encoded in UTF-8.
+Unless otherwise noted, the text is not canonicalized, so a single
+accented code point is distinct from the same character constructed from
+combining an accent and a letter; those are treated as two code points.
+For simplicity, this document will use the unqualified term character to refer
+to a Unicode code point in the source text.</p>
+<p>Each code point is distinct; for instance, upper and lower case letters are
+different characters.</p>
+<p>Implementation restriction: For compatibility with other tools, a compiler may
+disallow the NUL character (U+0000) in the source text.</p>
+<p>Implementation restriction: For compatibility with other tools, a compiler may
+ignore a UTF-8-encoded byte order mark (U+FEFF) if it is the first Unicode code
+point in the source text. A byte order mark may be disallowed anywhere else in
+the source.</p>
+<h3 id="characters">Characters</h3>
+<p>The following terms are used to denote specific Unicode character classes:</p>
+<pre><code>newline        = /* the Unicode code point U+000A */ .
+unicode_char   = /* an arbitrary Unicode code point except newline */ .
+unicode_letter = /* a Unicode code point classified as &quot;Letter&quot; */ .
+unicode_digit  = /* a Unicode code point classified as &quot;Number, decimal digit&quot; */ .
+</code></pre><p>In The Unicode Standard 8.0, Section 4.5 &ldquo;General Category&rdquo; defines a set of
+character categories.
+CUE treats all characters in any of the Letter categories Lu, Ll, Lt, Lm, or Lo
+as Unicode letters, and those in the Number category Nd as Unicode digits.</p>
+<h3 id="letters-and-digits">Letters and digits</h3>
+<p>The underscore character _ (U+005F) is considered a letter.</p>
+<pre><code>letter        = unicode_letter | &quot;_&quot; .
+decimal_digit = &quot;0&quot; … &quot;9&quot; .
+octal_digit   = &quot;0&quot; … &quot;7&quot; .
+hex_digit     = &quot;0&quot; … &quot;9&quot; | &quot;A&quot; … &quot;F&quot; | &quot;a&quot; … &quot;f&quot; .
+</code></pre><h2 id="lexical-elements">Lexical elements</h2>
+<h3 id="comments">Comments</h3>
+<p>Comments serve as program documentation.
+CUE supports line comments that start with the character sequence //
+and stop at the end of the line.</p>
+<p>A comment cannot start inside a string literal or inside a comment.
+A comment acts like a newline.</p>
+<h3 id="tokens">Tokens</h3>
+<p>Tokens form the vocabulary of the CUE language. There are four classes:
+identifiers, keywords, operators and punctuation, and literals. White space,
+formed from spaces (U+0020), horizontal tabs (U+0009), carriage returns
+(U+000D), and newlines (U+000A), is ignored except as it separates tokens that
+would otherwise combine into a single token. Also, a newline or end of file may
+trigger the insertion of a comma. While breaking the input into tokens, the
+next token is the longest sequence of characters that form a valid token.</p>
+<h3 id="commas">Commas</h3>
+<p>The formal grammar uses commas &ldquo;,&rdquo; as terminators in a number of productions.
+CUE programs may omit most of these commas using the following two rules:</p>
+<p>When the input is broken into tokens, a comma is automatically inserted into
+the token stream immediately after a line&rsquo;s final token if that token is</p>
+<ul>
+<li>an identifier</li>
+<li>null, true, false, bottom, or an integer, floating-point, or string literal</li>
+<li>one of the characters ), ], or }</li>
+</ul>
+<p>Although commas are automatically inserted, the parser will require
+explicit commas between two list elements.</p>
+<p>To reflect idiomatic use, examples in this document elide commas using
+these rules.</p>
+<h3 id="identifiers">Identifiers</h3>
+<p>Identifiers name entities such as fields and aliases.
+An identifier is a sequence of one or more letters (which includes <code>_</code> and <code>$</code>)
+and digits, optionally preceded by <code>#</code> or <code>_#</code>.
+It may not be <code>_</code> or <code>$</code>.
+The first character in an identifier, or after an <code>#</code> if it contains one,
+must be a letter.
+Identifiers starting with a <code>#</code> or <code>_</code> are reserved for definitions and hidden
+fields.</p>
+<!--
+TODO: allow identifiers as defined in Unicode UAX #31
+(https://unicode.org/reports/tr31/).
+
+Identifiers are normalized using the NFC normal form.
+-->
+<pre><code>identifier  = [ &quot;#&quot; | &quot;_#&quot; ] letter { letter | unicode_digit } .
+</code></pre><pre><code>a
+_x9
+fieldName
+αβ
+</code></pre><!-- TODO: Allow Unicode identifiers TR 32 http://unicode.org/reports/tr31/ -->
+<p>Some identifiers are <a href="#predeclared-identifiers">predeclared</a>.</p>
+<h3 id="keywords">Keywords</h3>
+<p>CUE has a limited set of keywords.
+In addition, CUE reserves all identifiers starting with <code>__</code>(double underscores)
+as keywords.
+These are typically targets of pre-declared identifiers.</p>
+<p>All keywords may be used as labels (field names).
+Unless noted otherwise, they can also be used as identifiers to refer to
+the same name.</p>
+<h4 id="values">Values</h4>
+<p>The following keywords are values.</p>
+<pre><code>null         true         false
+</code></pre><p>These can never be used to refer to a field of the same name.
+This restriction is to ensure compatibility with JSON configuration files.</p>
+<h4 id="preamble">Preamble</h4>
+<p>The following keywords are used at the preamble of a CUE file.
+After the preamble, they may be used as identifiers to refer to namesake fields.</p>
+<pre><code>package      import
+</code></pre><h4 id="comprehension-clauses">Comprehension clauses</h4>
+<p>The following keywords are used in comprehensions.</p>
+<pre><code>for          in           if           let
+</code></pre><!--
+TODO:
+    reduce [to]
+    order [by]
+-->
+<h4 id="arithmetic">Arithmetic</h4>
+<p>The following pseudo keywords can be used as operators in expressions.</p>
+<pre><code>div          mod          quo          rem
+</code></pre><h3 id="operators-and-punctuation">Operators and punctuation</h3>
+<p>The following character sequences represent operators and punctuation:</p>
+<pre><code>+     div   &amp;&amp;    ==    &lt;     =     (     )
+-     mod   ||    !=    &gt;     :     {     }
+*     quo   &amp;     =~    &lt;=    ?     [     ]     ,
+/     rem   |     !~    &gt;=    !     _|_   ...   .
+</code></pre><!--
+Free tokens:  ; ~ ^
+// To be used:
+  @   at: associative lists.
+
+// Idea: use # instead of @ for attributes and allow then at declaration level.
+// This will open up the possibility of defining #! at the start of a file
+// without requiring special syntax. Although probably not quite.
+ -->
+<h3 id="integer-literals">Integer literals</h3>
+<p>An integer literal is a sequence of digits representing an integer value.
+An optional prefix sets a non-decimal base: 0o for octal,
+0x or 0X for hexadecimal, and 0b for binary.
+In hexadecimal literals, letters a-f and A-F represent values 10 through 15.
+All integers allow interstitial underscores &ldquo;_&quot;;
+these have no meaning and are solely for readability.</p>
+<p>Decimal integers may have a SI or IEC multiplier.
+Multipliers can be used with fractional numbers.
+When multiplying a fraction by a multiplier, the result is truncated
+towards zero if it is not an integer.</p>
+<pre><code>int_lit     = decimal_lit | si_lit | octal_lit | binary_lit | hex_lit .
+decimal_lit = ( &quot;1&quot; … &quot;9&quot; ) { [ &quot;_&quot; ] decimal_digit } .
+decimals    = decimal_digit { [ &quot;_&quot; ] decimal_digit } .
+si_it       = decimals [ &quot;.&quot; decimals ] multiplier |
+              &quot;.&quot; decimals  multiplier .
+binary_lit  = &quot;0b&quot; binary_digit { binary_digit } .
+hex_lit     = &quot;0&quot; ( &quot;x&quot; | &quot;X&quot; ) hex_digit { [ &quot;_&quot; ] hex_digit } .
+octal_lit   = &quot;0o&quot; octal_digit { [ &quot;_&quot; ] octal_digit } .
+multiplier  = ( &quot;K&quot; | &quot;M&quot; | &quot;G&quot; | &quot;T&quot; | &quot;P&quot; ) [ &quot;i&quot; ]
+
+float_lit   = decimals &quot;.&quot; [ decimals ] [ exponent ] |
+              decimals exponent |
+              &quot;.&quot; decimals [ exponent ].
+exponent    = ( &quot;e&quot; | &quot;E&quot; ) [ &quot;+&quot; | &quot;-&quot; ] decimals .
+</code></pre><!--
+TODO: consider allowing Exo (and up), if not followed by a sign
+or number. Alternatively one could only allow Ei, Yi, and Zi.
+-->
+<pre><code>42
+1.5Gi
+170_141_183_460_469_231_731_687_303_715_884_105_727
+0xBad_Face
+0o755
+0b0101_0001
+</code></pre><h3 id="decimal-floating-point-literals">Decimal floating-point literals</h3>
+<p>A decimal floating-point literal is a representation of
+a decimal floating-point value (a <em>float</em>).
+It has an integer part, a decimal point, a fractional part, and an
+exponent part.
+The integer and fractional part comprise decimal digits; the
+exponent part is an <code>e</code> or <code>E</code> followed by an optionally signed decimal exponent.
+One of the integer part or the fractional part may be elided; one of the decimal
+point or the exponent may be elided.</p>
+<pre><code>decimal_lit = decimals &quot;.&quot; [ decimals ] [ exponent ] |
+            decimals exponent |
+            &quot;.&quot; decimals [ exponent ] .
+exponent  = ( &quot;e&quot; | &quot;E&quot; ) [ &quot;+&quot; | &quot;-&quot; ] decimals .
+</code></pre><pre><code>0.
+72.40
+072.40  // == 72.40
+2.71828
+1.e+0
+6.67428e-11
+1E6
+.25
+.12345E+5
+</code></pre><h3 id="string-and-byte-sequence-literals">String and byte sequence literals</h3>
+<p>A string literal represents a string constant obtained from concatenating a
+sequence of characters.
+Byte sequences are a sequence of bytes.</p>
+<p>String and byte sequence literals are character sequences between,
+respectively, double and single quotes, as in <code>&quot;bar&quot;</code> and <code>'bar'</code>.
+Within the quotes, any character may appear except newline and,
+respectively, unescaped double or single quote.
+String literals may only be valid UTF-8.
+Byte sequences may contain any sequence of bytes.</p>
+<p>Several escape sequences allow arbitrary values to be encoded as ASCII text.
+An escape sequence starts with an <em>escape delimiter</em>, which is <code>\</code> by default.
+The escape delimiter may be altered to be <code>\</code> plus a fixed number of
+hash symbols <code>#</code>
+by padding the start and end of a string or byte sequence literal
+with this number of hash symbols.</p>
+<p>There are four ways to represent the integer value as a numeric constant: <code>\x</code>
+followed by exactly two hexadecimal digits; <code>\u</code> followed by exactly four
+hexadecimal digits; <code>\U</code> followed by exactly eight hexadecimal digits, and a
+plain backslash <code>\</code> followed by exactly three octal digits.
+In each case the value of the literal is the value represented by the
+digits in the corresponding base.
+Hexadecimal and octal escapes are only allowed within byte sequences
+(single quotes).</p>
+<p>Although these representations all result in an integer, they have different
+valid ranges.
+Octal escapes must represent a value between 0 and 255 inclusive.
+Hexadecimal escapes satisfy this condition by construction.
+The escapes <code>\u</code> and <code>\U</code> represent Unicode code points so within them
+some values are illegal, in particular those above <code>0x10FFFF</code>.
+Surrogate halves are allowed,
+but are translated into their non-surrogate equivalent internally.</p>
+<p>The three-digit octal (<code>\nnn</code>) and two-digit hexadecimal (<code>\xnn</code>) escapes
+represent individual bytes of the resulting string; all other escapes represent
+the (possibly multi-byte) UTF-8 encoding of individual characters.
+Thus inside a string literal <code>\377</code> and <code>\xFF</code> represent a single byte of
+value <code>0xFF=255</code>, while <code>ÿ</code>, <code>\u00FF</code>, <code>\U000000FF</code> and <code>\xc3\xbf</code> represent
+the two bytes <code>0xc3 0xbf</code> of the UTF-8
+encoding of character <code>U+00FF</code>.</p>
+<pre><code>\a   U+0007 alert or bell
+\b   U+0008 backspace
+\f   U+000C form feed
+\n   U+000A line feed or newline
+\r   U+000D carriage return
+\t   U+0009 horizontal tab
+\v   U+000b vertical tab
+\/   U+002f slash (solidus)
+\\   U+005c backslash
+\'   U+0027 single quote  (valid escape only within single quoted literals)
+\&quot;   U+0022 double quote  (valid escape only within double quoted literals)
+</code></pre><p>The escape <code>\(</code> is used as an escape for string interpolation.
+A <code>\(</code> must be followed by a valid CUE Expression, followed by a <code>)</code>.</p>
+<p>All other sequences starting with a backslash are illegal inside literals.</p>
+<pre><code>escaped_char     = `\` { `#` } ( &quot;a&quot; | &quot;b&quot; | &quot;f&quot; | &quot;n&quot; | &quot;r&quot; | &quot;t&quot; | &quot;v&quot; | &quot;/&quot; | `\` | &quot;'&quot; | `&quot;` ) .
+byte_value       = octal_byte_value | hex_byte_value .
+octal_byte_value = `\` octal_digit octal_digit octal_digit .
+hex_byte_value   = `\` &quot;x&quot; hex_digit hex_digit .
+little_u_value   = `\` &quot;u&quot; hex_digit hex_digit hex_digit hex_digit .
+big_u_value      = `\` &quot;U&quot; hex_digit hex_digit hex_digit hex_digit
+                           hex_digit hex_digit hex_digit hex_digit .
+unicode_value    = unicode_char | little_u_value | big_u_value | escaped_char .
+interpolation    = &quot;\(&quot; Expression &quot;)&quot; .
+
+string_lit       = simple_string_lit |
+                   multiline_string_lit |
+                   simple_bytes_lit |
+                   multiline_bytes_lit |
+                   `#` string_lit `#` .
+
+simple_string_lit    = `&quot;` { unicode_value | interpolation } `&quot;` .
+simple_bytes_lit     = `'` { unicode_value | interpolation | byte_value } `'` .
+multiline_string_lit = `&quot;&quot;&quot;` newline
+                             { unicode_value | interpolation | newline }
+                             newline `&quot;&quot;&quot;` .
+multiline_bytes_lit  = &quot;'''&quot; newline
+                             { unicode_value | interpolation | byte_value | newline }
+                             newline &quot;'''&quot; .
+</code></pre><p>Carriage return characters (<code>\r</code>) inside string literals are discarded from
+the string value.</p>
+<pre><code>'a\000\xab'
+'\007'
+'\377'
+'\xa'        // illegal: too few hexadecimal digits
+&quot;\n&quot;
+&quot;\&quot;&quot;
+'Hello, world!\n'
+&quot;Hello, \( name )!&quot;
+&quot;日本語&quot;
+&quot;\u65e5本\U00008a9e&quot;
+&quot;\xff\u00FF&quot;
+&quot;\uD800&quot;             // illegal: surrogate half (TODO: probably should allow)
+&quot;\U00110000&quot;         // illegal: invalid Unicode code point
+
+#&quot;This is not an \(interpolation)&quot;#
+#&quot;This is an \#(interpolation)&quot;#
+#&quot;The sequence &quot;\U0001F604&quot; renders as \#U0001F604.&quot;#
+</code></pre><p>These examples all represent the same string:</p>
+<pre><code>&quot;日本語&quot;                                 // UTF-8 input text
+'日本語'                                 // UTF-8 input text as byte sequence
+`日本語`                                 // UTF-8 input text as a raw literal
+&quot;\u65e5\u672c\u8a9e&quot;                    // the explicit Unicode code points
+&quot;\U000065e5\U0000672c\U00008a9e&quot;        // the explicit Unicode code points
+&quot;\xe6\x97\xa5\xe6\x9c\xac\xe8\xaa\x9e&quot;  // the explicit UTF-8 bytes
+</code></pre><p>If the source code represents a character as two code points, such as a
+combining form involving an accent and a letter, the result will appear as two
+code points if placed in a string literal.</p>
+<p>Strings and byte sequences have a multiline equivalent.
+Multiline strings are like their single-line equivalent,
+but allow newline characters.</p>
+<p>Multiline strings and byte sequences respectively start with
+a triple double quote (<code>&quot;&quot;&quot;</code>) or triple single quote (<code>'''</code>),
+immediately followed by a newline, which is discarded from the string contents.
+The string is closed by a matching triple quote, which must be by itself
+on a newline, preceded by optional whitespace.
+The newline preceding the closing quote is discarded from the string contents.
+The whitespace before a closing triple quote must appear before any non-empty
+line after the opening quote and will be removed from each of these
+lines in the string literal.
+A closing triple quote may not appear in the string.
+To include it is suffices to escape one of the quotes.</p>
+<pre><code>&quot;&quot;&quot;
+    lily:
+    out of the water
+    out of itself
+
+    bass
+    picking bugs
+    off the moon
+        — Nick Virgilio, Selected Haiku, 1988
+    &quot;&quot;&quot;
+</code></pre><p>This represents the same string as:</p>
+<pre><code>&quot;lily:\nout of the water\nout of itself\n\n&quot; +
+&quot;bass\npicking bugs\noff the moon\n&quot; +
+&quot;    — Nick Virgilio, Selected Haiku, 1988&quot;
+</code></pre><!-- TODO: other values
+
+Support for other values:
+- Duration literals
+- regular expessions: `re("[a-z]")`
+-->
+<h2 id="values-1">Values</h2>
+<p>In addition to simple values like <code>&quot;hello&quot;</code> and <code>42.0</code>, CUE has <em>structs</em>.
+A struct is a map from labels to values, like <code>{a: 42.0, b: &quot;hello&quot;}</code>.
+Structs are CUE&rsquo;s only way of building up complex values;
+lists, which we will see later,
+are defined in terms of structs.</p>
+<p>All possible values are ordered in a lattice,
+a partial order where every two elements have a single greatest lower bound.
+A value <code>a</code> is an <em>instance</em> of a value <code>b</code>,
+denoted <code>a ⊑ b</code>, if <code>b == a</code> or <code>b</code> is more general than <code>a</code>,
+that is if <code>a</code> orders before <code>b</code> in the partial order
+(<code>⊑</code> is <em>not</em> a CUE operator).
+We also say that <code>b</code> <em>subsumes</em> <code>a</code> in this case.
+In graphical terms, <code>b</code> is &ldquo;above&rdquo; <code>a</code> in the lattice.</p>
+<p>At the top of the lattice is the single ancestor of all values, called
+<em>top</em>, denoted <code>_</code> in CUE.
+Every value is an instance of top.</p>
+<p>At the bottom of the lattice is the value called <em>bottom</em>, denoted <code>_|_</code>.
+A bottom value usually indicates an error.
+Bottom is an instance of every value.</p>
+<p>An <em>atom</em> is any value whose only instances are itself and bottom.
+Examples of atoms are <code>42.0</code>, <code>&quot;hello&quot;</code>, <code>true</code>, <code>null</code>.</p>
+<p>A value is <em>concrete</em> if it is either an atom, or a struct all of whose
+field values are themselves concrete, recursively.</p>
+<p>CUE&rsquo;s values also include what we normally think of as types, like <code>string</code> and
+<code>float</code>.
+But CUE does not distinguish between types and values; only the
+relationship of values in the lattice is important.
+Each CUE &ldquo;type&rdquo; subsumes the concrete values that one would normally think
+of as part of that type.
+For example, &ldquo;hello&rdquo; is an instance of <code>string</code>, and <code>42.0</code> is an instance of
+<code>float</code>.
+In addition to <code>string</code> and <code>float</code>, CUE has <code>null</code>, <code>int</code>, <code>bool</code> and <code>bytes</code>.
+We informally call these CUE&rsquo;s &ldquo;basic types&rdquo;.</p>
+<pre><code>false ⊑ bool
+true  ⊑ bool
+true  ⊑ true
+5.0   ⊑ float
+bool  ⊑ _
+_|_   ⊑ _
+_|_   ⊑ _|_
+
+_     ⋢ _|_
+_     ⋢ bool
+int   ⋢ bool
+bool  ⋢ int
+false ⋢ true
+true  ⋢ false
+float ⋢ 5.0
+5     ⋢ 6
+</code></pre><h3 id="unification">Unification</h3>
+<p>The <em>unification</em> of values <code>a</code> and <code>b</code>
+is defined as the greatest lower bound of <code>a</code> and <code>b</code>. (That is, the
+value <code>u</code> such that <code>u ⊑ a</code> and <code>u ⊑ b</code>,
+and for any other value <code>v</code> for which <code>v ⊑ a</code> and <code>v ⊑ b</code>
+it holds that <code>v ⊑ u</code>.)
+Since CUE values form a lattice, the unification of two CUE values is
+always unique.</p>
+<p>These all follow from the definition of unification:</p>
+<ul>
+<li>The unification of <code>a</code> with itself is always <code>a</code>.</li>
+<li>The unification of values <code>a</code> and <code>b</code> where <code>a ⊑ b</code> is always <code>a</code>.</li>
+<li>The unification of a value with bottom is always bottom.</li>
+</ul>
+<p>Unification in CUE is a <a href="#Operands">binary expression</a>, written <code>a &amp; b</code>.
+It is commutative and associative.
+As a consequence, order of evaluation is irrelevant, a property that is key
+to many of the constructs in the CUE language as well as the tooling layered
+on top of it.</p>
+<!-- TODO: explicitly mention that disjunction is not a binary operation
+but a definition of a single value?-->
+<h3 id="disjunction">Disjunction</h3>
+<p>The <em>disjunction</em> of values <code>a</code> and <code>b</code>
+is defined as the least upper bound of <code>a</code> and <code>b</code>.
+(That is, the value <code>d</code> such that <code>a ⊑ d</code> and <code>b ⊑ d</code>,
+and for any other value <code>e</code> for which <code>a ⊑ e</code> and <code>b ⊑ e</code>,
+it holds that <code>d ⊑ e</code>.)
+This style of disjunctions is sometimes also referred to as sum types.
+Since CUE values form a lattice, the disjunction of two CUE values is always unique.</p>
+<p>These all follow from the definition of disjunction:</p>
+<ul>
+<li>The disjunction of <code>a</code> with itself is always <code>a</code>.</li>
+<li>The disjunction of a value <code>a</code> and <code>b</code> where <code>a ⊑ b</code> is always <code>b</code>.</li>
+<li>The disjunction of a value <code>a</code> with bottom is always <code>a</code>.</li>
+<li>The disjunction of two bottom values is bottom.</li>
+</ul>
+<p>Disjunction in CUE is a <a href="#Operands">binary expression</a>, written <code>a | b</code>.
+It is commutative, associative, and idempotent.</p>
+<p>The unification of a disjunction with another value is equal to the disjunction
+composed of the unification of this value with all of the original elements
+of the disjunction.
+In other words, unification distributes over disjunction.</p>
+<pre><code>(a_0 | ... |a_n) &amp; b ==&gt; a_0&amp;b | ... | a_n&amp;b.
+</code></pre><pre><code>Expression                Result
+({a:1} | {b:2}) &amp; {c:3}   {a:1, c:3} | {b:2, c:3}
+(int | string) &amp; &quot;foo&quot;    &quot;foo&quot;
+(&quot;a&quot; | &quot;b&quot;) &amp; &quot;c&quot;         _|_
+</code></pre><p>A disjunction is <em>normalized</em> if there is no element
+<code>a</code> for which there is an element <code>b</code> such that <code>a ⊑ b</code>.</p>
+<!--
+Normalization is important, as we need to account for spurious elements
+For instance "tcp" | "tcp" should resolve to "tcp".
+
+Also consider
+
+  ({a:1} | {b:1}) & ({a:1} | {b:2}) -> {a:1} | {a:1,b:1} | {a:1,b:2},
+
+in this case, elements {a:1,b:1} and {a:1,b:2} are subsumed by {a:1} and thus
+this expression is logically equivalent to {a:1} and should therefore be
+considered to be unambiguous and resolve to {a:1} if a concrete value is needed.
+
+For instance, in
+
+  x: ({a:1} | {b:1}) & ({a:1} | {b:2}) // -> {a:1} | {a:1,b:1} | {a:1,b:2}
+  y: x.a // 1
+
+y should resolve to 1, and not an error.
+
+For comparison, in
+
+  x: ({a:1, b:1} | {b:2}) & {a:1} // -> {a:1,b:1} | {a:1,b:2}
+  y: x.a // _|_
+
+y should be an error as x is still ambiguous before the selector is applied,
+even though `a` resolves to 1 in all cases.
+-->
+<h4 id="default-values">Default values</h4>
+<p>Any element of a disjunction can be marked as a default
+by prefixing it with an asterisk <code>*</code>.
+Intuitively, when an expression needs to be resolved for an operation other
+than unification or disjunctions,
+non-starred elements are dropped in favor of starred ones if the starred ones
+do not resolve to bottom.</p>
+<p>More precisely, any value <code>v</code> may be associated with a default value <code>d</code>,
+denoted <code>(v, d)</code> (not CUE syntax),
+where <code>d</code> must be in instance of <code>v</code> (<code>d ⊑ v</code>).
+The rules for unifying and disjoining such values are as follows:</p>
+<pre><code>U1: (v1, d1) &amp; v2       =&gt; (v1&amp;v2, d1&amp;v2)
+U2: (v1, d1) &amp; (v2, d2) =&gt; (v1&amp;v2, d1&amp;d2)
+
+D1: (v1, d1) | v2       =&gt; (v1|v2, d1)
+D2: (v1, d1) | (v2, d2) =&gt; (v1|v2, d1|d2)
+</code></pre><p>Default values may be introduced within disjunctions
+by <em>marking</em> terms of a disjunction with an asterisk <code>*</code>
+(<a href="#Operators">a unary expression</a>).
+The default value of a disjunction with marked terms is the disjunction
+of those marked terms, applying the following rules for marks:</p>
+<pre><code>M1: *v        =&gt; (v, v)
+M2: *(v1, d1) =&gt; (v1, d1)
+</code></pre><p>In general, any operation <code>f</code> in CUE involving default values proceeds along the
+following lines</p>
+<pre><code>O1: f((v1, d1), ..., (vn, dn))  =&gt; (f(v1, ..., vn), f(d1, ..., dn))
+</code></pre><p>where, with the exception of disjunction, a value <code>v</code> without a default
+value is promoted to <code>(v, v)</code>.</p>
+<pre><code>Expression               Value-default pair      Rules applied
+*&quot;tcp&quot; | &quot;udp&quot;           (&quot;tcp&quot;|&quot;udp&quot;, &quot;tcp&quot;)    M1, D1
+string | *&quot;foo&quot;          (string, &quot;foo&quot;)         M1, D1
+
+*1 | 2 | 3               (1|2|3, 1)              M1, D1
+
+(*1|2|3) | (1|*2|3)      (1|2|3, 1|2)            M1, D1, D2
+(*1|2|3) | *(1|*2|3)     (1|2|3, 1|2)            M1, D1, M2, D2
+(*1|2|3) | (1|*2|3)&amp;2    (1|2|3, 1|2)            M1, D1, U1, D2
+
+(*1|2) &amp; (1|*2)          (1|2, _|_)              M1, D1, U2
+
+(*1|2) + (1|*2)          ((1|2)+(1|2), 3)        M1, D1, O1
+</code></pre><p>The rules of subsumption for defaults can be derived from the above definitions
+and are as follows.</p>
+<pre><code>(v2, d2) ⊑ (v1, d1)  if v2 ⊑ v1 and d2 ⊑ d1
+(v1, d1) ⊑ v         if v1 ⊑ v
+v ⊑ (v1, d1)         if v ⊑ d1
+</code></pre><!--
+For the second rule, note that by definition d1 ⊑ v1, so d1 ⊑ v1 ⊑ v.
+
+The last one is so restrictive as v could still be made more specific by
+associating it with a default that is not subsumed by d1.
+
+Proof:
+  by definition for any d ⊑ v, it holds that (v, d) ⊑ v,
+  where the most general value is (v, v).
+  Given the subsumption rule for (v2, d2) ⊑ (v1, d1),
+  from (v, v) ⊑ v ⊑ (v1, d1) it follows that v ⊑ d1
+  exactly defines the boundary of this subsumption.
+-->
+<!--
+(non-normalized entries could also be implicitly marked, allowing writing
+int | 1, instead of int | *1, but that can be done in a backwards
+compatible way later if really desirable, as long as we require that
+disjunction literals be normalized).
+-->
+<pre><code>Expression                       Resolves to
+&quot;tcp&quot; | &quot;udp&quot;                    &quot;tcp&quot; | &quot;udp&quot;
+*&quot;tcp&quot; | &quot;udp&quot;                   &quot;tcp&quot;
+float | *1                       1
+*string | 1.0                    string
+
+(*1|2|3) | (1|*2|3)              1|2
+(*1|2|3) &amp; (1|*2|3)              1|2|3 // default is _|_
+
+(* &gt;=5 | int) &amp; (* &lt;=5 | int)    5
+
+(*&quot;tcp&quot;|&quot;udp&quot;) &amp; (&quot;udp&quot;|*&quot;tcp&quot;)  &quot;tcp&quot;
+(*&quot;tcp&quot;|&quot;udp&quot;) &amp; (&quot;udp&quot;|&quot;tcp&quot;)   &quot;tcp&quot;
+(*&quot;tcp&quot;|&quot;udp&quot;) &amp; &quot;tcp&quot;           &quot;tcp&quot;
+(*&quot;tcp&quot;|&quot;udp&quot;) &amp; (*&quot;udp&quot;|&quot;tcp&quot;)  &quot;tcp&quot; | &quot;udp&quot; // default is _|_
+
+(*true | false) &amp; bool           true
+(*true | false) &amp; (true | false) true
+
+{a: 1} | {b: 1}                  {a: 1} | {b: 1}
+{a: 1} | *{b: 1}                 {b:1}
+*{a: 1} | *{b: 1}                {a: 1} | {b: 1}
+({a: 1} | {b: 1}) &amp; {a:1}        {a:1} // after eliminating {a:1,b:1} by normalization
+({a:1}|*{b:1}) &amp; ({a:1}|*{b:1})  {b:1} // after eliminating {a:1,b:1} by normalization
+</code></pre><h3 id="bottom-and-errors">Bottom and errors</h3>
+<p>Any evaluation error in CUE results in a bottom value, respresented by
+the token <code>_|_</code>.
+Bottom is an instance of every other value.
+Any evaluation error is represented as bottom.</p>
+<p>Implementations may associate error strings with different instances of bottom;
+logically they all remain the same value.</p>
+<h3 id="top">Top</h3>
+<p>Top is represented by the underscore character <code>_</code>, lexically an identifier.
+Unifying any value <code>v</code> with top results <code>v</code> itself.</p>
+<pre><code>Expr        Result
+_ &amp;  5        5
+_ &amp;  _        _
+_ &amp; _|_      _|_
+_ | _|_       _
+</code></pre><h3 id="null">Null</h3>
+<p>The <em>null value</em> is represented with the keyword <code>null</code>.
+It has only one parent, top, and one child, bottom.
+It is unordered with respect to any other value.</p>
+<pre><code>null_lit   = &quot;null&quot;
+</code></pre><pre><code>null &amp; 8     _|_
+null &amp; _     null
+null &amp; _|_   _|_
+</code></pre><h3 id="boolean-values">Boolean values</h3>
+<p>A <em>boolean type</em> represents the set of Boolean truth values denoted by
+the keywords <code>true</code> and <code>false</code>.
+The predeclared boolean type is <code>bool</code>; it is a defined type and a separate
+element in the lattice.</p>
+<pre><code>boolean_lit = &quot;true&quot; | &quot;false&quot;
+</code></pre><pre><code>bool &amp; true          true
+true &amp; true          true
+true &amp; false         _|_
+bool &amp; (false|true)  false | true
+bool &amp; (true|false)  true | false
+</code></pre><h3 id="numeric-values">Numeric values</h3>
+<p>The <em>integer type</em> represents the set of all integral numbers.
+The <em>decimal floating-point type</em> represents the set of all decimal floating-point
+numbers.
+They are two distinct types.
+Both are instances instances of a generic <code>number</code> type.</p>
+<!--
+                    number
+                   /      \
+                int      float
+-->
+<p>The predeclared number, integer, decimal floating-point types are
+<code>number</code>, <code>int</code> and <code>float</code>; they are defined types.</p>
+<!--
+TODO: should we drop float? It is somewhat preciser and probably a good idea
+to have it in the programmatic API, but it may be confusing to have to deal
+with it in the language.
+-->
+<p>A decimal floating-point literal always has type <code>float</code>;
+it is not an instance of <code>int</code> even if it is an integral number.</p>
+<p>Integer literals are always of type <code>int</code> and don&rsquo;t match type <code>float</code>.</p>
+<p>Numeric literals are exact values of arbitrary precision.
+If the operation permits it, numbers should be kept in arbitrary precision.</p>
+<p>Implementation restriction: although numeric values have arbitrary precision
+in the language, implementations may implement them using an internal
+representation with limited precision.
+That said, every implementation must:</p>
+<ul>
+<li>Represent integer values with at least 256 bits.</li>
+<li>Represent floating-point values, with a mantissa of at least 256 bits and
+a signed binary exponent of at least 16 bits.</li>
+<li>Give an error if unable to represent an integer value precisely.</li>
+<li>Give an error if unable to represent a floating-point value due to overflow.</li>
+<li>Round to the nearest representable value if unable to represent
+a floating-point value due to limits on precision.
+These requirements apply to the result of any expression except for builtin
+functions for which an unusual loss of precision must be explicitly documented.</li>
+</ul>
+<h3 id="strings">Strings</h3>
+<p>The <em>string type</em> represents the set of UTF-8 strings,
+not allowing surrogates.
+The predeclared string type is <code>string</code>; it is a defined type.</p>
+<p>The length of a string <code>s</code> (its size in bytes) can be discovered using
+the built-in function <code>len</code>.</p>
+<h3 id="bytes">Bytes</h3>
+<p>The <em>bytes type</em> represents the set of byte sequences.
+A byte sequence value is a (possibly empty) sequence of bytes.
+The number of bytes is called the length of the byte sequence
+and is never negative.
+The predeclared byte sequence type is <code>bytes</code>; it is a defined type.</p>
+<h3 id="bounds">Bounds</h3>
+<p>A <em>bound</em>, syntactically a <a href="#Operands">unary expression</a>, defines
+an infinite disjunction of concrete values than can be represented
+as a single comparison.</p>
+<p>For any <a href="#Comparison-operators">comparison operator</a> <code>op</code> except <code>==</code>,
+<code>op a</code> is the disjunction of every <code>x</code> such that <code>x op a</code>.</p>
+<pre><code>2 &amp; &gt;=2 &amp; &lt;=5           // 2, where 2 is either an int or float.
+2.5 &amp; &gt;=1 &amp; &lt;=5         // 2.5
+2 &amp; &gt;=1.0 &amp; &lt;3.0        // 2.0
+2 &amp; &gt;1 &amp; &lt;3.0           // 2.0
+2.5 &amp; int &amp; &gt;1 &amp; &lt;5     // _|_
+2.5 &amp; float &amp; &gt;1 &amp; &lt;5   // 2.5
+int &amp; 2 &amp; &gt;1.0 &amp; &lt;3.0   // _|_
+2.5 &amp; &gt;=(int &amp; 1) &amp; &lt;5  // _|_
+&gt;=0 &amp; &lt;=7 &amp; &gt;=3 &amp; &lt;=10  // &gt;=3 &amp; &lt;=7
+!=null &amp; 1              // 1
+&gt;=5 &amp; &lt;=5               // 5
+</code></pre><h3 id="structs">Structs</h3>
+<p>A <em>struct</em> is a set of elements called <em>fields</em>, each of
+which has a name, called a <em>label</em>, and value.</p>
+<p>We say a label is defined for a struct if the struct has a field with the
+corresponding label.
+The value for a label <code>f</code> of struct <code>a</code> is denoted <code>a.f</code>.
+A struct <code>a</code> is an instance of <code>b</code>, or <code>a ⊑ b</code>, if for any label <code>f</code>
+defined for <code>b</code>, label <code>f</code> is also defined for <code>a</code> and <code>a.f ⊑ b.f</code>.
+Note that if <code>a</code> is an instance of <code>b</code> it may have fields with labels that
+are not defined for <code>b</code>.</p>
+<p>The (unique) struct with no fields, written <code>{}</code>, has every struct as an
+instance. It can be considered the type of all structs.</p>
+<pre><code>{a: 1} ⊑ {}
+{a: 1, b: 1} ⊑ {a: 1}
+{a: 1} ⊑ {a: int}
+{a: 1, b: 1} ⊑ {a: int, b: float}
+
+{} ⋢ {a: 1}
+{a: 2} ⋢ {a: 1}
+{a: 1} ⋢ {b: 1}
+</code></pre><p>A field may be required or optional.
+The successful unification of structs <code>a</code> and <code>b</code> is a new struct <code>c</code> which
+has all fields of both <code>a</code> and <code>b</code>, where
+the value of a field <code>f</code> in <code>c</code> is <code>a.f &amp; b.f</code> if <code>f</code> is in both <code>a</code> and <code>b</code>,
+or just <code>a.f</code> or <code>b.f</code> if <code>f</code> is in just <code>a</code> or <code>b</code>, respectively.
+If a field <code>f</code> is in both <code>a</code> and <code>b</code>, <code>c.f</code> is optional only if both
+<code>a.f</code> and <code>b.f</code> are optional.
+Any <a href="#References">references</a> to <code>a</code> or <code>b</code>
+in their respective field values need to be replaced with references to <code>c</code>.
+The result of a unification is bottom (<code>_|_</code>) if any of its non-optional
+fields evaluates to bottom, recursively.</p>
+<!--NOTE: About bottom values for optional fields being okay.
+
+The proposition ¬P is a close cousin of P → ⊥ and is often used
+as an approximation to avoid the issues of using not.
+Bottom (⊥) is also frequently used to mean undefined. This makes sense.
+Consider `{a?: 2} & {a?: 3}`.
+Both structs say `a` is optional; in other words, it may be omitted.
+So we can still get a valid result by omitting `a`, even in
+case of a conflict.
+
+Granted, this definition may lead to confusing results, especially in
+definitions, when tightening an optional field leads to unintentionally
+discarding it.
+It could be a role of vet checkers to identify such cases (and suggest users
+to explicitly use `_|_` to discard a field, for instance).
+-->
+<p>Syntactically, a field is marked as optional by following its label with a <code>?</code>.
+The question mark is not part of the field name.
+A struct literal may contain multiple fields with
+the same label, the result of which is a single field with the same properties
+as defined as the unification of two fields resulting from unifying two structs.</p>
+<p>These examples illustrate required fields only.
+Examples with optional fields follow below.</p>
+<pre><code>Expression                             Result (without optional fields)
+{a: int, a: 1}                         {a: 1}
+{a: int} &amp; {a: 1}                      {a: 1}
+{a: &gt;=1 &amp; &lt;=7} &amp; {a: &gt;=5 &amp; &lt;=9}        {a: &gt;=5 &amp; &lt;=7}
+{a: &gt;=1 &amp; &lt;=7, a: &gt;=5 &amp; &lt;=9}           {a: &gt;=5 &amp; &lt;=7}
+
+{a: 1} &amp; {b: 2}                        {a: 1, b: 2}
+{a: 1, b: int} &amp; {b: 2}                {a: 1, b: 2}
+
+{a: 1} &amp; {a: 2}                        _|_
+</code></pre><p>A struct may define constraints that apply to fields that are added when unified
+with another struct using pattern or default constraints.</p>
+<p>A <em>pattern constraint</em>, denoted <code>[pattern]: value</code>, defines a pattern, which
+is a value of type string, and a value to unify with fields whose label
+match that pattern.
+When unifying structs <code>a</code> and <code>b</code>,
+a pattern constraint <code>[p]: v</code> declared in <code>a</code>
+defines that the value <code>v</code> should unify with any field in the resulting struct <code>c</code>
+whose label unifies with pattern <code>p</code> and for which there exists no
+field in <code>a</code> with the same label.</p>
+<p>Additionally, a <em>default constraint</em>, denoted <code>...value</code>, defines a value
+to unify with any field for which there is no other declaration in a struct.
+When unifying structs <code>a</code> and <code>b</code>,
+a default constraint <code>...v</code> declared in <code>a</code>
+defines that the value <code>v</code> should unify with any field in the resulting struct <code>c</code>
+whose label does not unify with any of the patterns of the pattern
+constraints defined for <code>a</code> <em>and</em> for which there exists no field in <code>a</code>
+with that label.
+The token <code>...</code> is a shorthand for <code>..._</code>.</p>
+<pre><code>a: {
+    foo:    string  // foo is a string
+    [&quot;^i&quot;]: int     // all other fields starting with i are integers
+    [&quot;^b&quot;]: bool    // all other fields starting with b are booleans
+    ...string       // all other fields must be a string
+}
+
+b: a &amp; {
+    i3:    3
+    bar:   true
+    other: &quot;a string&quot;
+}
+</code></pre><!-- NOTE: pattern and default constraints can be made to apply to all
+fields by embedding them as a struct:
+    x: {
+        a: 2
+        b: 3
+        {[string]: int}
+    }
+or by writing
+    x: [string]: int
+    x: {
+        a: 2
+        b: 3
+    }
+-->
+<p>Concrete field labels may be an identifier or string, the latter of which may be
+interpolated.
+Fields with identifier labels can be referred to within the scope they are
+defined, string labels cannot.
+References within such interpolated strings are resolved within
+the scope of the struct in which the label sequence is
+defined and can reference concrete labels lexically preceding
+the label within a label sequence.</p>
+<!-- We allow this so that rewriting a CUE file to collapse or expand
+field sequences has no impact on semantics.
+-->
+<!--TODO: first implementation round will not yet have expression labels
+
+An ExpressionLabel sets a collection of optional fields to a field value.
+By default it defines this value for all possible string labels.
+An optional expression limits this to the set of optional fields which
+labels match the expression.
+-->
+<!-- NOTE: if we allow ...Expr, as in list, it would mean something different. -->
+<!-- NOTE:
+A DefinitionDecl does not allow repeated labels. This is to avoid
+any ambiguity or confusion about whether earlier path components
+are to be interpreted as declarations or normal fields (they should
+always be normal fields.)
+-->
+<!--NOTE:
+The syntax has been deliberately restricted to allow for the following
+future extensions and relaxations:
+  - Allow omitting a "?" in an expression label to indicate a concrete
+    string value (but maybe we want to use () for that).
+  - Make the "?" in expression label optional if expression labels
+    are always optional.
+  - Or allow eliding the "?" if the expression has no references and
+    is obviously not concrete (such as `[string]`).
+  - The expression of an expression label may also indicate a struct with
+    integer or even number labels
+    (beware of imprecise computation in the latter).
+      e.g. `{ [int]: string }` is a map of integers to strings.
+  - Allow for associative lists (`foo [@.field]: {field: string}`)
+  - The `...` notation can be extended analogously to that of a ListList,
+    by allowing it to follow with an expression for the remaining properties.
+    In that case it is no longer a shorthand for `[string]: _`, but rather
+    would define the value for any other value for which there is no field
+    defined.
+    Like the definition with List, this is somewhat odd, but it allows the
+    encoding of JSON schema's and (non-structural) OpenAPI's
+    additionalProperties and additionalItems.
+-->
+<pre><code>StructLit       = &quot;{&quot; { Declaration &quot;,&quot; } &quot;}&quot; .
+Declaration     = Field | Ellipsis | Embedding | LetClause | attribute .
+Ellipsis        = &quot;...&quot; [ Expression ] .
+Embedding       = Comprehension | AliasExpr .
+Field           = Label &quot;:&quot; { Label &quot;:&quot; } Expression { attribute } .
+Label           = [ identifier &quot;=&quot; ] LabelExpr .
+LabelExpr       = LabelName [ &quot;?&quot; ] | &quot;[&quot; AliasExpr &quot;]&quot; .
+LabelName       = identifier | simple_string_lit  .
+
+attribute       = &quot;@&quot; identifier &quot;(&quot; attr_tokens &quot;)&quot; .
+attr_tokens     = { attr_token |
+                    &quot;(&quot; attr_tokens &quot;)&quot; |
+                    &quot;[&quot; attr_tokens &quot;]&quot; |
+                    &quot;{&quot; attr_tokens &quot;}&quot; } .
+attr_token      = /* any token except '(', ')', '[', ']', '{', or '}' */
+</code></pre><pre><code>Expression                             Result (without optional fields)
+a: { foo?: string }                    {}
+b: { foo: &quot;bar&quot; }                      { foo: &quot;bar&quot; }
+c: { foo?: *&quot;bar&quot; | string }           {}
+
+d: a &amp; b                               { foo: &quot;bar&quot; }
+e: b &amp; c                               { foo: &quot;bar&quot; }
+f: a &amp; c                               {}
+g: a &amp; { foo?: number }                {}
+h: b &amp; { foo?: number }                _|_
+i: c &amp; { foo: string }                 { foo: &quot;bar&quot; }
+
+intMap: [string]: int
+intMap: {
+    t1: 43
+    t2: 2.4  // error: 2.4 is not an integer
+}
+
+nameMap: [string]: {
+    firstName: string
+    nickName:  *firstName | string
+}
+
+nameMap: hank: { firstName: &quot;Hank&quot; }
+</code></pre><p>The optional field set defined by <code>nameMap</code> matches every field,
+in this case just <code>hank</code>, and unifies the associated constraint
+with the matched field, resulting in:</p>
+<pre><code>nameMap: hank: {
+    firstName: &quot;Hank&quot;
+    nickName:  &quot;Hank&quot;
+}
+</code></pre><h4 id="closed-structs">Closed structs</h4>
+<p>By default, structs are open to adding fields.
+Instances of an open struct <code>p</code> may contain fields not defined in <code>p</code>.
+This is makes it easy to add fields, but can lead to bugs:</p>
+<pre><code>S: {
+    field1: string
+}
+
+S1: S &amp; { field2: &quot;foo&quot; }
+
+// S1 is { field1: string, field2: &quot;foo&quot; }
+
+
+A: {
+    field1: string
+    field2: string
+}
+
+A1: A &amp; {
+    feild1: &quot;foo&quot;  // &quot;field1&quot; was accidentally misspelled
+}
+
+// A1 is
+//    { field1: string, field2: string, feild1: &quot;foo&quot; }
+// not the intended
+//    { field1: &quot;foo&quot;, field2: string }
+</code></pre><p>A <em>closed struct</em> <code>c</code> is a struct whose instances may not have regular fields
+with a name that does not match the name of a regular or optional field
+or the pattern of a pattern constraint defined in <code>c</code>.
+A struct that is the result of unifying any struct with a <a href="#Structs"><code>...</code></a>
+declaration is defined for all fields.
+Recursively closing a struct is equivalent to adding <code>..._|_</code> to its its root
+and any of its substructures that are not defined for all fields.</p>
+<p>Syntactically, structs are recursively closed explicitly with
+the <code>close</code> builtin or implicitly by <a href="#Definitions">definitions</a>.</p>
+<pre><code>A: close({
+    field1: string
+    field2: string
+})
+
+A1: A &amp; {
+    feild1: string
+} // _|_ feild1 not defined for A
+
+A2: A &amp; {
+    for k,v in { feild1: string } {
+        k: v
+    }
+}  // _|_ feild1 not defined for A
+
+C: close({
+    [_]: _
+})
+
+C2: C &amp; {
+    for k,v in { thisIsFine: string } {
+        &quot;\(k)&quot;: v
+    }
+}
+
+D: close({
+    // Values generated by comprehensions are treated as embeddings.
+    for k,v in { x: string } {
+        &quot;\(k)&quot;: v
+    }
+})
+</code></pre><!-- (jba) Somewhere it should be said that optional fields are only
+     interesting inside closed structs. -->
+<!-- TODO: move embedding section to above the previous one -->
+<h4 id="embedding">Embedding</h4>
+<p>A struct may contain an <em>embedded value</em>, an operand used
+as a declaration, which must evaluate to a struct.
+An embedded value of type struct is unified with the struct in which it is
+embedded, but disregarding the restrictions imposed by closed structs.
+A struct resulting from such a unification is closed if either of the involved
+structs were closed.</p>
+<p>At the top level, an embedded value may be any type.
+In this case, a CUE program will evaluate to the embedded value
+and the CUE program may not have top-level regular or optional
+fields (definitions and aliases are allowed).</p>
+<p>Syntactically, embeddings may be any expression.</p>
+<pre><code>S1: {
+    a: 1
+    b: 2
+    {
+        c: 3
+    }
+}
+// S1 is { a: 1, b: 2, c: 3 }
+
+S2: close({
+    a: 1
+    b: 2
+    {
+        c: 3
+    }
+})
+// same as close(S1)
+
+S3: {
+    a: 1
+    b: 2
+    close({
+        c: 3
+    })
+}
+// same as S2
+</code></pre><h4 id="definitions-and-hidden-fields">Definitions and hidden fields</h4>
+<p>A field is a <em>definition</em> if its identifier starts with <code>#</code> or <code>_#</code>.
+A field is <em>hidden</em> if its starts with a <code>_</code>.
+Definitions and hidden fields are not emitted when converting a CUE program
+to data and are never required to be concrete.</p>
+<p>Referencing a definition will implicitely <a href="#ClosedStructs">close</a> it.
+A struct that embeds a referenced definition will itself be closed
+after first allowing any other fields or embedded structs to unify.
+The result of <code>{ #A }</code> is <code>#A</code> for any <code>#A</code>.</p>
+<p>If referencing a definition would always result in an error, implementations
+may report this inconsistency at the point of its declaration.</p>
+<pre><code>#MyStruct: {
+    sub: field:    string
+}
+
+#MyStruct: {
+    sub: enabled?: bool
+}
+
+myValue: #MyStruct &amp; {
+    sub: feild:   2     // error, feild not defined in #MyStruct
+    sub: enabled: true  // okay
+}
+
+#D: {
+    #OneOf
+
+    c: int // adds this field.
+}
+
+#OneOf: { a: int } | { b: int }
+
+
+D1: #D &amp; { a: 12, c: 22 }  // { a: 12, c: 22 }
+D2: #D &amp; { a: 12, b: 33 }  // _|_ // cannot define both `a` and `b`
+</code></pre><!---
+JSON fields are usual camelCase. Clashes can be avoided by adopting the
+convention that definitions be TitleCase. Unexported definitions are still
+subject to clashes, but those are likely easier to resolve because they are
+package internal.
+--->
+<h4 id="attributes">Attributes</h4>
+<p>Attributes allow associating meta information with values.
+Their primary purpose is to define mappings between CUE and
+other representations.
+Attributes do not influence the evaluation of CUE.</p>
+<p>An attribute associates an identifier with a value, a balanced token sequence,
+which is a sequence of CUE tokens with balanced brackets (<code>()</code>, <code>[]</code>, and <code>{}</code>).
+The sequence may not contain interpolations.</p>
+<p>Fields, structs and packages can be associated with a set of attributes.
+Attributes accumulate during unification, but implementations may remove
+duplicates that have the same source string representation.
+The interpretation of an attribute, including the handling of multiple
+attributes for a given identifier, is up to the consumer of the attribute.</p>
+<p>Field attributes define additional information about a field,
+such as a mapping to a protocol buffer <!-- TODO: add link --> tag or alternative
+name of the field when mapping to a different language.</p>
+<pre><code>// Package attribute
+@protobuf(proto3)
+
+myStruct1: {
+    // Struct attribute:
+    @jsonschema(id=&quot;https://example.org/mystruct1.json&quot;)
+
+    // Field attributes
+    field: string @go(Field)
+    attr:  int    @xml(,attr) @go(Attr)
+}
+
+myStruct2: {
+    field: string @go(Field)
+    attr:  int    @xml(a1,attr) @go(Attr)
+}
+
+Combined: myStruct1 &amp; myStruct2
+// field: string @go(Field)
+// attr:  int    @xml(,attr) @xml(a1,attr) @go(Attr)
+</code></pre><h4 id="aliases">Aliases</h4>
+<p>Aliases name values that can be referred to
+within the <a href="#declarations-and-scopes">scope</a> in which they are declared.
+The name of an alias must be unique within its scope.</p>
+<pre><code>AliasExpr  = Expression | identifier &quot;=&quot; Expression .
+</code></pre><p>Aliases can appear in several positions:</p>
+<!--- TODO: consider allowing this. It should be considered whether
+having field aliases isn't already sufficient.
+
+As a declaration in a struct (`X=value`):
+
+- binds identifier `X` to a value embedded within the struct.
+--->
+<p>In front of a Label (<code>X=label: value</code>):</p>
+<ul>
+<li>binds the identifier to the same value as <code>label</code> would be bound
+to if it were a valid identifier.</li>
+<li>for optional fields (<code>foo?: bar</code> and <code>[foo]: bar</code>),
+the bound identifier is only visible within the field value (<code>bar</code>).</li>
+</ul>
+<p>Inside a bracketed label (<code>[X=expr]: value</code>):</p>
+<ul>
+<li>binds the identifier to the the concrete label that matches <code>expr</code>
+within the instances of the field value (<code>value</code>).</li>
+</ul>
+<p>Before a list element (<code>[ X=value, X+1 ]</code>) (Not yet implemented)</p>
+<ul>
+<li>binds the identifier to the list element it precedes within the scope of the
+list expression.</li>
+</ul>
+<!-- TODO: explain the difference between aliases and definitions.
+     Now that you have definitions, are aliases really necessary?
+     Consider removing.
+-->
+<pre><code>// An alias declaration
+Alias = 3
+a: Alias  // 3
+
+// A field alias
+foo: X  // 4
+X=&quot;not an identifier&quot;: 4
+
+// A label alias
+[Y=string]: { name: Y }
+foo: { value: 1 } // outputs: foo: { name: &quot;foo&quot;, value: 1 }
+</code></pre><!-- TODO: also allow aliases as lists -->
+<h4 id="let-declarations">Let declarations</h4>
+<p><em>Let declarations</em> bind an identifier to an expression.
+The identifier is visible within the <a href="#declarations-and-scopes">scope</a>
+in which it is declared.
+The identifier must be unique within its scope.</p>
+<pre><code>let x = expr
+
+a: x + 1
+b: x + 2
+</code></pre><h4 id="shorthand-notation-for-nested-structs">Shorthand notation for nested structs</h4>
+<p>A field whose value is a struct with a single field may be written as
+a colon-separated sequence of the two field names,
+followed by a colon and the value of that single field.</p>
+<pre><code>job: myTask: replicas: 2
+</code></pre><p>expands to</p>
+<pre><code>job: {
+    myTask: {
+        replicas: 2
+    }
+}
+</code></pre><!-- OPTIONAL FIELDS:
+
+The optional marker solves the issue of having to print large amounts of
+boilerplate when dealing with large types with many optional or default
+values (such as Kubernetes).
+Writing such optional values in terms of *null | value is tedious,
+unpleasant to read, and as it is not well defined what can be dropped or not,
+all null values have to be emitted from the output, even if the user
+doesn't override them.
+Part of the issue is how null is defined. We could adopt a Typescript-like
+approach of introducing "void" or "undefined" to mean "not defined and not
+part of the output". But having all of null, undefined, and void can be
+confusing. If these ever are introduced anyway, the ? operator could be
+expressed along the lines of
+   foo?: bar
+being a shorthand for
+   foo: void | bar
+where void is the default if no other default is given.
+
+The current mechanical definition of "?" is straightforward, though, and
+probably avoids the need for void, while solving a big issue.
+
+Caveats:
+[1] this definition requires explicitly defined fields to be emitted, even
+if they could be elided (for instance if the explicit value is the default
+value defined an optional field). This is probably a good thing.
+
+[2] a default value may still need to be included in an output if it is not
+the zero value for that field and it is not known if any outside system is
+aware of defaults. For instance, which defaults are specified by the user
+and which by the schema understood by the receiving system.
+The use of "?" together with defaults should therefore be used carefully
+in non-schema definitions.
+Problematic cases should be easy to detect by a vet-like check, though.
+
+[3] It should be considered how this affects the trim command.
+Should values implied by optional fields be allowed to be removed?
+Probably not. This restriction is unlikely to limit the usefulness of trim,
+though.
+
+[4] There should be an option to emit all concrete optional values.
+```
+-->
+<h3 id="lists">Lists</h3>
+<p>A list literal defines a new value of type list.
+A list may be open or closed.
+An open list is indicated with a <code>...</code> at the end of an element list,
+optionally followed by a value for the remaining elements.</p>
+<p>The length of a closed list is the number of elements it contains.
+The length of an open list is the its number of elements as a lower bound
+and an unlimited number of elements as its upper bound.</p>
+<pre><code>ListLit       = &quot;[&quot; [ ElementList [ &quot;,&quot; [ Ellipsis ] ] [ &quot;,&quot; ] &quot;]&quot; .
+ElementList   = Embedding { &quot;,&quot; Embedding } .
+</code></pre><p>Lists can be thought of as structs:</p>
+<pre><code>List: *null | {
+    Elem: _
+    Tail: List
+}
+</code></pre><p>For closed lists, <code>Tail</code> is <code>null</code> for the last element, for open lists it is
+<code>*null | List</code>, defaulting to the shortest variant.
+For instance, the open list [ 1, 2, &hellip; ] can be represented as:</p>
+<pre><code>open: List &amp; { Elem: 1, Tail: { Elem: 2 } }
+</code></pre><p>and the closed version of this list, [ 1, 2 ], as</p>
+<pre><code>closed: List &amp; { Elem: 1, Tail: { Elem: 2, Tail: null } }
+</code></pre><p>Using this representation, the subsumption rule for lists can
+be derived from those of structs.
+Implementations are not required to implement lists as structs.
+The <code>Elem</code> and <code>Tail</code> fields are not special and <code>len</code> will not work as
+expected in these cases.</p>
+<h2 id="declarations-and-scopes">Declarations and Scopes</h2>
+<h3 id="blocks">Blocks</h3>
+<p>A <em>block</em> is a possibly empty sequence of declarations.
+The braces of a struct literal <code>{ ... }</code> form a block, but there are
+others as well:</p>
+<ul>
+<li>The <em>universe block</em> encompasses all CUE source text.</li>
+<li>Each <a href="#modules-instances-and-packages">package</a> has a <em>package block</em>
+containing all CUE source text in that package.</li>
+<li>Each file has a <em>file block</em> containing all CUE source text in that file.</li>
+<li>Each <code>for</code> and <code>let</code> clause in a <a href="#comprehensions">comprehension</a>
+is considered to be its own implicit block.</li>
+</ul>
+<p>Blocks nest and influence [scoping].</p>
+<h3 id="declarations-and-scope">Declarations and scope</h3>
+<p>A <em>declaration</em>  may bind an identifier to a field, alias, or package.
+Every identifier in a program must be declared.
+Other than for fields,
+no identifier may be declared twice within the same block.
+For fields an identifier may be declared more than once within the same block,
+resulting in a field with a value that is the result of unifying the values
+of all fields with the same identifier.
+String labels do not bind an identifier to the respective field.</p>
+<p>The <em>scope</em> of a declared identifier is the extent of source text in which the
+identifier denotes the specified field, alias, or package.</p>
+<p>CUE is lexically scoped using blocks:</p>
+<ol>
+<li>The scope of a <a href="#predeclared-identifiers">predeclared identifier</a> is the universe block.</li>
+<li>The scope of an identifier denoting a field
+declared at top level (outside any struct literal) is the package block.</li>
+<li>The scope of an identifier denoting an alias
+declared at top level (outside any struct literal) is the file block.</li>
+<li>The scope of the package name of an imported package is the file block of the
+file containing the import declaration.</li>
+<li>The scope of a field, alias or let identifier declared inside a struct
+literal is the innermost containing block.</li>
+</ol>
+<p>An identifier declared in a block may be redeclared in an inner block.
+While the identifier of the inner declaration is in scope, it denotes the entity
+declared by the inner declaration.</p>
+<p>The package clause is not a declaration;
+the package name does not appear in any scope.
+Its purpose is to identify the files belonging to the same package
+and to specify the default name for import declarations.</p>
+<h3 id="predeclared-identifiers">Predeclared identifiers</h3>
+<p>CUE predefines a set of types and builtin functions.
+For each of these there is a corresponding keyword which is the name
+of the predefined identifier, prefixed with <code>__</code>.</p>
+<pre><code>Functions
+len       required  close     open
+
+Types
+null      The null type and value
+bool      All boolean values
+int       All integral numbers
+float     All decimal floating-point numbers
+string    Any valid UTF-8 sequence
+bytes     Any valid byte sequence
+
+Derived   Value
+number    int | float
+uint      &gt;=0
+uint8     &gt;=0 &amp; &lt;=255
+int8      &gt;=-128 &amp; &lt;=127
+uint16    &gt;=0 &amp; &lt;=65536
+int16     &gt;=-32_768 &amp; &lt;=32_767
+rune      &gt;=0 &amp; &lt;=0x10FFFF
+uint32    &gt;=0 &amp; &lt;=4_294_967_296
+int32     &gt;=-2_147_483_648 &amp; &lt;=2_147_483_647
+uint64    &gt;=0 &amp; &lt;=18_446_744_073_709_551_615
+int64     &gt;=-9_223_372_036_854_775_808 &amp; &lt;=9_223_372_036_854_775_807
+uint128   &gt;=0 &amp; &lt;=340_282_366_920_938_463_463_374_607_431_768_211_455
+int128    &gt;=-170_141_183_460_469_231_731_687_303_715_884_105_728 &amp;
+           &lt;=170_141_183_460_469_231_731_687_303_715_884_105_727
+float32   &gt;=-3.40282346638528859811704183484516925440e+38 &amp;
+          &lt;=3.40282346638528859811704183484516925440e+38
+float64   &gt;=-1.797693134862315708145274237317043567981e+308 &amp;
+          &lt;=1.797693134862315708145274237317043567981e+308
+</code></pre><h3 id="exported-identifiers">Exported identifiers</h3>
+<!-- move to a more logical spot -->
+<p>An identifier of a package may be exported to permit access to it
+from another package.
+All identifiers not starting with <code>_</code> (so all regular fields and definitions
+starting with <code>#</code>) are exported.
+Any identifier starting with <code>_</code> is not visible outside the package and resides
+in a separate namespace than namesake identifiers of other packages.</p>
+<pre><code>package mypackage
+
+foo:   string  // visible outside mypackage
+&quot;bar&quot;: string  // visible outside mypackage
+
+#Foo: {      // visible outside mypackage
+    a:  1    // visible outside mypackage
+    _b: 2    // not visible outside mypackage
+
+    #C: {    // visible outside mypackage
+        d: 4 // visible outside mypackage
+    }
+    _#E: foo // not visible outside mypackage
+}
+</code></pre><h3 id="uniqueness-of-identifiers">Uniqueness of identifiers</h3>
+<p>Given a set of identifiers, an identifier is called unique if it is different
+from every other in the set, after applying normalization following
+Unicode Annex #31.
+Two identifiers are different if they are spelled differently
+or if they appear in different packages and are not exported.
+Otherwise, they are the same.</p>
+<h3 id="field-declarations">Field declarations</h3>
+<p>A field associates the value of an expression to a label within a struct.
+If this label is an identifier, it binds the field to that identifier,
+so the field&rsquo;s value can be referenced by writing the identifier.
+String labels are not bound to fields.</p>
+<pre><code>a: {
+    b: 2
+    &quot;s&quot;: 3
+
+    c: b   // 2
+    d: s   // _|_ unresolved identifier &quot;s&quot;
+    e: a.s // 3
+}
+</code></pre><p>If an expression may result in a value associated with a default value
+as described in <a href="#default-values">default values</a>, the field binds to this
+value-default pair.</p>
+<!-- TODO: disallow creating identifiers starting with __
+...and reserve them for builtin values.
+
+The issue is with code generation. As no guarantee can be given that
+a predeclared identifier is not overridden in one of the enclosing scopes,
+code will have to handle detecting such cases and renaming them.
+An alternative is to have the predeclared identifiers be aliases for namesake
+equivalents starting with a double underscore (e.g. string -> __string),
+allowing generated code (normal code would keep using `string`) to refer
+to these directly.
+-->
+<h3 id="let-declarations-1">Let declarations</h3>
+<p>Within a struct, a let clause binds an identifier to the given expression.</p>
+<p>Within the scope of the identifier, the identifier refers to the
+<em>locally declared</em> expression.
+The expression is evaluated in the scope it was declared.</p>
+<h2 id="expressions">Expressions</h2>
+<p>An expression specifies the computation of a value by applying operators and
+built-in functions to operands.</p>
+<p>Expressions that require concrete values are called <em>incomplete</em> if any of
+their operands are not concrete, but define a value that would be legal for
+that expression.
+Incomplete expressions may be left unevaluated until a concrete value is
+requested at the application level.</p>
+<h3 id="operands">Operands</h3>
+<p>Operands denote the elementary values in an expression.
+An operand may be a literal, a (possibly qualified) identifier denoting
+field, alias, or let declaration, or a parenthesized expression.</p>
+<pre><code>Operand     = Literal | OperandName | &quot;(&quot; Expression &quot;)&quot; .
+Literal     = BasicLit | ListLit | StructLit .
+BasicLit    = int_lit | float_lit | string_lit |
+              null_lit | bool_lit | bottom_lit | top_lit .
+OperandName = identifier | QualifiedIdent .
+</code></pre><h3 id="qualified-identifiers">Qualified identifiers</h3>
+<p>A qualified identifier is an identifier qualified with a package name prefix.</p>
+<pre><code>QualifiedIdent = PackageName &quot;.&quot; identifier .
+</code></pre><p>A qualified identifier accesses an identifier in a different package,
+which must be [imported].
+The identifier must be declared in the [package block] of that package.</p>
+<pre><code>math.Sin    // denotes the Sin function in package math
+</code></pre><h3 id="references">References</h3>
+<p>An identifier operand refers to a field and is called a reference.
+The value of a reference is a copy of the expression associated with the field
+that it is bound to,
+with any references within that expression bound to the respective copies of
+the fields they were originally bound to.
+Implementations may use a different mechanism to evaluate as long as
+these semantics are maintained.</p>
+<pre><code>a: {
+    place:    string
+    greeting: &quot;Hello, \(place)!&quot;
+}
+
+b: a &amp; { place: &quot;world&quot; }
+c: a &amp; { place: &quot;you&quot; }
+
+d: b.greeting  // &quot;Hello, world!&quot;
+e: c.greeting  // &quot;Hello, you!&quot;
+</code></pre><h3 id="primary-expressions">Primary expressions</h3>
+<p>Primary expressions are the operands for unary and binary expressions.</p>
+<pre><code>
+Slice: indices must be complete
+([0, 1, 2, 3] | [2, 3])[0:2]   =&gt; [0, 1] | [2, 3]
+
+([0, 1, 2, 3] | *[2, 3])[0:2]   =&gt; [0, 1] | [2, 3]
+([0,1,2,3]|[2,3], [2,3])[0:2]   =&gt; ([0,1]|[2,3], [2,3])
+
+Index
+a: (1|2, 1)
+b: ([0,1,2,3]|[2,3], [2,3])[a]   =&gt; ([0,1,2,3]|[2,3][a], 3)
+
+Binary operation
+A binary is only evaluated if its operands are complete.
+
+Input          Maximum allowed evaluation
+a: string      string
+b: 2           2
+c: a * b       a * 2
+
+An error in a struct is if the evaluation of any expression results in
+bottom, where an incomplete expression is not considered bottom.
+</code></pre><!-- TODO(mpvl)
+	Conversion |
+-->
+<pre><code>PrimaryExpr =
+	Operand |
+	PrimaryExpr Selector |
+	PrimaryExpr Index |
+	PrimaryExpr Slice |
+	PrimaryExpr Arguments .
+
+Selector       = &quot;.&quot; (identifier | simple_string_lit) .
+Index          = &quot;[&quot; Expression &quot;]&quot; .
+Argument       = Expression .
+Arguments      = &quot;(&quot; [ ( Argument { &quot;,&quot; Argument } ) [ &quot;,&quot; ] ] &quot;)&quot; .
+</code></pre><!---
+TODO:
+	PrimaryExpr Query |
+Query          = "." Filters .
+Filters        = Filter { Filter } .
+Filter         = "[" [ "?" ] AliasExpr "]" .
+
+TODO: maybe reintroduce slices, as they are useful in queries, probably this
+time with Python semantics.
+Slice          = "[" [ Expression ] ":" [ Expression ] [ ":" [Expression] ] "]" .
+
+Argument       = Expression | ( identifer ":" Expression ).
+
+// & expression type
+// string_lit: same as label. Arguments is current node.
+// If selector is applied to list, it performs the operation for each
+// element.
+
+TODO: considering allowing decimal_lit for selectors.
+--->
+<pre><code>x
+2
+(s + &quot;.txt&quot;)
+f(3.1415, true)
+m[&quot;foo&quot;]
+s[i : j + 1]
+obj.color
+f.p[i].x
+</code></pre><h3 id="selectors">Selectors</h3>
+<p>For a <a href="#primary-expressions">primary expression</a> <code>x</code> that is not a <a href="#package-clause">package name</a>,
+the selector expression</p>
+<pre><code>x.f
+</code></pre><p>denotes the element of a <!--list or -->struct <code>x</code> identified by <code>f</code>.</p>
+<!--For structs, -->`f` must be an identifier or a string literal identifying
+<p>any definition or regular non-optional field.
+The identifier <code>f</code> is called the field selector.</p>
+<!--
+Allowing strings to be used as field selectors obviates the need for
+backquoted identifiers. Note that some standards use names for structs that
+are not standard identifiers (such "Fn::Foo"). Note that indexing does not
+allow access to identifiers.
+-->
+<!--
+For lists, `f` must be an integer and follows the same lookup rules as
+for the index operation.
+The type of the selector expression is the type of `f`.
+-->
+<p>If <code>x</code> is a package name, see the section on <a href="#qualified-identifiers">qualified identifiers</a>.</p>
+<!--
+TODO: consider allowing this and also for selectors. It needs to be considered
+how defaults are corried forward in cases like:
+
+    x: { a: string | *"foo" } | *{ a: int | *4 }
+    y: x.a & string
+
+What is y in this case?
+   (x.a & string, _|_)
+   (string|"foo", _|_)
+   (string|"foo", "foo)
+If the latter, then why?
+
+For a disjunction of the form `x1 | ... | xn`,
+the selector is applied to each element `x1.f | ... | xn.f`.
+-->
+<p>Otherwise, if <code>x</code> is not a <!--list or -->struct,
+or if <code>f</code> does not exist in <code>x</code>,
+the result of the expression is bottom (an error).
+In the latter case the expression is incomplete.
+The operand of a selector may be associated with a default.</p>
+<pre><code>T: {
+    x:     int
+    y:     3
+    &quot;x-y&quot;: 4
+}
+
+a: T.x     // int
+b: T.y     // 3
+c: T.z     // _|_ // field 'z' not found in T
+d: T.&quot;x-y&quot; // 4
+
+e: {a: 1|*2} | *{a: 3|*4}
+f: e.a  // 4 (default value)
+</code></pre><!--
+```
+(v, d).f  =>  (v.f, d.f)
+
+e: {a: 1|*2} | *{a: 3|*4}
+f: e.a  // 4 after selecting default from (({a: 1|*2} | {a: 3|*4}).a, 4)
+
+```
+-->
+<h3 id="index-expressions">Index expressions</h3>
+<p>A primary expression of the form</p>
+<pre><code>a[x]
+</code></pre><p>denotes the element of a list or struct <code>a</code> indexed by <code>x</code>.
+The value <code>x</code> is called the index or field name, respectively.
+The following rules apply:</p>
+<p>If <code>a</code> is not a struct:</p>
+<ul>
+<li><code>a</code> is a list (which need not be complete)</li>
+<li>the index <code>x</code> unified with <code>int</code> must be concrete.</li>
+<li>the index <code>x</code> is in range if <code>0 &lt;= x &lt; len(a)</code>, where only the
+explicitly defined values of an open-ended list are considered,
+otherwise it is out of range</li>
+</ul>
+<p>The result of <code>a[x]</code> is</p>
+<p>for <code>a</code> of list type:</p>
+<ul>
+<li>the list element at index <code>x</code>, if <code>x</code> is within range</li>
+<li>bottom (an error), otherwise</li>
+</ul>
+<p>for <code>a</code> of struct type:</p>
+<ul>
+<li>the index <code>x</code> unified with <code>string</code> must be concrete.</li>
+<li>the value of the regular and non-optional field named <code>x</code> of struct <code>a</code>,
+if this field exists</li>
+<li>bottom (an error), otherwise</li>
+</ul>
+<pre><code>[ 1, 2 ][1]     // 2
+[ 1, 2 ][2]     // _|_
+[ 1, 2, ...][2] // _|_
+</code></pre><p>Both the operand and index value may be a value-default pair.</p>
+<pre><code>va[vi]              =&gt;  va[vi]
+va[(vi, di)]        =&gt;  (va[vi], va[di])
+(va, da)[vi]        =&gt;  (va[vi], da[vi])
+(va, da)[(vi, di)]  =&gt;  (va[vi], da[di])
+</code></pre><pre><code>Fields                  Result
+x: [1, 2] | *[3, 4]     ([1,2]|[3,4], [3,4])
+i: int | *1             (int, 1)
+
+v: x[i]                 (x[i], 4)
+</code></pre><h3 id="operators">Operators</h3>
+<p>Operators combine operands into expressions.</p>
+<pre><code>Expression = UnaryExpr | Expression binary_op Expression .
+UnaryExpr  = PrimaryExpr | unary_op UnaryExpr .
+
+binary_op  = &quot;|&quot; | &quot;&amp;&quot; | &quot;||&quot; | &quot;&amp;&amp;&quot; | &quot;==&quot; | rel_op | add_op | mul_op  .
+rel_op     = &quot;!=&quot; | &quot;&lt;&quot; | &quot;&lt;=&quot; | &quot;&gt;&quot; | &quot;&gt;=&quot; | &quot;=~&quot; | &quot;!~&quot; .
+add_op     = &quot;+&quot; | &quot;-&quot; .
+mul_op     = &quot;*&quot; | &quot;/&quot; | &quot;div&quot; | &quot;mod&quot; | &quot;quo&quot; | &quot;rem&quot; .
+unary_op   = &quot;+&quot; | &quot;-&quot; | &quot;!&quot; | &quot;*&quot; | rel_op .
+</code></pre><p>Comparisons are discussed <a href="#Comparison-operators">elsewhere</a>.
+For any binary operators, the operand types must unify.</p>
+<!-- TODO: durations
+ unless the operation involves durations.
+
+Except for duration operations, if one operand is an untyped [literal] and the
+other operand is not, the constant is [converted] to the type of the other
+operand.
+-->
+<p>Operands of unary and binary expressions may be associated with a default using
+the following</p>
+<!--
+```
+O1: op (v1, d1)          => (op v1, op d1)
+
+O2: (v1, d1) op (v2, d2) => (v1 op v2, d1 op d2)
+and because v => (v, v)
+O3: v1       op (v2, d2) => (v1 op v2, v1 op d2)
+O4: (v1, d1) op v2       => (v1 op v2, d1 op v2)
+```
+-->
+<pre><code>Field               Resulting Value-Default pair
+a: *1|2             (1|2, 1)
+b: -a               (-a, -1)
+
+c: a + 2            (a+2, 3)
+d: a + a            (a+a, 2)
+</code></pre><h4 id="operator-precedence">Operator precedence</h4>
+<p>Unary operators have the highest precedence.</p>
+<p>There are eight precedence levels for binary operators.
+Multiplication operators binds strongest, followed by
+addition operators, comparison operators,
+<code>&amp;&amp;</code> (logical AND), <code>||</code> (logical OR), <code>&amp;</code> (unification),
+and finally <code>|</code> (disjunction):</p>
+<pre><code>Precedence    Operator
+    7             *  / div mod quo rem
+    6             +  -
+    5             ==  !=  &lt;  &lt;=  &gt;  &gt;= =~ !~
+    4             &amp;&amp;
+    3             ||
+    2             &amp;
+    1             |
+</code></pre><p>Binary operators of the same precedence associate from left to right.
+For instance, <code>x / y * z</code> is the same as <code>(x / y) * z</code>.</p>
+<pre><code>+x
+23 + 3*x[i]
+x &lt;= f()
+f() || g()
+x == y+1 &amp;&amp; y == z-1
+2 | int
+{ a: 1 } &amp; { b: 2 }
+</code></pre><h4 id="arithmetic-operators">Arithmetic operators</h4>
+<p>Arithmetic operators apply to numeric values and yield a result of the same type
+as the first operand. The three of the four standard arithmetic operators
+<code>(+, -, *)</code> apply to integer and decimal floating-point types;
+<code>+</code> and <code>*</code> also apply to lists and strings.
+<code>/</code> only applies to decimal floating-point types and
+<code>div</code>, <code>mod</code>, <code>quo</code>, and <code>rem</code> only apply to integer types.</p>
+<pre><code>+    sum                    integers, floats, lists, strings, bytes
+-    difference             integers, floats
+*    product                integers, floats, lists, strings, bytes
+/    quotient               floats
+div  division               integers
+mod  modulo                 integers
+quo  quotient               integers
+rem  remainder              integers
+</code></pre><p>For any operator that accepts operands of type <code>float</code>, any operand may be
+of type <code>int</code> or <code>float</code>, in which case the result will be <code>float</code> if any
+of the operands is <code>float</code> or <code>int</code> otherwise.
+For <code>/</code> the result is always <code>float</code>.</p>
+<h4 id="integer-operators">Integer operators</h4>
+<p>For two integer values <code>x</code> and <code>y</code>,
+the integer quotient <code>q = x div y</code> and remainder <code>r = x mod y </code>
+implement Euclidean division and
+satisfy the following relationship:</p>
+<pre><code>r = x - y*q  with 0 &lt;= r &lt; |y|
+</code></pre><p>where <code>|y|</code> denotes the absolute value of <code>y</code>.</p>
+<pre><code> x     y    x div y   x mod y
+ 5     3       1         2
+-5     3      -2         1
+ 5    -3      -1         2
+-5    -3       2         1
+</code></pre><p>For two integer values <code>x</code> and <code>y</code>,
+the integer quotient <code>q = x quo y</code> and remainder <code>r = x rem y </code>
+implement truncated division and
+satisfy the following relationship:</p>
+<pre><code>x = q*y + r  and  |r| &lt; |y|
+</code></pre><p>with <code>x quo y</code> truncated towards zero.</p>
+<pre><code> x     y    x quo y   x rem y
+ 5     3       1         2
+-5     3      -1        -2
+ 5    -3      -1         2
+-5    -3       1        -2
+</code></pre><p>A zero divisor in either case results in bottom (an error).</p>
+<p>For integer operands, the unary operators <code>+</code> and <code>-</code> are defined as follows:</p>
+<pre><code>+x                          is 0 + x
+-x    negation              is 0 - x
+</code></pre><h4 id="decimal-floating-point-operators">Decimal floating-point operators</h4>
+<p>For decimal floating-point numbers, <code>+x</code> is the same as <code>x</code>,
+while -x is the negation of x.
+The result of a floating-point division by zero is bottom (an error).</p>
+<!-- TODO: consider making it +/- Inf -->
+<p>An implementation may combine multiple floating-point operations into a single
+fused operation, possibly across statements, and produce a result that differs
+from the value obtained by executing and rounding the instructions individually.</p>
+<h4 id="list-operators">List operators</h4>
+<p>Lists can be concatenated using the <code>+</code> operator.
+Opens list are closed to their default value beforehand.</p>
+<pre><code>[ 1, 2 ]      + [ 3, 4 ]       // [ 1, 2, 3, 4 ]
+[ 1, 2, ... ] + [ 3, 4 ]       // [ 1, 2, 3, 4 ]
+[ 1, 2 ]      + [ 3, 4, ... ]  // [ 1, 2, 3, 4 ]
+</code></pre><p>Lists can be multiplied with a non-negative<code>int</code> using the <code>*</code> operator
+to create a repeated the list by the indicated number.</p>
+<pre><code>3*[1,2]         // [1, 2, 1, 2, 1, 2]
+3*[1, 2, ...]   // [1, 2, 1, 2, 1 ,2]
+[byte]*4        // [byte, byte, byte, byte]
+0*[1,2]         // []
+</code></pre><!-- TODO(mpvl): should we allow multiplication with a range?
+If so, how does one specify a list with a range of possible lengths?
+
+Suggestion from jba:
+Multiplication should distribute over disjunction,
+so int(1)..int(3) * [x] = [x] | [x, x] | [x, x, x].
+The hard part is figuring out what (>=1 & <=3) * [x] means,
+since  >=1 & <=3 includes many floats.
+(mpvl: could constrain arguments to parameter types, but needs to be
+done consistently.)
+-->
+<h4 id="string-operators">String operators</h4>
+<p>Strings can be concatenated using the <code>+</code> operator:</p>
+<pre><code>s: &quot;hi &quot; + name + &quot; and good bye&quot;
+</code></pre><p>String addition creates a new string by concatenating the operands.</p>
+<p>A string can be repeated by multiplying it:</p>
+<pre><code>s: &quot;etc. &quot;*3  // &quot;etc. etc. etc. &quot;
+</code></pre><!-- jba: Do these work for byte sequences? If not, why not? -->
+<h5 id="comparison-operators">Comparison operators</h5>
+<p>Comparison operators compare two operands and yield an untyped boolean value.</p>
+<pre><code>==    equal
+!=    not equal
+&lt;     less
+&lt;=    less or equal
+&gt;     greater
+&gt;=    greater or equal
+=~    matches regular expression
+!~    does not match regular expression
+</code></pre><!-- regular expression operator inspired by Bash, Perl, and Ruby. -->
+<p>In any comparison, the types of the two operands must unify or one of the
+operands must be null.</p>
+<p>The equality operators <code>==</code> and <code>!=</code> apply to operands that are comparable.
+The ordering operators <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, and <code>&gt;=</code> apply to operands that are ordered.
+The matching operators <code>=~</code> and <code>!~</code> apply to a string and regular
+expression operand.
+These terms and the result of the comparisons are defined as follows:</p>
+<ul>
+<li>Null is comparable with itself and any other type.
+Two null values are always equal, null is unequal with anything else.</li>
+<li>Boolean values are comparable.
+Two boolean values are equal if they are either both true or both false.</li>
+<li>Integer values are comparable and ordered, in the usual way.</li>
+<li>Floating-point values are comparable and ordered, as per the definitions
+for binary coded decimals in the IEEE-754-2008 standard.</li>
+<li>Floating point numbers may be compared with integers.</li>
+<li>String and bytes values are comparable and ordered lexically byte-wise.</li>
+<li>Struct are not comparable.</li>
+<li>Lists are not comparable.</li>
+<li>The regular expression syntax is the one accepted by RE2,
+described in <a href="https://github.com/google/re2/wiki/Syntax,">https://github.com/google/re2/wiki/Syntax,</a>
+except for <code>\C</code>.</li>
+<li><code>s =~ r</code> is true if <code>s</code> matches the regular expression <code>r</code>.</li>
+<li><code>s !~ r</code> is true if <code>s</code> does not match regular expression <code>r</code>.</li>
+</ul>
+<!--- TODO: consider the following
+- For regular expression, named capture groups are interpreted as CUE references
+  that must unify with the strings matching this capture group.
+--->
+<!-- TODO: Implementations should adopt an algorithm that runs in linear time? -->
+<!-- Consider implementing Level 2 of Unicode regular expression. -->
+<pre><code>3 &lt; 4       // true
+3 &lt; 4.0     // true
+null == 2   // false
+null != {}  // true
+{} == {}    // _|_: structs are not comparable against structs
+
+&quot;Wild cats&quot; =~ &quot;cat&quot;   // true
+&quot;Wild cats&quot; !~ &quot;dog&quot;   // true
+
+&quot;foo&quot; =~ &quot;^[a-z]{3}$&quot;  // true
+&quot;foo&quot; =~ &quot;^[a-z]{4}$&quot;  // false
+</code></pre><!-- jba
+I think I know what `3 < a` should mean if
+
+    a: >=1 & <=5
+
+It should be a constraint on `a` that can be evaluated once `a`'s value is known more precisely.
+
+But what does `3 < (>=1 & <=5)` mean? We'll never get more information, so it must have a definite value.
+-->
+<h4 id="logical-operators">Logical operators</h4>
+<p>Logical operators apply to boolean values and yield a result of the same type
+as the operands. The right operand is evaluated conditionally.</p>
+<pre><code>&amp;&amp;    conditional AND    p &amp;&amp; q  is  &quot;if p then q else false&quot;
+||    conditional OR     p || q  is  &quot;if p then true else q&quot;
+!     NOT                !p      is  &quot;not p&quot;
+</code></pre><!--
+### TODO TODO TODO
+
+3.14 / 0.0   // illegal: division by zero
+Illegal conversions always apply to CUE.
+
+Implementation restriction: A compiler may use rounding while computing untyped floating-point or complex constant expressions; see the implementation restriction in the section on constants. This rounding may cause a floating-point constant expression to be invalid in an integer context, even if it would be integral when calculated using infinite precision, and vice versa.
+-->
+<!--- TODO(mpvl): conversions
+### Conversions
+Conversions are expressions of the form `T(x)` where `T` and `x` are
+expressions.
+The result is always an instance of `T`.
+
+```
+Conversion = Expression "(" Expression [ "," ] ")" .
+```
+--->
+<!---
+
+A literal value `x` can be converted to type T if `x` is representable by a
+value of `T`.
+
+As a special case, an integer literal `x` can be converted to a string type
+using the same rule as for non-constant x.
+
+Converting a literal yields a typed value as result.
+
+```
+uint(iota)               // iota value of type uint
+float32(2.718281828)     // 2.718281828 of type float32
+complex128(1)            // 1.0 + 0.0i of type complex128
+float32(0.49999999)      // 0.5 of type float32
+float64(-1e-1000)        // 0.0 of type float64
+string('x')              // "x" of type string
+string(0x266c)           // "♬" of type string
+MyString("foo" + "bar")  // "foobar" of type MyString
+string([]byte{'a'})      // not a constant: []byte{'a'} is not a constant
+(*int)(nil)              // not a constant: nil is not a constant, *int is not a boolean, numeric, or string type
+int(1.2)                 // illegal: 1.2 cannot be represented as an int
+string(65.0)             // illegal: 65.0 is not an integer constant
+```
+--->
+<!---
+
+A conversion is always allowed if `x` is an instance of `T`.
+
+If `T` and `x` of different underlying type, a conversion is allowed if
+`x` can be converted to a value `x'` of `T`'s type, and
+`x'` is an instance of `T`.
+A value `x` can be converted to the type of `T` in any of these cases:
+
+- `x` is a struct and is subsumed by `T`.
+- `x` and `T` are both integer or floating points.
+- `x` is an integer or a byte sequence and `T` is a string.
+- `x` is a string and `T` is a byte sequence.
+
+Specific rules apply to conversions between numeric types, structs,
+or to and from a string type. These conversions may change the representation
+of `x`.
+All other conversions only change the type but not the representation of x.
+
+
+#### Conversions between numeric ranges
+For the conversion of numeric values, the following rules apply:
+
+1. Any integer value can be converted into any other integer value
+   provided that it is within range.
+2. When converting a decimal floating-point number to an integer, the fraction
+   is discarded (truncation towards zero). TODO: or disallow truncating?
+
+```
+a: uint16(int(1000))  // uint16(1000)
+b: uint8(1000)        // _|_ // overflow
+c: int(2.5)           // 2  TODO: TBD
+```
+
+
+#### Conversions to and from a string type
+
+Converting a list of bytes to a string type yields a string whose successive
+bytes are the elements of the slice.
+Invalid UTF-8 is converted to `"\uFFFD"`.
+
+```
+string('hell\xc3\xb8')   // "hellø"
+string(bytes([0x20]))    // " "
+```
+
+As string value is always convertible to a list of bytes.
+
+```
+bytes("hellø")   // 'hell\xc3\xb8'
+bytes("")        // ''
+```
+
+#### Conversions between list types
+
+Conversions between list types are possible only if `T` strictly subsumes `x`
+and the result will be the unification of `T` and `x`.
+
+If we introduce named types this would be different from IP & [10, ...]
+
+Consider removing this until it has a different meaning.
+
+```
+IP:        4*[byte]
+Private10: IP([10, ...])  // [10, byte, byte, byte]
+```
+
+#### Conversions between struct types
+
+A conversion from `x` to `T`
+is applied using the following rules:
+
+1. `x` must be an instance of `T`,
+2. all fields defined for `x` that are not defined for `T` are removed from
+  the result of the conversion, recursively.
+
+<!-- jba: I don't think you say anywhere that the matching fields are unified.
+mpvl: they are not, x must be an instance of T, in which case x == T&x,
+so unification would be unnecessary.
+-->
+<!--
+```
+T: {
+    a: { b: 1..10 }
+}
+
+x1: {
+    a: { b: 8, c: 10 }
+    d: 9
+}
+
+c1: T(x1)             // { a: { b: 8 } }
+c2: T({})             // _|_  // missing field 'a' in '{}'
+c3: T({ a: {b: 0} })  // _|_  // field a.b does not unify (0 & 1..10)
+```
+-->
+<h3 id="calls">Calls</h3>
+<p>Calls can be made to core library functions, called builtins.
+Given an expression <code>f</code> of function type F,</p>
+<pre><code>f(a1, a2, … an)
+</code></pre><p>calls <code>f</code> with arguments a1, a2, … an. Arguments must be expressions
+of which the values are an instance of the parameter types of <code>F</code>
+and are evaluated before the function is called.</p>
+<pre><code>a: math.Atan2(x, y)
+</code></pre><p>In a function call, the function value and arguments are evaluated in the usual
+order.
+After they are evaluated, the parameters of the call are passed by value
+to the function and the called function begins execution.
+The return parameters
+of the function are passed by value back to the calling function when the
+function returns.</p>
+<h3 id="comprehensions">Comprehensions</h3>
+<p>Lists and fields can be constructed using comprehensions.</p>
+<p>Comprehensions define a clause sequence that consists of a sequence of
+<code>for</code>, <code>if</code>, and <code>let</code> clauses, nesting from left to right.
+The sequence must start with a <code>for</code> or <code>if</code> clause.
+The <code>for</code> and <code>let</code> clauses each define a new scope in which new values are
+bound to be available for the next clause.</p>
+<p>The <code>for</code> clause binds the defined identifiers, on each iteration, to the next
+value of some iterable value in a new scope.
+A <code>for</code> clause may bind one or two identifiers.
+If there is one identifier, it binds it to the value of
+a list element or struct field value.
+If there are two identifiers, the first value will be the key or index,
+if available, and the second will be the value.</p>
+<p>For lists, <code>for</code> iterates over all elements in the list after closing it.
+For structs, <code>for</code> iterates over all non-optional regular fields.</p>
+<p>An <code>if</code> clause, or guard, specifies an expression that terminates the current
+iteration if it evaluates to false.</p>
+<p>The <code>let</code> clause binds the result of an expression to the defined identifier
+in a new scope.</p>
+<p>A current iteration is said to complete if the innermost block of the clause
+sequence is reached.
+Syntactically, the comprehension value is a struct.
+A comprehension can generate non-struct values by embedding such values within
+this struct.</p>
+<p>Within lists, the values yielded by a comprehension are inserted in the list
+at the position of the comprehension.
+Within structs, the values yielded by a comprehension are embedded within the
+struct.
+Both structs and lists may contain multiple comprehensions.</p>
+<pre><code>Comprehension       = Clauses StructLit .
+
+Clauses             = StartClause { [ &quot;,&quot; ] Clause } .
+StartClause         = ForClause | GuardClause .
+Clause              = StartClause | LetClause .
+ForClause           = &quot;for&quot; identifier [ &quot;,&quot; identifier ] &quot;in&quot; Expression .
+GuardClause         = &quot;if&quot; Expression .
+LetClause           = &quot;let&quot; identifier &quot;=&quot; Expression .
+</code></pre><pre><code>a: [1, 2, 3, 4]
+b: [ for x in a if x &gt; 1 { x+1 } ]  // [3, 4, 5]
+
+c: {
+    for x in a
+    if x &lt; 4
+    let y = 1 {
+        &quot;\(x)&quot;: x + y
+    }
+}
+d: { &quot;1&quot;: 2, &quot;2&quot;: 3, &quot;3&quot;: 4 }
+</code></pre><h3 id="string-interpolation">String interpolation</h3>
+<p>String interpolation allows constructing strings by replacing placeholder
+expressions with their string representation.
+String interpolation may be used in single- and double-quoted strings, as well
+as their multiline equivalent.</p>
+<p>A placeholder consists of &ldquo;(&rdquo; followed by an expression and a &ldquo;)&quot;. The
+expression is evaluated within the scope within which the string is defined.</p>
+<pre><code>a: &quot;World&quot;
+b: &quot;Hello \( a )!&quot; // Hello World!
+</code></pre><h2 id="builtin-functions">Builtin Functions</h2>
+<p>Built-in functions are predeclared. They are called like any other function.</p>
+<h3 id="len"><code>len</code></h3>
+<p>The built-in function <code>len</code> takes arguments of various types and return
+a result of type int.</p>
+<pre><code>Argument type    Result
+
+string            string length in bytes
+bytes             length of byte sequence
+list              list length, smallest length for an open list
+struct            number of distinct data fields, including optional
+</code></pre><!-- TODO: consider not supporting len, but instead rely on more
+precisely named builtin functions:
+  - strings.RuneLen(x)
+  - bytes.Len(x)  // x may be a string
+  - struct.NumFooFields(x)
+  - list.Len(x)
+-->
+<pre><code>Expression           Result
+len(&quot;Hellø&quot;)         6
+len([1, 2, 3])       3
+len([1, 2, ...])     &gt;=2
+</code></pre><h3 id="close"><code>close</code></h3>
+<p>The builtin function <code>close</code> converts a partially defined, or open, struct
+to a fully defined, or closed, struct.</p>
+<h3 id="and"><code>and</code></h3>
+<p>The built-in function <code>and</code> takes a list and returns the result of applying
+the <code>&amp;</code> operator to all elements in the list.
+It returns top for the empty list.</p>
+<pre><code>Expression:          Result
+and([a, b])          a &amp; b
+and([a])             a
+and([])              _
+</code></pre><h3 id="or"><code>or</code></h3>
+<p>The built-in function <code>or</code> takes a list and returns the result of applying
+the <code>|</code> operator to all elements in the list.
+It returns bottom for the empty list.</p>
+<pre><code>Expression:          Result
+or([a, b])           a | b
+or([a])              a
+or([])               _|_
+</code></pre><h2 id="cycles">Cycles</h2>
+<p>Implementations are required to interpret or reject cycles encountered
+during evaluation according to the rules in this section.</p>
+<h3 id="reference-cycles">Reference cycles</h3>
+<p>A <em>reference cycle</em> occurs if a field references itself, either directly or
+indirectly.</p>
+<pre><code>// x references itself
+x: x
+
+// indirect cycles
+b: c
+c: d
+d: b
+</code></pre><p>Implementations should report these as an error except in the following cases:</p>
+<h4 id="expressions-that-unify-an-atom-with-an-expression">Expressions that unify an atom with an expression</h4>
+<p>An expression of the form <code>a &amp; e</code>, where <code>a</code> is an atom
+and <code>e</code> is an expression, always evaluates to <code>a</code> or bottom.
+As it does not matter how we fail, we can assume the result to be <code>a</code>
+and validate after the field in which the expression occurs has been evaluated
+that <code>a == e</code>.</p>
+<pre><code>// Config            Evaluates to (requiring concrete values)
+x: {                  x: {
+    a: b + 100            a: _|_ // cycle detected
+    b: a - 100            b: _|_ // cycle detected
+}                     }
+
+y: x &amp; {              y: {
+    a: 200                a: 200 // asserted that 200 == b + 100
+                          b: 100
+}                     }
+</code></pre><h4 id="field-values">Field values</h4>
+<p>A field value of the form <code>r &amp; v</code>,
+where <code>r</code> evaluates to a reference cycle and <code>v</code> is a value,
+evaluates to <code>v</code>.
+Unification is idempotent and unifying a value with itself ad infinitum,
+which is what the cycle represents, results in this value.
+Implementations should detect cycles of this kind, ignore <code>r</code>,
+and take <code>v</code> as the result of unification.</p>
+<!-- Tomabechi's graph unification algorithm
+can detect such cycles at near-zero cost. -->
+<pre><code>Configuration    Evaluated
+//    c           Cycles in nodes of type struct evaluate
+//  ↙︎   ↖         to the fixed point of unifying their
+// a  →  b        values ad infinitum.
+
+a: b &amp; { x: 1 }   // a: { x: 1, y: 2, z: 3 }
+b: c &amp; { y: 2 }   // b: { x: 1, y: 2, z: 3 }
+c: a &amp; { z: 3 }   // c: { x: 1, y: 2, z: 3 }
+
+// resolve a             b &amp; {x:1}
+// substitute b          c &amp; {y:2} &amp; {x:1}
+// substitute c          a &amp; {z:3} &amp; {y:2} &amp; {x:1}
+// eliminate a (cycle)   {z:3} &amp; {y:2} &amp; {x:1}
+// simplify              {x:1,y:2,z:3}
+</code></pre><p>This rule also applies to field values that are disjunctions of unification
+operations of the above form.</p>
+<pre><code>a: b&amp;{x:1} | {y:1}  // {x:1,y:3,z:2} | {y:1}
+b: {x:2} | c&amp;{z:2}  // {x:2} | {x:1,y:3,z:2}
+c: a&amp;{y:3} | {z:3}  // {x:1,y:3,z:2} | {z:3}
+
+
+// resolving a           b&amp;{x:1} | {y:1}
+// substitute b          ({x:2} | c&amp;{z:2})&amp;{x:1} | {y:1}
+// simplify              c&amp;{z:2}&amp;{x:1} | {y:1}
+// substitute c          (a&amp;{y:3} | {z:3})&amp;{z:2}&amp;{x:1} | {y:1}
+// simplify              a&amp;{y:3}&amp;{z:2}&amp;{x:1} | {y:1}
+// eliminate a (cycle)   {y:3}&amp;{z:2}&amp;{x:1} | {y:1}
+// expand                {x:1,y:3,z:2} | {y:1}
+</code></pre><p>Note that all nodes that form a reference cycle to form a struct will evaluate
+to the same value.
+If a field value is a disjunction, any element that is part of a cycle will
+evaluate to this value.</p>
+<h3 id="structural-cycles">Structural cycles</h3>
+<p>CUE disallows infinite structures.
+Implementations must report an error when encountering such declarations.</p>
+<!-- for instance using an occurs check -->
+<pre><code>// Disallowed: a list of infinite length with all elements being 1.
+list: {
+    head: 1
+    tail: list
+}
+
+// Disallowed: another infinite structure (a:{b:{d:{b:{d:{...}}}}}, ...).
+a: {
+    b: c
+}
+c: {
+    d: a
+}
+</code></pre><p>It is allowed for a value to define an infinite set of possibilities
+without evaluating to an infinite structure itself.</p>
+<pre><code>// List defines a list of arbitrary length (default null).
+List: *null | {
+    head: _
+    tail: List
+}
+</code></pre><!--
+Consider banning any construct that makes CUE not having a linear
+running time expressed in the number of nodes in the output.
+
+This would require restricting constructs like:
+
+(fib&{n:2}).out
+
+fib: {
+        n: int
+
+        out: (fib&{n:n-2}).out + (fib&{n:n-1}).out if n >= 2
+        out: fib({n:n-2}).out + fib({n:n-1}).out if n >= 2
+        out: n if n < 2
+}
+
+-->
+<!--
+### Unused fields
+
+TODO: rules for detection of unused fields
+
+1. Any alias value must be used
+-->
+<h2 id="modules-instances-and-packages">Modules, instances, and packages</h2>
+<p>CUE configurations are constructed combining <em>instances</em>.
+An instance, in turn, is constructed from one or more source files belonging
+to the same <em>package</em> that together declare the data representation.
+Elements of this data representation may be exported and used
+in other instances.</p>
+<h3 id="source-file-organization">Source file organization</h3>
+<p>Each source file consists of an optional package clause defining collection
+of files to which it belongs,
+followed by a possibly empty set of import declarations that declare
+packages whose contents it wishes to use, followed by a possibly empty set of
+declarations.</p>
+<p>Like with a struct, a source file may contain embeddings.
+Unlike with a struct, the embedded expressions may be any value.
+If the result of the unification of all embedded values is not a struct,
+it will be output instead of its enclosing file when exporting CUE
+to a data format</p>
+<pre><code>SourceFile = [ PackageClause &quot;,&quot; ] { ImportDecl &quot;,&quot; } { Declaration &quot;,&quot; } .
+</code></pre><pre><code>&quot;Hello \(place)!&quot;
+
+place: &quot;world&quot;
+
+// Outputs &quot;Hello world!&quot;
+</code></pre><h3 id="package-clause">Package clause</h3>
+<p>A package clause is an optional clause that defines the package to which
+a source file the file belongs.</p>
+<pre><code>PackageClause  = &quot;package&quot; PackageName .
+PackageName    = identifier .
+</code></pre><p>The PackageName must not be the blank identifier or a definition identifier.</p>
+<pre><code>package math
+</code></pre><h3 id="modules-and-instances">Modules and instances</h3>
+<p>A <em>module</em> defines a tree of directories, rooted at the <em>module root</em>.</p>
+<p>All source files within a module with the same package belong to the same
+package.</p>
+<!-- jba: I can't make sense of the above sentence. -->
+<p>A module may define multiple packages.</p>
+<p>An <em>instance</em> of a package is any subset of files belonging
+to the same package.</p>
+<!-- jba: Are you saying that -->
+<!-- if I have a package with files a, b and c, then there are 8 instances of -->
+<!-- that package, some of which are {a, b}, {c}, {b, c}, and so on? What's the -->
+<!-- purpose of that definition? -->
+<p>It is interpreted as the concatenation of these files.</p>
+<p>An implementation may impose conventions on the layout of package files
+to determine which files of a package belongs to an instance.
+For example, an instance may be defined as the subset of package files
+belonging to a directory and all its ancestors.</p>
+<!-- jba: OK, that helps a little, but I still don't see what the purpose is. -->
+<h3 id="import-declarations">Import declarations</h3>
+<p>An import declaration states that the source file containing the declaration
+depends on definitions of the <em>imported</em> package (§Program initialization and
+execution) and enables access to exported identifiers of that package.
+The import names an identifier (PackageName) to be used for access and an
+ImportPath that specifies the package to be imported.</p>
+<pre><code>ImportDecl       = &quot;import&quot; ( ImportSpec | &quot;(&quot; { ImportSpec &quot;,&quot; } &quot;)&quot; ) .
+ImportSpec       = [ PackageName ] ImportPath .
+ImportLocation   = { unicode_value } .
+ImportPath       = `&quot;` ImportLocation [ &quot;:&quot; identifier ] `&quot;` .
+</code></pre><p>The PackageName is used in qualified identifiers to access
+exported identifiers of the package within the importing source file.
+It is declared in the file block.
+It defaults to the identifier specified in the package clause of the imported
+package, which must match either the last path component of ImportLocation
+or the identifier following it.</p>
+<!--
+Note: this deviates from the Go spec where there is no such restriction.
+This restriction has the benefit of being to determine the identifiers
+for packages from within the file itself. But for CUE it is has another benefit:
+when using package hiearchies, one is more likely to want to include multiple
+packages within the same directory structure. This mechanism allows
+disambiguation in these cases.
+-->
+<p>The interpretation of the ImportPath is implementation-dependent but it is
+typically either the path of a builtin package or a fully qualifying location
+of a package within a source code repository.</p>
+<p>An ImportLocation must be a non-empty strings using only characters belonging
+Unicode&rsquo;s L, M, N, P, and S general categories
+(the Graphic characters without spaces)
+and may not include the characters !&quot;#$%&amp;'()*,:;&lt;=&gt;?[]^`{|}
+or the Unicode replacement character U+FFFD.</p>
+<p>Assume we have package containing the package clause &ldquo;package math&rdquo;,
+which exports function Sin at the path identified by &ldquo;lib/math&rdquo;.
+This table illustrates how Sin is accessed in files
+that import the package after the various types of import declaration.</p>
+<pre><code>Import declaration          Local name of Sin
+
+import   &quot;lib/math&quot;         math.Sin
+import   &quot;lib/math:math&quot;    math.Sin
+import m &quot;lib/math&quot;         m.Sin
+</code></pre><p>An import declaration declares a dependency relation between the importing and
+imported package. It is illegal for a package to import itself, directly or
+indirectly, or to directly import a package without referring to any of its
+exported identifiers.</p>
+<h3 id="an-example-package">An example package</h3>
+<p>TODO</p>
+
+</div>
+
+<div class="text-muted mt-5 pt-3 border-top">Last modified January 1, 0001
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code' ],
+    ignoreClass: "mermaid",
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+
+<link href="https://cuelang.org/mermaid/mermaid.css" rel="stylesheet" />
+<script src="https://cuelang.org/mermaid/mermaid.js"></script>
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        flowchart: {
+            curve: 'basis'
+        }
+    });
+</script>
+
+
+    </div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+<script src="/js/main.min.2187fca64cce5b93625c3b6ebbc286d5a6026eaa944cef7319ed98d12dd39c91.js" integrity="sha256-IYf8pkzOW5NiXDtuu8KG1aYCbqqUTO9zGe2Y0S3TnJE=" crossorigin="anonymous"></script>
+
+<script src=https://cuelang.org/js/asciinema-player.js></script>
+
+  </body>
+</html>

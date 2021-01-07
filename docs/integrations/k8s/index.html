@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.67.0" />
+
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>Kubernetes | CUE</title><meta property="og:title" content="Kubernetes" />
+<meta property="og:description" content="How CUE supports Kubernetes." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://cuelang.org/docs/integrations/k8s/" />
+<meta property="article:modified_time" content="2020-04-22T17:31:52+01:00" /><meta property="og:site_name" content="CUE" />
+<meta itemprop="name" content="Kubernetes">
+<meta itemprop="description" content="How CUE supports Kubernetes.">
+<meta itemprop="dateModified" content="2020-04-22T17:31:52&#43;01:00" />
+<meta itemprop="wordCount" content="217">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Kubernetes"/>
+<meta name="twitter:description" content="How CUE supports Kubernetes."/>
+
+
+
+
+
+<link rel="preload" href="/scss/main.min.f56d687752891909019b7a425ae3aefe3e6508a54e92b7a1dc91a12c9a948211.css" as="style">
+<link href="/scss/main.min.f56d687752891909019b7a425ae3aefe3e6508a54e92b7a1dc91a12c9a948211.css" rel="stylesheet" integrity="">
+
+
+<link rel="stylesheet" type="text/css" href=https://cuelang.org/css/asciinema-player.css />
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+    <title>Kubernetes | CUE</title>
+  </head>
+  <body class="td-page">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/">
+		<span class="navbar-logo"></span><span class="text-uppercase font-weight-bold">CUE</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/" ><span>Documentation</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/community/" ><span>Community</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				<a class="nav-link" href="https://github.com/cuelang/cue" target="_blank" ><span>GitHub</span></a>
+			</li>
+			
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+
+
+
+
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  
+  <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+    
+    
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Documentation</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="docs">
+      
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/about/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">About</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsabout">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/install/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Getting Started</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsinstall">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/usecases/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Use Cases</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsusecases">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesconfiguration" href="/docs/usecases/configuration/">Configuration</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesvalidation" href="/docs/usecases/validation/">Data Validation</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesdatadef" href="/docs/usecases/datadef/">Schema Definition</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesgenerate" href="/docs/usecases/generate/">Code Generation and Extraction</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesquery" href="/docs/usecases/query/">Querying</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesscripting" href="/docs/usecases/scripting/">Scripting</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/integrations/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Integrations</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="docsintegrations">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsjson" href="/docs/integrations/json/">JSON</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsyaml" href="/docs/integrations/yaml/">YAML</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsgo" href="/docs/integrations/go/">Go</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsprotobuf" href="/docs/integrations/protobuf/">Protobuf</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsopenapi" href="/docs/integrations/openapi/">OpenAPI and CRDs</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-docsintegrationsk8s" href="/docs/integrations/k8s/">Kubernetes</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/concepts/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Concepts</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsconcepts">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconceptslogic" href="/docs/concepts/logic/">The Logic of CUE</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/concepts/packages/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Modules, Packages, and Instances</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsconceptspackages">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/tutorials/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Tutorials</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docstutorials">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docstutorialskubernetes" href="/docs/tutorials/kubernetes/"></a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/references/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">References</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsreferences">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsreferencesspec" href="/docs/references/spec/">Language Specification</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+  </nav>
+</div>
+
+
+
+
+          </div>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+            
+
+
+
+
+
+
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+
+
+
+
+
+<a href="https://github.com/cuelang/cuelang.org/edit/master/content/en/docs/integrations/k8s.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+<a href="https://github.com/cuelang/cuelang.org/issues/new?title=Kubernetes" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+
+
+<a href="https://github.com/cuelang/cue/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
+
+</div>
+
+
+
+
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#validating-kubernetes-configurations">Validating Kubernetes Configurations</a>
+      <ul>
+        <li><a href="#importing-definitions">Importing definitions</a></li>
+      </ul>
+    </li>
+    <li><a href="#creating-openapi-schema-for-crds">Creating OpenAPI schema for CRDs</a></li>
+  </ul>
+</nav>
+
+
+
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+  
+
+            <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	<ol class="breadcrumb spb-1">
+		
+
+
+
+
+
+
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://cuelang.org/docs/">Documentation</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://cuelang.org/docs/integrations/">Integrations</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item active" aria-current="page">
+	<a href="https://cuelang.org/docs/integrations/k8s/">Kubernetes</a>
+</li>
+
+	</ol>
+</nav	>
+
+            
+<div class="td-content">
+	<h1>Kubernetes</h1>
+	<div class="lead">How CUE supports Kubernetes.</div>
+	<p>CUE is inspired by, but certainly not limited to the domain
+of configurations for cloud.
+That said, dealing with configuring Kubernetes has been one of the
+sources of inspiration for CUE and prompted its development.</p>
+<p>One issue that inspired the design of CUE was the desire to, on the one hand,
+have an abstraction layer that could be converted to not only Kubernetes,
+but also other targets like docker compose, but on the other hand have full
+access to the Kubernetes API without needing continuous support.
+The &ldquo;Manual&rdquo; section in the
+<a href="/docs/tutorials/kubernetes">Kubernetes Tutorial</a>
+describes how this can be accomplished.</p>
+<p>CUE is not specific to Kubernetes, though.
+A lot of the functionality described in this section applies equally
+to other domains.</p>
+<h2 id="validating-kubernetes-configurations">Validating Kubernetes Configurations</h2>
+<h3 id="importing-definitions">Importing definitions</h3>
+<p>Kubernetes has no direct support for CUE.
+However, as it is written in Go, CUE can automatically extract definitions
+from its  code base.
+<a href="/docs/integrations/go#download-cue-definitions-from-go">This section</a>
+describes how to extract and use such definitions.</p>
+<h2 id="creating-openapi-schema-for-crds">Creating OpenAPI schema for CRDs</h2>
+<p><a href="https://istio.io">Istio</a> uses CUE to generate OpenAPI.
+This includes schema defintions for Custom Resource Definitions.
+As of 1.15, these are required to be of the
+<a href="https://kubernetes.io/blog/2019/06/20/crd-structural-schema/">Structural form</a>.
+The <code>cuelang.org/go/encoding/openapi</code> package outputs it in this form
+if expansion of references is requested.</p>
+<p>This topic has been covered in more detail in the
+<a href="/docs/integrations/openapi">OpenAPI and CRDs</a> section.</p>
+
+	
+	
+	<div class="text-muted mt-5 pt-3 border-top">Last modified April 22, 2020: <a  href="https://github.com/cuelang/cuelang.org/commit/a0ea075abfa81a6fe6f71e7e38fba29078483cd3">all: link to the current version of the Kubernetes tutorial not master (#92) (a0ea075)</a>
+</div>
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code' ],
+    ignoreClass: "mermaid",
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+
+<link href="https://cuelang.org/mermaid/mermaid.css" rel="stylesheet" />
+<script src="https://cuelang.org/mermaid/mermaid.js"></script>
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        flowchart: {
+            curve: 'basis'
+        }
+    });
+</script>
+
+
+    </div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+<script src="/js/main.min.2187fca64cce5b93625c3b6ebbc286d5a6026eaa944cef7319ed98d12dd39c91.js" integrity="sha256-IYf8pkzOW5NiXDtuu8KG1aYCbqqUTO9zGe2Y0S3TnJE=" crossorigin="anonymous"></script>
+
+<script src=https://cuelang.org/js/asciinema-player.js></script>
+
+  </body>
+</html>

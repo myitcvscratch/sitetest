@@ -1,0 +1,805 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.67.0" />
+
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>Schema Definition | CUE</title><meta property="og:title" content="Schema Definition" />
+<meta property="og:description" content="Defining schema to communicate an API or standard." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://cuelang.org/docs/usecases/datadef/" />
+<meta property="article:modified_time" content="2020-07-07T16:48:48+12:00" /><meta property="og:site_name" content="CUE" />
+<meta itemprop="name" content="Schema Definition">
+<meta itemprop="description" content="Defining schema to communicate an API or standard.">
+<meta itemprop="dateModified" content="2020-07-07T16:48:48&#43;12:00" />
+<meta itemprop="wordCount" content="1351">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Schema Definition"/>
+<meta name="twitter:description" content="Defining schema to communicate an API or standard."/>
+
+
+
+
+
+<link rel="preload" href="/scss/main.min.f56d687752891909019b7a425ae3aefe3e6508a54e92b7a1dc91a12c9a948211.css" as="style">
+<link href="/scss/main.min.f56d687752891909019b7a425ae3aefe3e6508a54e92b7a1dc91a12c9a948211.css" rel="stylesheet" integrity="">
+
+
+<link rel="stylesheet" type="text/css" href=https://cuelang.org/css/asciinema-player.css />
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+    <title>Schema Definition | CUE</title>
+  </head>
+  <body class="td-page">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/">
+		<span class="navbar-logo"></span><span class="text-uppercase font-weight-bold">CUE</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/" ><span>Documentation</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/community/" ><span>Community</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				<a class="nav-link" href="https://github.com/cuelang/cue" target="_blank" ><span>GitHub</span></a>
+			</li>
+			
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+
+
+
+
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  
+  <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+    
+    
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Documentation</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="docs">
+      
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/about/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">About</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsabout">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/install/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Getting Started</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsinstall">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/usecases/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Use Cases</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="docsusecases">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesconfiguration" href="/docs/usecases/configuration/">Configuration</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesvalidation" href="/docs/usecases/validation/">Data Validation</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-docsusecasesdatadef" href="/docs/usecases/datadef/">Schema Definition</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesgenerate" href="/docs/usecases/generate/">Code Generation and Extraction</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesquery" href="/docs/usecases/query/">Querying</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesscripting" href="/docs/usecases/scripting/">Scripting</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/integrations/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Integrations</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsintegrations">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsjson" href="/docs/integrations/json/">JSON</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsyaml" href="/docs/integrations/yaml/">YAML</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsgo" href="/docs/integrations/go/">Go</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsprotobuf" href="/docs/integrations/protobuf/">Protobuf</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsopenapi" href="/docs/integrations/openapi/">OpenAPI and CRDs</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsk8s" href="/docs/integrations/k8s/">Kubernetes</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/concepts/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Concepts</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsconcepts">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconceptslogic" href="/docs/concepts/logic/">The Logic of CUE</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/concepts/packages/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Modules, Packages, and Instances</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsconceptspackages">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/tutorials/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Tutorials</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docstutorials">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docstutorialskubernetes" href="/docs/tutorials/kubernetes/"></a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/references/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">References</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsreferences">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsreferencesspec" href="/docs/references/spec/">Language Specification</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+  </nav>
+</div>
+
+
+
+
+          </div>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+            
+
+
+
+
+
+
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+
+
+
+
+
+<a href="https://github.com/cuelang/cuelang.org/edit/master/content/en/docs/usecases/datadef.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+<a href="https://github.com/cuelang/cuelang.org/issues/new?title=Schema%20Definition" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+
+
+<a href="https://github.com/cuelang/cue/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
+
+</div>
+
+
+
+
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#core-issues-addressed-by-cue">Core issues addressed by CUE</a>
+      <ul>
+        <li><a href="#validating-backwards-compatibility">Validating backwards compatibility</a></li>
+        <li><a href="#combining-constraints-from-different-sources">Combining constraints from different sources</a></li>
+        <li><a href="#normalization-of-data-definitions">Normalization of data definitions</a></li>
+      </ul>
+    </li>
+    <li><a href="#comparisons">Comparisons</a>
+      <ul>
+        <li><a href="#json-schema--openapi">JSON Schema / OpenAPI</a></li>
+        <li><a href="#opa--rego">OPA / Rego</a></li>
+        <li><a href="#cddl">CDDL</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+  
+
+            <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	<ol class="breadcrumb spb-1">
+		
+
+
+
+
+
+
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://cuelang.org/docs/">Documentation</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://cuelang.org/docs/usecases/">Use Cases</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item active" aria-current="page">
+	<a href="https://cuelang.org/docs/usecases/datadef/">Schema Definition</a>
+</li>
+
+	</ol>
+</nav	>
+
+            
+<div class="td-content">
+	<h1>Schema Definition</h1>
+	<div class="lead">Defining schema to communicate an API or standard.</div>
+	<p>A data definition language describes the structure of data.
+The structure defined by such a language can, in turn, be used
+to verify implementations, validate inputs, or generate code.</p>
+<p>Most modern dedicated data definition languages or standards allow
+more than just describing whether a field is an integer or a string.
+Standards like OpenAPI and CDDL allow defining things like default
+values, ranges, and various other constraints.
+OpenAPI even allows for complex logical combinators.</p>
+<p>A key difference, however, is that these standards do not unify schema
+and values, the thing that makes CUE so powerful.
+There is no value lattice.
+This limits these standards in various ways.</p>
+<!-- There is no or very limited possibility for boilerplate removal. -->
+<h2 id="core-issues-addressed-by-cue">Core issues addressed by CUE</h2>
+<h3 id="validating-backwards-compatibility">Validating backwards compatibility</h3>
+<p>CUE&rsquo;s model makes it easy to verify newer versions of schema are backwards
+compatible with older.</p>
+<p>Consider the following versions of the same API:</p>
+<pre><code>// Release notes:
+// - You can now specify your age and your hobby!
+#V1: {
+    age:   &gt;=0 &amp; &lt;=100
+    hobby: string
+}
+// Release notes:
+// - People get to be older than 100, so we relaxed it.
+// - It seems not many people have a hobby, so we made it optional.
+#V2: {
+    age:    &gt;=0 &amp; &lt;=150 // people get older now
+    hobby?: string      // some people don't have a hobby
+}
+// Release notes:
+// - Actually no one seems to have a hobby nowadays anymore, so we dropped the field.
+#V3: {
+    age: &gt;=0 &amp; &lt;=150
+}
+</code></pre><p>Declarations with a name starting with <code>#</code> are definitions.
+Definitions are not emitted when converting to data, for instance when
+exporting to JSON, and thus do not need to be concrete in such cases.
+Definitions assume the definition of closed structs, which means a user may
+only use fields that are explicitly defined.</p>
+<p>In CUE, an API is backwards compatible if it subsumes the older one, or
+if the old one is an instance of the new one.</p>
+<p>This can be computed using the API:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000">inst</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">r</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Compile</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;apis&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#8f5902;font-style:italic">/* text of the above API */</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#8f5902;font-style:italic">// handle error
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000">v1</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err1</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">inst</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">LookupField</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;V1&#34;</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000">v2</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err2</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">inst</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">LookupField</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;V2&#34;</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000">v3</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err3</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">inst</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">LookupField</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;V3&#34;</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">err1</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#ce5c00;font-weight:bold">||</span> <span style="color:#000">err2</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#ce5c00;font-weight:bold">||</span> <span style="color:#000">err3</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+	 <span style="color:#8f5902;font-style:italic">// handle errors
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000;font-weight:bold">}</span>
+
+<span style="color:#8f5902;font-style:italic">// Check if V2 is backwards compatible with V1
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000">fmt</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Println</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">v2</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Value</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Subsumes</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">v1</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Value</span><span style="color:#000;font-weight:bold">)))</span> <span style="color:#8f5902;font-style:italic">// true
+</span><span style="color:#8f5902;font-style:italic"></span>
+<span style="color:#8f5902;font-style:italic">// Check if V3 is backwards compatible with V2
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000">fmt</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Println</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">v3</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Value</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Subsumes</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">v2</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Value</span><span style="color:#000;font-weight:bold">)))</span> <span style="color:#8f5902;font-style:italic">// false
+</span></code></pre></div><p>It is as simple as that.
+This is the kind of thing that is made possible
+by ordering all values in a lattice, like CUE does.
+For CUE, checking whether one API is an instance of another is like checking
+whether 3 is less than 4.</p>
+<p>Note that <code>V2</code> strictly relaxed the API relative to <code>V1</code>.
+It allowed specifying a wider age range and made the <code>hobby</code> field optional.
+In <code>V3</code> the <code>hobby</code> field is explicitly disallowed.
+This is not backwards compatibly as it breaks previous field that did
+contain a <code>hobby</code> field.</p>
+<p>The current API only reports a yay or nay.
+The plan is to give full actionable reports.
+Feedback welcome!</p>
+<h3 id="combining-constraints-from-different-sources">Combining constraints from different sources</h3>
+<p>Most data definition languages are often not
+explicitly defined for commutativity.
+For instance, CDDL, although much less expressive than CUE, introduces operators
+that break commutativity.</p>
+<p>The additive property obtained by commutativity is of great value for
+data definition.
+Constraints often come from many sources.
+For instance, one can have constraints from a base template, from code,
+policies provided by different departments and policies provided by
+a client.</p>
+<p>CUE&rsquo;s additive nature of constraints allows piling up constraints,
+in any order, to obtain a new definition.
+Which leads us to the next topic.</p>
+<h3 id="normalization-of-data-definitions">Normalization of data definitions</h3>
+<p>Adding constraints from many sources can result in a lot of redundancy.
+Even worse, constraints can be specified in different logical forms,
+making their additive form verbose and unwieldy.
+This is fine if all a system does using these constraints is validate data.
+But this is problematic if the added constraints are to form the basis for,
+say, human consumption.</p>
+<p>CUE&rsquo;s logical inference engine automatically reduces constraints.
+It&rsquo;s API makes it possible to compute and select between
+various normal forms to optimize for a certain representation.
+This is used in <a href="/docs/integrations/openapi">CUE&rsquo;s OpenAPI generator</a>,
+for instance.</p>
+<h2 id="comparisons">Comparisons</h2>
+<h3 id="json-schema--openapi">JSON Schema / OpenAPI</h3>
+<p>JSON Schema and OpenAPI are purely data-driven data definition standards.
+OpenAPI originates from Swagger.
+As of version 3, OpenAPI is more or less a subset of JSON Schema.
+OpenAPI is used to define Kubernetes Custom Resource Definitions.
+As of 1.15, this requires a variant of OpenAPI called Structural OpenAPI.
+We will collectively refer to these as OpenAPI henceforth.</p>
+<p>OpenAPI does not have any expressions or references.
+They have powerful logical operators, though,
+that make them remarkably expressive.</p>
+
+
+<div class="alert alert-info" role="alert">
+<h4 class="alert-heading">On logical not</h4>
+OpenAPI defines a <code>not</code> operator.
+These get fuzzy when defined on structs, which OpenAPI allows.
+CUE doesn&rsquo;t have such a construct, partly to avoid its logical pitfalls.
+However, it can get a good approximation by interpreting <code>¬P</code> as <code>P→⊥</code>.
+</div>
+
+<p>An advantage of OpenAPI is that it purely defined in terms of data (JSON).
+This allows sending it over the wire.
+It is defined such that implementing an interpreter is fairly straightforward.</p>
+<p>One disadvantage is that it is very verbose.
+Compare the following two equivalent schema definitions:</p>
+
+
+
+ 
+<a id="td-block-1" class="td-offset-anchor"></a>
+<section class="row td-box td-box--white td-box--gradient td-box--height-auto">
+	<div class="col">
+		<div class="row ">
+			<div class="col">
+CUE
+<pre><code class="language-none" data-lang="none">// Definitions.
+<p>// Info describes&hellip;
+Info: {
+// Name of the adapter.
+name: string</p>
+<pre><code>// Templates.
+templates?: [...string]
+
+// Max is the limit.
+max?: uint &amp;amp; &amp;lt;100
+</code></pre>
+<p>}</code></pre></p>
+</div>
+<div class="col">
+OpenAPI
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#204a87;font-weight:bold">&#34;openapi&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;3.0.0&#34;</span><span style="color:#000;font-weight:bold">,</span>
+  <span style="color:#204a87;font-weight:bold">&#34;info&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#204a87;font-weight:bold">&#34;title&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;Definitions.&#34;</span><span style="color:#000;font-weight:bold">,</span>
+    <span style="color:#204a87;font-weight:bold">&#34;version&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;v1beta1&#34;</span>
+  <span style="color:#000;font-weight:bold">},</span>
+  <span style="color:#204a87;font-weight:bold">&#34;components&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#204a87;font-weight:bold">&#34;schemas&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
+      <span style="color:#204a87;font-weight:bold">&#34;Info&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#204a87;font-weight:bold">&#34;description&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;Info describes...&#34;</span><span style="color:#000;font-weight:bold">,</span>
+        <span style="color:#204a87;font-weight:bold">&#34;type&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;object&#34;</span><span style="color:#000;font-weight:bold">,</span>
+        <span style="color:#204a87;font-weight:bold">&#34;required&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[</span>
+            <span style="color:#4e9a06">&#34;name&#34;</span><span style="color:#000;font-weight:bold">,</span>
+        <span style="color:#000;font-weight:bold">],</span>
+        <span style="color:#204a87;font-weight:bold">&#34;properties&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
+          <span style="color:#204a87;font-weight:bold">&#34;name&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#204a87;font-weight:bold">&#34;description&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;Name of the adapter.&#34;</span><span style="color:#000;font-weight:bold">,</span>
+            <span style="color:#204a87;font-weight:bold">&#34;type&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;string&#34;</span><span style="color:#000;font-weight:bold">,</span>
+            <span style="color:#204a87;font-weight:bold">&#34;format&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;string&#34;</span>
+          <span style="color:#000;font-weight:bold">},</span>
+          <span style="color:#204a87;font-weight:bold">&#34;templates&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#204a87;font-weight:bold">&#34;description&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;Templates.&#34;</span><span style="color:#000;font-weight:bold">,</span>
+            <span style="color:#204a87;font-weight:bold">&#34;type&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;array&#34;</span><span style="color:#000;font-weight:bold">,</span>
+            <span style="color:#204a87;font-weight:bold">&#34;items&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
+              <span style="color:#204a87;font-weight:bold">&#34;type&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;string&#34;</span><span style="color:#000;font-weight:bold">,</span>
+              <span style="color:#204a87;font-weight:bold">&#34;format&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;string&#34;</span>
+            <span style="color:#000;font-weight:bold">}</span>
+          <span style="color:#000;font-weight:bold">},</span>
+          <span style="color:#204a87;font-weight:bold">&#34;max&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#204a87;font-weight:bold">&#34;description&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;Max is the limit&#34;</span><span style="color:#000;font-weight:bold">,</span>
+            <span style="color:#204a87;font-weight:bold">&#34;type&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;integer&#34;</span><span style="color:#000;font-weight:bold">,</span>
+            <span style="color:#204a87;font-weight:bold">&#34;minimum&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">,</span>
+            <span style="color:#204a87;font-weight:bold">&#34;exclusiveMaximum&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#0000cf;font-weight:bold">100</span>
+          <span style="color:#000;font-weight:bold">}</span>
+        <span style="color:#000;font-weight:bold">}</span>
+      <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#000;font-weight:bold">}</span>
+  <span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+</div>
+
+		</div>
+	</div>
+</section>
+
+<p>The difference gets more extreme as more constraints and logical
+combinators are used.</p>
+<p>OpenAPI and CUE both have theirs roles.
+The JSON format of OpenAPI makes it good interchange standard.
+CUE, on the other hand, can serve as an engine to generate and interpret
+OpenAPI constraints.
+Note that CUE is generally more expressive and many CUE constraints will
+not be encodeable in OpenAPI.</p>
+<h3 id="opa--rego">OPA / Rego</h3>
+<p>Although not designed as a data definition language, Rego, the language
+used for Open Policy Agent (OPA), also solves the issue of being able to
+add constraints from multiple sources.</p>
+<p>Rego, like CUE, has its roots in logic programming.
+It is based on Datalog, a restricted form of Prolog, whereas CUE is based on
+typed-feature structure or graph unification.
+Typed-feature structures were designed to deal with the shortcomings
+of Prolog for applications in encoding human languages.</p>
+<p>Using a Datalog variant for what is essentially a constraint
+validation task is somewhat curious.
+Datalog makes an excellent query language.
+But for constraint enforcement, it is a bit cumbersome as one effectively
+first needs to query values to which to apply the constraints.
+CUE collates the constraints with the location of the data to which they apply.
+As a result, CUE constraints look a lot like the data they constrain,
+unlike Rego which will be more reminiscent of a Datalog program.</p>
+<p>But more importantly, CUE&rsquo;s approach is more amenable to finding normalized
+and simplified representations of constraints, which makes it more suitable
+for creating OpenAPI from them.</p>
+<h3 id="cddl">CDDL</h3>
+<p>The Concise Data Definition Language (CDDL) is used to define
+the structure of CBOR or JSON data.
+CDDL shares many of the same constructs from CUE, including
+disjunctions, embedding, optional fields, and definitions.</p>
+<p>CDDL, however, has no value lattice and does not define mathematical
+properties of its data.
+There several other aspects in CDDL that contradict the use of a value lattice
+or make it harder to do so.
+Overall this restricts the expressiveness of CDDL compared to CUE
+while complicating the ability to combine constraints on types
+from multiple sources.</p>
+<p>Unlike OpenAPI, CDDL is a domain-specific language (DSL).
+It needs a specific interpreter.
+It also has some non-trivial aspects to its evaluation, making it much harder
+than OpenAPI to implement.</p>
+
+	
+	
+	<div class="text-muted mt-5 pt-3 border-top">Last modified July 7, 2020: <a  href="https://github.com/cuelang/cuelang.org/commit/e663e02ea49ede70993a2cfbff5b11eb7351f84a">Minor typo and grammar fixes in datadef.md (#105) (e663e02)</a>
+</div>
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code' ],
+    ignoreClass: "mermaid",
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+
+<link href="https://cuelang.org/mermaid/mermaid.css" rel="stylesheet" />
+<script src="https://cuelang.org/mermaid/mermaid.js"></script>
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        flowchart: {
+            curve: 'basis'
+        }
+    });
+</script>
+
+
+    </div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+<script src="/js/main.min.2187fca64cce5b93625c3b6ebbc286d5a6026eaa944cef7319ed98d12dd39c91.js" integrity="sha256-IYf8pkzOW5NiXDtuu8KG1aYCbqqUTO9zGe2Y0S3TnJE=" crossorigin="anonymous"></script>
+
+<script src=https://cuelang.org/js/asciinema-player.js></script>
+
+  </body>
+</html>

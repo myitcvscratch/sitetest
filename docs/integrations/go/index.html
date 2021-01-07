@@ -1,0 +1,744 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.67.0" />
+
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>Go | CUE</title><meta property="og:title" content="Go" />
+<meta property="og:description" content="How CUE integrates with the Go Programming Language." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://cuelang.org/docs/integrations/go/" />
+<meta property="article:modified_time" content="2020-07-30T20:00:37+08:00" /><meta property="og:site_name" content="CUE" />
+<meta itemprop="name" content="Go">
+<meta itemprop="description" content="How CUE integrates with the Go Programming Language.">
+<meta itemprop="dateModified" content="2020-07-30T20:00:37&#43;08:00" />
+<meta itemprop="wordCount" content="870">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Go"/>
+<meta name="twitter:description" content="How CUE integrates with the Go Programming Language."/>
+
+
+
+
+
+<link rel="preload" href="/scss/main.min.f56d687752891909019b7a425ae3aefe3e6508a54e92b7a1dc91a12c9a948211.css" as="style">
+<link href="/scss/main.min.f56d687752891909019b7a425ae3aefe3e6508a54e92b7a1dc91a12c9a948211.css" rel="stylesheet" integrity="">
+
+
+<link rel="stylesheet" type="text/css" href=https://cuelang.org/css/asciinema-player.css />
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+    <title>Go | CUE</title>
+  </head>
+  <body class="td-page">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/">
+		<span class="navbar-logo"></span><span class="text-uppercase font-weight-bold">CUE</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/" ><span>Documentation</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/community/" ><span>Community</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				<a class="nav-link" href="https://github.com/cuelang/cue" target="_blank" ><span>GitHub</span></a>
+			</li>
+			
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+
+
+
+
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  
+  <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+    
+    
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Documentation</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="docs">
+      
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/about/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">About</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsabout">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/install/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Getting Started</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsinstall">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/usecases/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Use Cases</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsusecases">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesconfiguration" href="/docs/usecases/configuration/">Configuration</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesvalidation" href="/docs/usecases/validation/">Data Validation</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesdatadef" href="/docs/usecases/datadef/">Schema Definition</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesgenerate" href="/docs/usecases/generate/">Code Generation and Extraction</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesquery" href="/docs/usecases/query/">Querying</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesscripting" href="/docs/usecases/scripting/">Scripting</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/integrations/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Integrations</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="docsintegrations">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsjson" href="/docs/integrations/json/">JSON</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsyaml" href="/docs/integrations/yaml/">YAML</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-docsintegrationsgo" href="/docs/integrations/go/">Go</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsprotobuf" href="/docs/integrations/protobuf/">Protobuf</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsopenapi" href="/docs/integrations/openapi/">OpenAPI and CRDs</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsk8s" href="/docs/integrations/k8s/">Kubernetes</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/concepts/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Concepts</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsconcepts">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconceptslogic" href="/docs/concepts/logic/">The Logic of CUE</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/concepts/packages/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Modules, Packages, and Instances</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsconceptspackages">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/tutorials/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Tutorials</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docstutorials">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docstutorialskubernetes" href="/docs/tutorials/kubernetes/"></a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/references/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">References</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsreferences">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsreferencesspec" href="/docs/references/spec/">Language Specification</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+  </nav>
+</div>
+
+
+
+
+          </div>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+            
+
+
+
+
+
+
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+
+
+
+
+
+<a href="https://github.com/cuelang/cuelang.org/edit/master/content/en/docs/integrations/go.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+<a href="https://github.com/cuelang/cuelang.org/issues/new?title=Go" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+
+
+<a href="https://github.com/cuelang/cue/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
+
+</div>
+
+
+
+
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-cue-apis">The CUE APIs</a></li>
+    <li><a href="#extract-cue-from-go">Extract CUE from Go</a>
+      <ul>
+        <li><a href="#download-cue-definitions-from-go-packages">Download CUE definitions from Go packages</a></li>
+      </ul>
+    </li>
+    <li><a href="#processing-cue-in-go">Processing CUE in Go</a>
+      <ul>
+        <li><a href="#load-cue-into-go">Load CUE into Go</a></li>
+        <li><a href="#validate-go-values">Validate Go values</a></li>
+        <li><a href="#complete-go-values">Complete Go values</a></li>
+        <li><a href="#combine-cue-values">Combine CUE values</a></li>
+        <li><a href="#copy-cue-values-into-go-values">Copy CUE values into Go values</a></li>
+        <li><a href="#modify-cue-values">Modify CUE values</a></li>
+      </ul>
+    </li>
+    <li><a href="#generate-go-code">Generate Go code</a>
+      <ul>
+        <li><a href="#programmatically">Programmatically</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+  
+
+            <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	<ol class="breadcrumb spb-1">
+		
+
+
+
+
+
+
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://cuelang.org/docs/">Documentation</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://cuelang.org/docs/integrations/">Integrations</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item active" aria-current="page">
+	<a href="https://cuelang.org/docs/integrations/go/">Go</a>
+</li>
+
+	</ol>
+</nav	>
+
+            
+<div class="td-content">
+	<h1>Go</h1>
+	<div class="lead">How CUE integrates with the Go Programming Language.</div>
+	<p>CUE is not specific to Go, or to cloud applications, but like many of
+new cloud technologies, CUE is written in Go. It has a rich set of APIs
+available to Go developers and interacts with CUE in various ways.</p>
+<h2 id="the-cue-apis">The CUE APIs</h2>
+<p>The CUE APIs in the main repo are organized as follows:</p>
+<ul>
+<li><a href="https://godoc.org/cuelang.org/go/cmd"><strong>cmd</strong></a>:
+The CUE command line tool.</li>
+<li><a href="https://godoc.org/cuelang.org/go/cue"><strong>cue</strong></a>:
+core APIs related to parsing, formatting, loading and running CUE programs.
+These packages are used by all other packages, including the command line tool.</li>
+<li><a href="https://github.com/cuelang/cue/tree/master/doc"><strong>doc</strong></a>:
+<a href="/docs/references">CUE documentation</a>,
+including tutorials and the reference manual.</li>
+<li><a href="https://godoc.org/cuelang.org/go/encoding"><strong>encoding</strong></a>:
+Packages for converting to and from CUE, including adaptors for YAML, JSON,
+Go, Protobuf, and OpenAPI.</li>
+<li><a href="https://godoc.org/cuelang.org/go/pkg"><strong>pkg</strong></a>:
+Builtin packages that are available from within <em>CUE</em> programs.
+These are typically not used in Go code.</li>
+</ul>
+<h2 id="extract-cue-from-go">Extract CUE from Go</h2>
+<h3 id="download-cue-definitions-from-go-packages">Download CUE definitions from Go packages</h3>
+<p>Many of today&rsquo;s cloud-related projects are written in Go.
+The <code>cue get go</code> fetches Go packages using Go&rsquo;s package manager
+and makes their definitions available through the CUE module&rsquo;s <code>pkg</code> directory
+using the same package naming conventions as in Go.</p>
+<p>For example, to download the CUE definitions for the core Kubernetes types, run</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000">cue</span> <span style="color:#000">get</span> <span style="color:#204a87;font-weight:bold">go</span> <span style="color:#000">k8s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">io</span><span style="color:#ce5c00;font-weight:bold">/</span><span style="color:#000">api</span><span style="color:#ce5c00;font-weight:bold">/</span><span style="color:#000">core</span><span style="color:#ce5c00;font-weight:bold">/</span><span style="color:#000">v1</span></code></pre></div>
+<p>From the root of your CUE module<!--TODO(ref)-->, you will now see
+<code>./pkg/k8s.io/api/core</code> populated with the extracted CUE definitions.
+Projects, like Kubernetes, do not have to support such conversions.
+CUE derives the interpretation by analyzing how the Go types convert
+with the <code>encoding/json</code>.</p>
+
+
+<div class="alert alert-info" role="alert">
+<h4 class="alert-heading">Mixing manually created with generated files</h4>
+The files that the <code>cue</code> tool generates all end with <code>_go_gen.cue</code>.
+The <code>cue</code> tool will never create, remove, or modify
+files <code>not</code> ending with <code>_gen.go</code>,
+so it safe to add such files in these directories to further tighten down
+definitions.
+Remember that the order in which files get merged is irrelevant for CUE.
+</div>
+
+<p>The generated package can be used in CUE using the same import path.
+In this CUE file, we import the generated definitions and specify that
+all services in our configuration are of type <code>v1.Service</code>.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">import</span> <span style="color:#4e9a06">&#34;k8s.io/api/core/v1&#34;</span>
+
+<span style="color:#000">services</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[</span><span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">]:</span> <span style="color:#000">v1</span><span style="color:#000;font-weight:bold">.</span><span style="color:#a40000">#</span><span style="color:#000">Service</span></code></pre></div>
+<p>You can download definitions from any Go project like this.
+For example, try
+<code>k8s.io/api/extensions/v1beta1</code>
+or
+<code>github.com/prometheus/prometheus/pkg/rulefmt</code>.</p>
+<h2 id="processing-cue-in-go">Processing CUE in Go</h2>
+<h3 id="load-cue-into-go">Load CUE into Go</h3>
+<p>There are two primary ways to load CUE into Go.
+To load entire packages, consistent with the <code>cue</code> tool,
+use the
+<a href="https://godoc.org/cuelang.org/go/cue/load"><code>cuelang.org/go/cue/load</code></a>
+package.
+To load CUE parse trees or raw CUE text, use a
+<a href="https://godoc.org/cuelang.org/go/cue#Runtime"><code>cuelang.org/go/cue.Runtime</code></a>.</p>
+
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Use a single Runtime</h4>
+For any operation that involves two CUE values these two values must have
+been created using the same Runtime.
+</div>
+
+<p>The following code loads an embedded CUE configuration,
+evaluates one of its fields, and prints the result.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">const</span> <span style="color:#000">config</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#4e9a06">`
+</span><span style="color:#4e9a06">msg:   &#34;Hello \(place)!&#34;
+</span><span style="color:#4e9a06">place: string | *&#34;world&#34; // &#34;world&#34; is the default.
+</span><span style="color:#4e9a06">`</span>
+
+<span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">r</span> <span style="color:#000">cue</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Runtime</span>
+
+<span style="color:#000">instance</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">_</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">r</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Compile</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;test&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">config</span><span style="color:#000;font-weight:bold">)</span>
+
+<span style="color:#000">str</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">_</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">instance</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Lookup</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;msg&#34;</span><span style="color:#000;font-weight:bold">).</span><span style="color:#000">String</span><span style="color:#000;font-weight:bold">()</span>
+
+<span style="color:#000">fmt</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Println</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">str</span><span style="color:#000;font-weight:bold">)</span>
+
+<span style="color:#8f5902;font-style:italic">// Output:
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#ce5c00;font-weight:bold">//</span> <span style="color:#000">Hello</span> <span style="color:#000">world</span><span style="color:#000;font-weight:bold">!</span></code></pre></div>
+<p>The names passed to Compile get recorded as references in token positions.</p>
+<h3 id="validate-go-values">Validate Go values</h3>
+<p>The <code>Codec</code> type in package
+<a href="https://godoc.org/cuelang.org/go/encoding/gocode/gocodec"><code>cuelang.org/go/encoding/gocode/gocodec</code></a>
+provides the <code>Validate</code>
+method for validating Go values.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">codec</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">gocodec</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">New</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">r</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">myValueConstraints</span> <span style="color:#000">cue</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Value</span>
+
+<span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">x</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">MyValue</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">Validate</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#204a87;font-weight:bold">error</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">codec</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Validate</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">myValueConstraints</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">x</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p>Package
+<a href="https://godoc.org/cuelang.org/go/encoding/gocode"><code>cuelang.org/go/encoding/gocode</code></a>,
+discussed below,
+can generate these kind of stubs to make life a bit easier.</p>
+<h3 id="complete-go-values">Complete Go values</h3>
+<p>A <code>gocodec.Codec</code> also defines a <code>Complete</code> method, which is similar to
+<code>Validate</code>, but fills in missing values if these can be derived from the
+CUE definitions.</p>
+<h3 id="combine-cue-values">Combine CUE values</h3>
+<p>The <code>cue.Value</code>'s <code>Unify</code> method can be used to merge two values.
+It is the programmatic equivalent of the <code>&amp;</code> operation in the CUE language.</p>
+<p>With <code>Unify</code> one can combine constraints from multiple sources programmatically.
+For instance, one could add some context-dependent policy constraints to
+a set of base constraints.</p>
+<h3 id="copy-cue-values-into-go-values">Copy CUE values into Go values</h3>
+<p>The simplest way to set a Go value to the contents of a CUE value
+is to use the Decode method of the later.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">ab</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#000">A</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">B</span> <span style="color:#204a87;font-weight:bold">int</span> <span style="color:#000;font-weight:bold">}</span>
+
+<span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">r</span> <span style="color:#000">cue</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Runtime</span>
+
+<span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">x</span> <span style="color:#000">ab</span>
+
+<span style="color:#000">i</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">_</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">r</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Compile</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;test&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">`{A: 2, B: 4}`</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000">_</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">i</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Value</span><span style="color:#000;font-weight:bold">().</span><span style="color:#000">Decode</span><span style="color:#000;font-weight:bold">(</span><span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">x</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000">fmt</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Println</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">x</span><span style="color:#000;font-weight:bold">)</span>
+
+<span style="color:#000">i</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">_</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">r</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Compile</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;test&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">`{B: &#34;foo&#34;}`</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000">_</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">i</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Value</span><span style="color:#000;font-weight:bold">().</span><span style="color:#000">Decode</span><span style="color:#000;font-weight:bold">(</span><span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">x</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000">fmt</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Println</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">x</span><span style="color:#000;font-weight:bold">)</span>
+
+<span style="color:#8f5902;font-style:italic">// Output:
+</span><span style="color:#8f5902;font-style:italic">// {2 4}
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#ce5c00;font-weight:bold">//</span> <span style="color:#000">json</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000">cannot</span> <span style="color:#000">unmarshal</span> <span style="color:#204a87;font-weight:bold">string</span> <span style="color:#000">into</span> <span style="color:#000">Go</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000">field</span> <span style="color:#000">ab</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">B</span> <span style="color:#000">of</span> <span style="color:#204a87;font-weight:bold">type</span> <span style="color:#204a87;font-weight:bold">int</span></code></pre></div>
+<p>Package
+<a href="https://godoc.org/cuelang.org/go/encoding/gocode/gocodec"><code>cuelang.com/go/encoding/gocode/gocodec</code></a>
+gives a bit more control
+over encoding and allows incorporating Go field tags with constraints as
+well as deriving unspecified values from constraints.</p>
+<h3 id="modify-cue-values">Modify CUE values</h3>
+<p>A field in a CUE instance can be set to a Go value that conforms to the
+constraints of this instance using the <code>Fill</code> method.
+Building on the example of the &ldquo;Load CUE into GO&rdquo; section, we can write</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000">inst</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">_</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">instance</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Fill</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;you&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">&#34;place&#34;</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000">str</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">_</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">inst</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Lookup</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;msg&#34;</span><span style="color:#000;font-weight:bold">).</span><span style="color:#000">String</span><span style="color:#000;font-weight:bold">()</span>
+
+<span style="color:#000">fmt</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Println</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">str</span><span style="color:#000;font-weight:bold">)</span>
+
+<span style="color:#8f5902;font-style:italic">// Output:
+</span><span style="color:#8f5902;font-style:italic">// Hello you!
+</span><span style="color:#8f5902;font-style:italic"></span>
+</code></pre></div><p>To ensure the integrity of references with the CUE instance,
+modifications are only allowed at the whole-instance level.</p>
+<h2 id="generate-go-code">Generate Go code</h2>
+<h3 id="programmatically">Programmatically</h3>
+<p>The <a href="https://godoc.org/cuelang.org/go/encoding/gocode#Generate"><code>Generate</code></a>
+function in package
+<a href="https://godoc.org/cuelang.org/go/encoding/gocode"><code>cuelang.org/go/encoding/gocode</code></a>
+generates stubs for validation functions and method from a given CUE instance.
+It does so by lining up the top-level CUE names with Go definitions.
+The CUE code can use field tags, similar to those used in Go,
+to override the naming.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000">b</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">gocode</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Generate</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;path/to/go/pkg&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">instance</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#8f5902;font-style:italic">// handle error
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000;font-weight:bold">}</span>
+
+<span style="color:#000">err</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">ioutil</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WriteFile</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;cue_gen.go&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">b</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">0644</span><span style="color:#000;font-weight:bold">)</span>
+</code></pre></div>
+	
+	
+	<div class="text-muted mt-5 pt-3 border-top">Last modified July 30, 2020: <a  href="https://github.com/cuelang/cuelang.org/commit/f9b227b279436be0eabdb73b1fb2d0c9bc053b48">fix typo (#109) (f9b227b)</a>
+</div>
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code' ],
+    ignoreClass: "mermaid",
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+
+<link href="https://cuelang.org/mermaid/mermaid.css" rel="stylesheet" />
+<script src="https://cuelang.org/mermaid/mermaid.js"></script>
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        flowchart: {
+            curve: 'basis'
+        }
+    });
+</script>
+
+
+    </div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+<script src="/js/main.min.2187fca64cce5b93625c3b6ebbc286d5a6026eaa944cef7319ed98d12dd39c91.js" integrity="sha256-IYf8pkzOW5NiXDtuu8KG1aYCbqqUTO9zGe2Y0S3TnJE=" crossorigin="anonymous"></script>
+
+<script src=https://cuelang.org/js/asciinema-player.js></script>
+
+  </body>
+</html>

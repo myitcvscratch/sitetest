@@ -1,0 +1,956 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.67.0" />
+
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>Modules, Packages, and Instances | CUE</title><meta property="og:title" content="Modules, Packages, and Instances" />
+<meta property="og:description" content="How files are organized in CUE" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://cuelang.org/docs/concepts/packages/" />
+<meta property="og:site_name" content="CUE" />
+<meta itemprop="name" content="Modules, Packages, and Instances">
+<meta itemprop="description" content="How files are organized in CUE"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Modules, Packages, and Instances"/>
+<meta name="twitter:description" content="How files are organized in CUE"/>
+
+
+
+
+
+<link rel="preload" href="/scss/main.min.f56d687752891909019b7a425ae3aefe3e6508a54e92b7a1dc91a12c9a948211.css" as="style">
+<link href="/scss/main.min.f56d687752891909019b7a425ae3aefe3e6508a54e92b7a1dc91a12c9a948211.css" rel="stylesheet" integrity="">
+
+
+<link rel="stylesheet" type="text/css" href=https://cuelang.org/css/asciinema-player.css />
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+    <title>Modules, Packages, and Instances | CUE</title>
+  </head>
+  <body class="td-section">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/">
+		<span class="navbar-logo"></span><span class="text-uppercase font-weight-bold">CUE</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/" ><span>Documentation</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/community/" ><span>Community</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				<a class="nav-link" href="https://github.com/cuelang/cue" target="_blank" ><span>GitHub</span></a>
+			</li>
+			
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+
+
+
+
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  
+  <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+    
+    
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Documentation</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="docs">
+      
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/about/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">About</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsabout">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/install/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Getting Started</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsinstall">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/usecases/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Use Cases</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsusecases">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesconfiguration" href="/docs/usecases/configuration/">Configuration</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesvalidation" href="/docs/usecases/validation/">Data Validation</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesdatadef" href="/docs/usecases/datadef/">Schema Definition</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesgenerate" href="/docs/usecases/generate/">Code Generation and Extraction</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesquery" href="/docs/usecases/query/">Querying</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesscripting" href="/docs/usecases/scripting/">Scripting</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/integrations/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Integrations</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsintegrations">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsjson" href="/docs/integrations/json/">JSON</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsyaml" href="/docs/integrations/yaml/">YAML</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsgo" href="/docs/integrations/go/">Go</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsprotobuf" href="/docs/integrations/protobuf/">Protobuf</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsopenapi" href="/docs/integrations/openapi/">OpenAPI and CRDs</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsk8s" href="/docs/integrations/k8s/">Kubernetes</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/concepts/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Concepts</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="docsconcepts">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconceptslogic" href="/docs/concepts/logic/">The Logic of CUE</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/concepts/packages/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Modules, Packages, and Instances</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="docsconceptspackages">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/tutorials/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Tutorials</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docstutorials">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docstutorialskubernetes" href="/docs/tutorials/kubernetes/"></a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/references/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">References</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsreferences">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsreferencesspec" href="/docs/references/spec/">Language Specification</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+  </nav>
+</div>
+
+
+
+
+          </div>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+            
+
+
+
+
+
+
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+
+
+
+
+
+<a href="https://github.com/cuelang/cuelang.org/edit/master/content/en/docs/concepts/packages/_index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+<a href="https://github.com/cuelang/cuelang.org/issues/new?title=Modules,%20Packages,%20and%20Instances" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+
+
+<a href="https://github.com/cuelang/cue/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
+
+</div>
+
+
+
+
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#modules">Modules</a>
+      <ul>
+        <li><a href="#creating-a-module">Creating a module</a></li>
+        <li><a href="#the-cuemod-directory">The cue.mod directory</a></li>
+      </ul>
+    </li>
+    <li><a href="#packages">Packages</a>
+      <ul>
+        <li><a href="#files-belonging-to-a-package">Files belonging to a package</a></li>
+        <li><a href="#import-path">Import path</a></li>
+        <li><a href="#location-on-disk">Location on disk</a></li>
+      </ul>
+    </li>
+    <li><a href="#builtin-packages">Builtin Packages</a></li>
+    <li><a href="#file-organization">File Organization</a>
+      <ul>
+        <li><a href="#instances">Instances</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+  
+
+            <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	<ol class="breadcrumb spb-1">
+		
+
+
+
+
+
+
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://cuelang.org/docs/">Documentation</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://cuelang.org/docs/concepts/">Concepts</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item active" aria-current="page">
+	<a href="https://cuelang.org/docs/concepts/packages/">Modules, Packages, and Instances</a>
+</li>
+
+	</ol>
+</nav	>
+
+            
+<div class="td-content">
+	<h1>Modules, Packages, and Instances</h1>
+	<div class="lead">How files are organized in CUE</div>
+	<h2 id="overview">Overview</h2>
+<p>CUE heavily relies on its order independence for package organization.
+Definitions and constraints can be split across files within a package,
+and even organized across directories.</p>
+<p>Another key aspect of CUE&rsquo;s package management is reproduceability.
+A module, the largest unit of organization, has a fixed location
+of all files and dependencies.
+There are no paths to configure.
+With configuration, reproducibility is key.</p>
+<p>Within a module, CUE organizes files grouped by package.
+A package can be defined within the module or externally.
+In the latter case, CUE maintains a copy of the package within the module
+in a dedicated location.</p>
+
+
+<div class="alert alert-info" role="alert">
+<h4 class="alert-heading">For those familiar with Go packages</h4>
+<p>CUE&rsquo;s definitions of packages and modules are modeled after Go&rsquo;s.
+Here is how they differ:</p>
+<ul>
+<li>
+<p>The package clause is optional: such files do not belong to a package
+and cannot be imported.</p>
+</li>
+<li>
+<p>A package is identified by its import path <em>and</em> its package name,
+separated by a <code>:</code>.
+If its name is equal to the base of this path it may be omitted.</p>
+</li>
+<li>
+<p>There can be more than one package per directory.</p>
+</li>
+<li>
+<p>All files within a module with the same package name belong to the same package;
+an <em>instance</em> of such a package for a given directory contains all its files
+from that directory up till the module root.</p>
+</li>
+</ul>
+
+</div>
+
+<h2 id="modules">Modules</h2>
+<p>A module contains a configuration layed out in a directory hierarchy.
+It contains the everything that is needed to deterministically
+determine the outcome of a CUE configuration.
+The root of this directory is marked by containing a <code>cue.mod</code>
+directory.
+The contents of this directory are mostly managed by the <code>cue</code> tool.
+In that sense, <code>cue.mod</code> is analogous to the <code>.git</code> directory marking
+the root directory of a repo, but where its contents are mostly
+managed by the <code>git</code> tool.</p>
+<!--
+TODO: should this be the case?:
+
+A module root is identified by a `cue.mod` directory and spans all
+subdirectories that do not itself contain a `cue.mod` directory.
+
+For going up, maybe, but for enforcing constraint top-down
+it would be good if users could not disable the root by adding a cue.mod.
+-->
+<p>The use of a module is optional, but required if one wants to import files.</p>
+<!-- TODO: is this necessary to understand modules?
+All `.cue` files within the span of a module that have a package clause
+are considered to be part of this module.
+-->
+<h3 id="creating-a-module">Creating a module</h3>
+<p>A module can be created by running the following command
+within the module root:</p>
+<pre><code>cue mod init [module name]
+</code></pre>
+<p>The module name is required if a packages within a module should be able
+to import another package within the module.</p>
+<p>A module can also be created by setting up the <code>cue.mod</code> directory
+and <code>module.cue</code> file manually.</p>
+<h3 id="the-cuemod-directory">The cue.mod directory</h3>
+<p>The module directory has the following contents:</p>
+<pre><code>cue.mod
+|-- module.cue  // The module file
+|-- pkg         // copies of external packages
+|-- gen         // files generated from external sources
+|-- usr         // user-defined constraints
+</code></pre><p>Aside from an occasional addition to the <code>usr</code> subdirectory or tweak
+to <code>module.cue</code>, this directory is
+predominantly managed by the <code>cue</code> tool.</p>
+<p>The <code>module.cue</code> file defines settings such as
+globally unique <em>module identifier</em> (more on this in the
+<a href="#ImportPath">Import Path</a> section).
+This information allows packages defined within the module to be importable
+within the module itself.
+In the future, it may hold version information of imported packages to determine
+the precise origin of imported files.</p>
+<p>The other directories hold packages that are facsimiles, derivatives, or
+augmentations of external packages:</p>
+<ul>
+<li><em>pkg</em>: an imported external CUE package,</li>
+<li><em>gen</em>: CUE generated from external definitions, such as protobuf or Go,</li>
+<li><em>usr</em>: user-defined constraints for the above two directories.</li>
+</ul>
+<p>These directories split files from the same package across different
+parallel hierarchies based on the origin of the content.
+But for all intent and purposes they should be seen as a single directory
+hierarchy.</p>
+<p>The <code>cue.mod/usr</code> directory is a bit special here.
+The <code>cue.mod/pkg</code> and <code>cue.mod/gen</code> directories are populated by the <code>cue</code> tool.
+The <code>cue.mod/usr</code> directory, on the other hand, holds user-defined
+constraints for the packages defined in the other directories.</p>
+<p>User-defined constraints can be used to fill gaps in generated constraints;
+as generation is not always a sure thing.
+They can also be used to enforce constraints on imported packages, for instance
+to enforce that a certain API feature is still provided or of the desired form.
+The <code>usr</code> directory allows for a cleaner organization compared to storing
+such user-defined constraints directly in the <code>cue</code>-managed directories.</p>
+<h2 id="packages">Packages</h2>
+<h3 id="files-belonging-to-a-package">Files belonging to a package</h3>
+<p>CUE files may define a package name at the top of their file.
+CUE uses this to determine which files belong together.
+If the <code>cue</code> tool is told to load the files for a specific directory,
+for instance:</p>
+<pre><code>cue eval ./mypkg
+</code></pre>
+<p>it will only look files with such a clause and ignore files without it.</p>
+<p>If the package name within the directory is not unique, <code>cue</code> needs to
+know the name of the package as well</p>
+<pre><code>cue eval -p pkgname ./mypkg
+</code></pre>
+<p>If no module is defined, it will just load the files in this directory.
+If a module is defined, it will <em>also</em> load all files with the same
+package name in its ancestor directories up till the module root.
+As we will see below,
+this strategy allows for defining organization-wide schemas and policies.</p>
+<h3 id="import-path">Import path</h3>
+<p>Each package is identified by a globally unique name, called its <em>import path</em>.
+The import path consists of a unique location identifier
+followed by a colon (<code>:</code>) and its package name.</p>
+<pre><code>k8s.io/api/core/v1:v1
+</code></pre>
+<p>If the basename of the path and the package name are the same, the latter
+can be omitted.</p>
+<pre><code>k8s.io/api/core/v1
+</code></pre>
+<p>The unique location identifier consists of a domain name followed by a path.</p>
+<p>Modules themselves also have a unique location identifier.
+A package inside a module can import another package from this same module
+by using the following import path:</p>
+<pre><code>&lt;module identifier&gt;/&lt;relative position of package within module&gt;:&lt;package name&gt;
+</code></pre>
+<p>So suppose our module is identified as <code>example.com/pkg</code> and a package
+located at <code>schemas/trains</code> and has the package name <code>track</code>,
+then other packages can import this packages as:</p>
+<pre><code>import &quot;example.com/pkg/schemas/trains:track&quot;
+</code></pre>
+<p>Putting it all together:</p>
+<pre><code>root                    // must contain:
+|-- cue.mod
+|   |-- module.cue      // module: &quot;example.com/pkg&quot;
+|-- schemas
+|   |-- trains
+|   |   |-- track.cue   // package track
+...
+|-- data.cue            // import &quot;example.com/pkg/schemas/trains:track&quot;
+</code></pre><p>The relative position may not be within the <code>cue.mod</code> directory.</p>
+<!-- TODO: about how to resolve these names into concrete locations. -->
+<h3 id="location-on-disk">Location on disk</h3>
+<p>A <code>.cue</code> file can import a package by specifying its import path
+with the import statement. For instance,</p>
+<pre><code>import (
+    &quot;list&quot;
+
+    &quot;example.com/path/to/package&quot;
+)
+</code></pre>
+<p>Packages for which the first path component is not a fully qualified
+domain name are builtin packages and are not stored on disk.
+For other packages, CUE determines the location on disk as follows:</p>
+<ol>
+<li>If a module identifier is defined and is a prefix of the import path,
+the package is located at the corresponding location relative to the
+module root.</li>
+<li>Otherwise, the package contents looked up in
+the <code>cue.mod/pkg</code>, <code>cue.mod/gen</code>, and <code>cue.mod/usr</code> subdirectores.</li>
+</ol>
+<p>In Step 2, an import path may match more than one directory.
+In that case, the contents of <em>all</em> matched directories are used to build the
+package.
+Virtually, these directories should be seen as a single directory tree.</p>
+<h2 id="builtin-packages">Builtin Packages</h2>
+<p>CUE has a collection of builtin packages that are compiled into the <code>.cue</code>
+binary.</p>
+<p>A list of these packages form
+can be found here <a href="https://godoc.org/cuelang.org/go/pkg">https://godoc.org/cuelang.org/go/pkg</a>.
+The intention is to have this documentation in CUE format, but for now
+we are piggybacking on the Go infrastructure to host and present the CUE
+packages.</p>
+<p>To use a builtin package, import its path relative to <code>cuelang.org/go/pkg</code>
+and invoke the functions using its qualified identifier.
+For instance,</p>
+<pre><code>import &quot;regexp&quot;
+
+matches: regexp.FindSubmatch(#&quot;^([^:]*):(\d+)$&quot;#, &quot;localhost:443&quot;)
+</code></pre><p>results in</p>
+<pre><code>matches: [&quot;localhost:443&quot;, &quot;localhost&quot;, &quot;443&quot;]
+</code></pre><h2 id="file-organization">File Organization</h2>
+<h3 id="instances">Instances</h3>
+<p>Within a module, all <code>.cue</code> files with the same package name are part
+of the same package.
+A package is evaluated within the context of a certain directory.
+Within this context, only the files belonging to that package in that
+directory and its ancestor directories within the module are combined.
+We call that an <em>instance</em> of a package.</p>
+<p>Using this approach, the different kind of directories within a module
+can be ascribed the following roles:</p>
+<ul>
+<li><em>module root</em>: schema</li>
+<li><em>medial directories</em>: policy</li>
+<li><em>leaf directories</em>: data</li>
+</ul>
+<p>The top of the hierarchy (the module root) defines constraints that apply
+across the organization.
+Leaf directories typically define concrete instances, inheriting all the
+constraints of ancestor directories.
+Directories between the leaf and top directory define constraints,
+like policies, that only apply to its subdirectories.</p>
+<p>Because order of evaluation does not matter in CUE, leaf packages do not
+explicitly have to specify which parts of their parents they want to inherit
+from.
+Instead, parent directories can be seen to &ldquo;push out&rdquo;
+constraints to their subdirectories.
+In other words, parent directories define policies to which subdirectories
+must comply.</p>
+<!-- TODO
+
+### Example
+
+Examples showing top-level schemas, policy and concrete files.
+
+--?
+
+<!-- TODO
+### Merged View
+
+-->
+
+        <div class="section-index">
+    
+    
+    
+    
+    <hr class="panel-line">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+</div>
+
+	
+	
+	<div class="text-muted mt-5 pt-3 border-top">Last modified November 2, 2019: <a  href="https://github.com/cuelang/cuelang.org/commit/e2d8aa4c934eed09f39f9ce7caadb9f943baa371">concepts/packages: add initial writeup (#45) (e2d8aa4)</a>
+</div>
+</div>
+
+          </main>
+        </div>
+      </div>
+      
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code' ],
+    ignoreClass: "mermaid",
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+
+<link href="https://cuelang.org/mermaid/mermaid.css" rel="stylesheet" />
+<script src="https://cuelang.org/mermaid/mermaid.js"></script>
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        flowchart: {
+            curve: 'basis'
+        }
+    });
+</script>
+
+
+    </div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+<script src="/js/main.min.2187fca64cce5b93625c3b6ebbc286d5a6026eaa944cef7319ed98d12dd39c91.js" integrity="sha256-IYf8pkzOW5NiXDtuu8KG1aYCbqqUTO9zGe2Y0S3TnJE=" crossorigin="anonymous"></script>
+
+<script src=https://cuelang.org/js/asciinema-player.js></script>
+
+  </body>
+</html>

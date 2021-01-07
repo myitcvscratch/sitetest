@@ -1,0 +1,780 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.67.0" />
+
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>Configuration | CUE</title><meta property="og:title" content="Configuration" />
+<meta property="og:description" content="Managing text-based files to define a desired state of a system." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://cuelang.org/docs/usecases/configuration/" />
+<meta property="article:modified_time" content="2020-06-14T14:23:39+02:00" /><meta property="og:site_name" content="CUE" />
+<meta itemprop="name" content="Configuration">
+<meta itemprop="description" content="Managing text-based files to define a desired state of a system.">
+<meta itemprop="dateModified" content="2020-06-14T14:23:39&#43;02:00" />
+<meta itemprop="wordCount" content="1584">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Configuration"/>
+<meta name="twitter:description" content="Managing text-based files to define a desired state of a system."/>
+
+
+
+
+
+<link rel="preload" href="/scss/main.min.f56d687752891909019b7a425ae3aefe3e6508a54e92b7a1dc91a12c9a948211.css" as="style">
+<link href="/scss/main.min.f56d687752891909019b7a425ae3aefe3e6508a54e92b7a1dc91a12c9a948211.css" rel="stylesheet" integrity="">
+
+
+<link rel="stylesheet" type="text/css" href=https://cuelang.org/css/asciinema-player.css />
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+    <title>Configuration | CUE</title>
+  </head>
+  <body class="td-page">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/">
+		<span class="navbar-logo"></span><span class="text-uppercase font-weight-bold">CUE</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/" ><span>Documentation</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/community/" ><span>Community</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				<a class="nav-link" href="https://github.com/cuelang/cue" target="_blank" ><span>GitHub</span></a>
+			</li>
+			
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+
+
+
+
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  
+  <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+    
+    
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Documentation</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="docs">
+      
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/about/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">About</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsabout">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/install/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Getting Started</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsinstall">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/usecases/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Use Cases</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="docsusecases">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-docsusecasesconfiguration" href="/docs/usecases/configuration/">Configuration</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesvalidation" href="/docs/usecases/validation/">Data Validation</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesdatadef" href="/docs/usecases/datadef/">Schema Definition</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesgenerate" href="/docs/usecases/generate/">Code Generation and Extraction</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesquery" href="/docs/usecases/query/">Querying</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesscripting" href="/docs/usecases/scripting/">Scripting</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/integrations/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Integrations</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsintegrations">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsjson" href="/docs/integrations/json/">JSON</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsyaml" href="/docs/integrations/yaml/">YAML</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsgo" href="/docs/integrations/go/">Go</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsprotobuf" href="/docs/integrations/protobuf/">Protobuf</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsopenapi" href="/docs/integrations/openapi/">OpenAPI and CRDs</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsk8s" href="/docs/integrations/k8s/">Kubernetes</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/concepts/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Concepts</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsconcepts">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconceptslogic" href="/docs/concepts/logic/">The Logic of CUE</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/concepts/packages/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Modules, Packages, and Instances</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsconceptspackages">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/tutorials/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Tutorials</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docstutorials">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docstutorialskubernetes" href="/docs/tutorials/kubernetes/"></a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/references/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">References</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsreferences">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsreferencesspec" href="/docs/references/spec/">Language Specification</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+  </nav>
+</div>
+
+
+
+
+          </div>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+            
+
+
+
+
+
+
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+
+
+
+
+
+<a href="https://github.com/cuelang/cuelang.org/edit/master/content/en/docs/usecases/configuration.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+<a href="https://github.com/cuelang/cuelang.org/issues/new?title=Configuration" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+
+
+<a href="https://github.com/cuelang/cue/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
+
+</div>
+
+
+
+
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#core-issues-addressed-by-cue">Core issues addressed by CUE</a>
+      <ul>
+        <li><a href="#type-checking">Type checking</a></li>
+        <li><a href="#simplicity-at-scale">Simplicity at Scale</a></li>
+        <li><a href="#abstractions-versus-direct-access">Abstractions versus Direct Access</a></li>
+        <li><a href="#tooling">Tooling</a></li>
+      </ul>
+    </li>
+    <li><a href="#comparisons">Comparisons</a>
+      <ul>
+        <li><a href="#inheritance-based-configuration-languages">Inheritance-based configuration languages</a></li>
+        <li><a href="#jsonnet-gcl">Jsonnet/ GCL</a></li>
+        <li><a href="#hcl">HCL</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+  
+
+            <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	<ol class="breadcrumb spb-1">
+		
+
+
+
+
+
+
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://cuelang.org/docs/">Documentation</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://cuelang.org/docs/usecases/">Use Cases</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item active" aria-current="page">
+	<a href="https://cuelang.org/docs/usecases/configuration/">Configuration</a>
+</li>
+
+	</ol>
+</nav	>
+
+            
+<div class="td-content">
+	<h1>Configuration</h1>
+	<div class="lead">Managing text-based files to define a desired state of a system.</div>
+	<p>Arguably, validation should be the foremost task of any configuration language.
+Most configuration languages, however, focus on boilerplate removal.
+CUE is different in that it takes the validation first stance.
+But CUE&rsquo;s constraints are also effective at reducing boilerplate,
+although the approach it takes is quite different from conventional
+data templating languages.</p>
+<p>CUE basic operation merges configurations in a way that the outcome is
+always the same regardless of the order in which it is carried out
+(it is associative, commutative and idempotent).
+This property enables many of the its favorable properties, as discussed below.</p>
+<h2 id="core-issues-addressed-by-cue">Core issues addressed by CUE</h2>
+<h3 id="type-checking">Type checking</h3>
+<p>For large code bases, no one will question a requirement to
+have a compiled/typed language.
+Why should one not require the same kind of rigor for data?</p>
+<p>Many configuration languages, including GCL and its offspring, focus on
+reducing boilerplate as the primary task of configuration.
+Support for typing, however, is minimal or almost non-existent.</p>
+<p>Some languages do add typing support, but it is usually
+limited to validating basic types, as is common with programming languages.
+For data, however, this is insufficient.
+Evidence of this is the uprise of standards like CDDL and OpenAPI that
+go beyond basic typing.</p>
+<p>In CUE types and values are a unified concept, which gives it very
+expressive, yet intuitive and compact, typing capabilities.</p>
+<pre><code>#Spec: {
+  kind: string
+
+  name: {
+    first:   !=&quot;&quot;  // must be specified and non-empty
+    middle?: !=&quot;&quot;  // optional, but must be non-empty when specified
+    last:    !=&quot;&quot;
+  }
+
+  // The minimum must be strictly smaller than the maximum and vice versa.
+  minimum?: int &amp; &lt;maximum
+  maximum?: int &amp; &gt;minimum
+}
+
+// A spec is of type #Spec
+spec: #Spec
+spec: {
+  knid: &quot;Homo Sapiens&quot; // error, misspelled field
+
+  name: first: &quot;Jane&quot;
+  name: last:  &quot;Doe&quot;
+}
+</code></pre><h3 id="simplicity-at-scale">Simplicity at Scale</h3>
+<p>When using a configuration language to reduce boilerplate
+one should consider whether the reduced verbosity is worth the
+increased complexity.
+Most configurations use an override model to reducing boilerplate:
+an existing configuration is used as a base and modified to result in
+a new configuration.
+This is often in the form of inheritance.</p>
+<p>For small-scale projects,
+using inheritance can be too complex, and the simplicity of
+spelling everything out is often a superior approach.
+For large-scale projects, however, using inheritance often leads to deep
+layerings of modifications, making it very hard to see where values come from.
+In the end, it is again questionable whether the added complexity is worth it.</p>
+<p>Like with other configuration languages, CUE can add complexity if values
+are organized to come from multiple places.
+However, as CUE disallows overrides, deep layerings are naturally prevented.
+More importantly, CUE can also enhance readability.
+A definition in one file may apply to values in many other files.
+Where one would usually have to open all these files to verify validity;
+with CUE one can see it at a glance.</p>
+<p>CUE&rsquo;s approach has been battle-tested in computational linguistics where it
+has been used for decades to describe human languages;
+effectively very large, complex and irregular configurations.</p>
+<h3 id="abstractions-versus-direct-access">Abstractions versus Direct Access</h3>
+<p>A common debate for configuration languages is whether a language should
+provide an abstraction layer for APIs.
+On the one hand, abstraction layers allow for protecting the user against misuse.
+On the other hand, they need to keep up with API changes and are
+inevitably prone to drift.
+So it goes.</p>
+<p>CUE addresses both issues.
+On the one hand, its fine-grained typing allows layering detailed constraints
+on top of native APIs, without the need for an abstraction layer.
+New features can be used without support of existing definitions.</p>
+<p>On the other hand, CUE&rsquo;s order independence allows abstraction layers
+to inject arbitrary raw API in a controlled manner,
+allowing a general escape hatch to support new or uncovered features.
+See the Manual section of the
+<a href="/docs/tutorials/kubernetes">Kubernetes tutorial</a>
+for an example.</p>
+<h3 id="tooling">Tooling</h3>
+<p>A configuration language usually transforms its configurations to
+a lower-level representation, like JSON, YAML, or Protobuf so that
+it can be consumed by tools taking in these languages.
+Piping such output to the needed tools works initially;
+but sooner or later one will get the desire to automate this,
+usually in the form of some kind of tool.</p>
+<p>And so it goes.
+The rise of systems requiring advanced configuration has been paired
+with a rise of even more specialized command line tools.
+The core structure of all these tools is more or less the same.
+More annoyingly, many have overlapping functionality yet are hardly extendable
+or interoperable.
+In the latter case, one may see the need to layer on yet another set of tools.</p>
+<p>Having tools like <code>kubectl</code> or <code>etcdctl</code> that directly control
+core infrastructure makes sense, but at higher levels of
+abstraction one needs a more open approach.</p>
+<p>CUE attempts to address this by providing an open,
+declarative scripting layer on top of the configuration layer.
+Aside from the above-mentioned case, it is designed to address various
+other issues:</p>
+<ul>
+<li>inject environmental data into configuration, something not allowed
+in CUE itself (it is pure, or hermetic, or side-effect free)</li>
+<li>inject computed data into configurations as part of a pipeline</li>
+<li>allow composability of tool integration</li>
+</ul>
+<p>Again, the ability to deterministically merge data from different sources
+make this a shoo-in task for CUE.</p>
+<h2 id="comparisons">Comparisons</h2>
+<h3 id="inheritance-based-configuration-languages">Inheritance-based configuration languages</h3>
+<p>Inheritance, is
+not commutative and idempotent in the general case. In other words, order
+matters.
+This makes it hard to track where values are coming from.
+This is not only true for humans, but also machines.
+It makes it very complicated, if not impossible, to do any kind of
+automation.
+The complexity of inheritance is even bigger if values
+can enter an object from one of several directions (super, overlay, etc.).</p>
+<p>The basic operation of CUE is commutative, associative and idempotent.
+This order independence helps both
+humans and machines. The resulting model is much less complex.</p>
+
+
+<div class="alert alert-info" role="alert">
+<h4 class="alert-heading">Inheritance in CUE</h4>
+<p>Although CUE does not have inheritance in the override sense, it does have
+the notion of one value being an instance of another.
+In fact, this is a core principle.</p>
+<p>Let&rsquo;s use a real-world example to make this distinction clear:
+In the override model of inheritance, one can take an existing template,
+say a dog, and modify it to become a cat.
+Trim the ears, dry of the nose, and what have you.</p>
+<p>In CUE, it is a matter of classification.
+Cats and dogs are both instances of animals, but once an entity is defined
+to be a cat, it can never become a dog.
+To most humans (aka computer scientists that have not become accustomed
+to inheritance) this makes total sense.</p>
+
+</div>
+
+<p>Although one can create instances of values (remember, types are values),
+one can not alter any of the values of a parent.
+A template acts as a type.
+Just as in statically typed languages where one cannot assign an integer to
+a string, one cannot violate the properties of a type in CUE.</p>
+<p>These restrictions reduce flexibility, but also enhance clarity.
+To ensure that a configuration holds a certain property, just declare it
+in any file included the project to make it so.
+There is no need to look at other files.
+As we saw; the imposed restrictions can also improve, rather than hurt,
+the ability to remove boilerplate compared to inheritance-based languages.</p>
+<p>The complexity of inheritance-based models also hampers automation.
+The introduction of GCL was paired with the promise of advanced tooling.
+The mantra of declarative languages was even repeated with some of
+its offspring.
+The tooling never materialized, though, as the model made it intractable.</p>
+<p>CUE already provides power tools like trim, and its API provides
+unify and subsumption operations for incomplete configurations, the building
+blocks for powerful analysis.</p>
+<!-- TODO:
+### Imperative Configuration Languages
+-->
+<h3 id="jsonnet-gcl">Jsonnet/ GCL</h3>
+<p>Like Jsonnet, CUE is a superset of JSON.
+They also are both influenced by GCL.
+CUE, in turn is influenced by Jsonnet.
+This may give the semblance that the languages are very similar.
+At the core, though, they are very different.</p>
+<p>CUE&rsquo;s focus is data validation whereas Jsonnet focusses on data templating
+(boilerplate removal).
+Jsonnet was not designed with validation in mind.</p>
+<p>Jsonnet and GCL can be quite powerful at reducing boilerplate.
+The goal of CUE is not to be better at boilerplate removal than Jsonnet or GCL.
+CUE was designed to be an answer to two major shortcomings of these approaches:
+complexity and lack of typing.
+Jsonnet reduces some of the complexities of GCL, but largely falls into the
+same category.
+For CUE, the tradeoff was to add typing and reduce complexity
+(for humans and machines), at the expense of giving up flexibility.</p>
+<h3 id="hcl">HCL</h3>
+<p>HCL has some striking similarities with GCL.
+But whether this was a coincidence or deliberate, it removes the core
+source of complexity of GCL: inheritance.</p>
+<p>It does introduce a poor man&rsquo;s version of inheritance: file overlays.
+Fields may be defined in multiple files that get overwritten in a certain
+order of the file names.
+Although not nearly as complex as GCL, it does have some of the same issues.</p>
+<p>Also, whether the removal of inheritance was a coincidence or great insight,
+there is no construct given in return that one might need for larger scale
+configuration management.
+This means the use of HCL may hit a ceiling for medium to larger setups.</p>
+<p>So what CUE has to offer to users of HCL is: typing, better growth prospects
+to larger scale operations, and eliminating the peculiarities of file overlays.</p>
+<p>CUE does borrow one construct from HCL: the folding of single-field objects
+onto a single line was directly inspired by HCL&rsquo;s very similar approach.</p>
+<!--
+Possible other comparisons:
+ - Kustomize
+ - Python offshoots: Picolo, Coil, etc.
+ - Skylark as a special case.
+ - Nix
+ - using plain YAML/JSON
+-->
+
+	
+	
+	<div class="text-muted mt-5 pt-3 border-top">Last modified June 14, 2020: <a  href="https://github.com/cuelang/cuelang.org/commit/c2239aeacd6f9c831bb4f70b47b14e519e9dcedf">Remove use of double colon (c2239ae)</a>
+</div>
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code' ],
+    ignoreClass: "mermaid",
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+
+<link href="https://cuelang.org/mermaid/mermaid.css" rel="stylesheet" />
+<script src="https://cuelang.org/mermaid/mermaid.js"></script>
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        flowchart: {
+            curve: 'basis'
+        }
+    });
+</script>
+
+
+    </div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+<script src="/js/main.min.2187fca64cce5b93625c3b6ebbc286d5a6026eaa944cef7319ed98d12dd39c91.js" integrity="sha256-IYf8pkzOW5NiXDtuu8KG1aYCbqqUTO9zGe2Y0S3TnJE=" crossorigin="anonymous"></script>
+
+<script src=https://cuelang.org/js/asciinema-player.js></script>
+
+  </body>
+</html>

@@ -1,0 +1,1317 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.67.0" />
+
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>The Logic of CUE | CUE</title><meta property="og:title" content="The Logic of CUE" />
+<meta property="og:description" content="Learn about CUE&#39;s theoretical basis and what makes it different." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://cuelang.org/docs/concepts/logic/" />
+<meta property="article:modified_time" content="2021-01-04T09:16:46-06:00" /><meta property="og:site_name" content="CUE" />
+<meta itemprop="name" content="The Logic of CUE">
+<meta itemprop="description" content="Learn about CUE&#39;s theoretical basis and what makes it different.">
+<meta itemprop="dateModified" content="2021-01-04T09:16:46-06:00" />
+<meta itemprop="wordCount" content="3844">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="The Logic of CUE"/>
+<meta name="twitter:description" content="Learn about CUE&#39;s theoretical basis and what makes it different."/>
+
+
+
+
+
+<link rel="preload" href="/scss/main.min.f56d687752891909019b7a425ae3aefe3e6508a54e92b7a1dc91a12c9a948211.css" as="style">
+<link href="/scss/main.min.f56d687752891909019b7a425ae3aefe3e6508a54e92b7a1dc91a12c9a948211.css" rel="stylesheet" integrity="">
+
+
+<link rel="stylesheet" type="text/css" href=https://cuelang.org/css/asciinema-player.css />
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+    <title>The Logic of CUE | CUE</title>
+  </head>
+  <body class="td-page">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/">
+		<span class="navbar-logo"></span><span class="text-uppercase font-weight-bold">CUE</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/" ><span>Documentation</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/community/" ><span>Community</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				<a class="nav-link" href="https://github.com/cuelang/cue" target="_blank" ><span>GitHub</span></a>
+			</li>
+			
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+
+
+
+
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  
+  <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+    
+    
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Documentation</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="docs">
+      
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/about/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">About</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsabout">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/install/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Getting Started</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsinstall">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/usecases/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Use Cases</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsusecases">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesconfiguration" href="/docs/usecases/configuration/">Configuration</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesvalidation" href="/docs/usecases/validation/">Data Validation</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesdatadef" href="/docs/usecases/datadef/">Schema Definition</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesgenerate" href="/docs/usecases/generate/">Code Generation and Extraction</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesquery" href="/docs/usecases/query/">Querying</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesscripting" href="/docs/usecases/scripting/">Scripting</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/integrations/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Integrations</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsintegrations">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsjson" href="/docs/integrations/json/">JSON</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsyaml" href="/docs/integrations/yaml/">YAML</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsgo" href="/docs/integrations/go/">Go</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsprotobuf" href="/docs/integrations/protobuf/">Protobuf</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsopenapi" href="/docs/integrations/openapi/">OpenAPI and CRDs</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsk8s" href="/docs/integrations/k8s/">Kubernetes</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/concepts/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Concepts</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="docsconcepts">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-docsconceptslogic" href="/docs/concepts/logic/">The Logic of CUE</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/concepts/packages/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Modules, Packages, and Instances</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsconceptspackages">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/tutorials/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Tutorials</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docstutorials">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docstutorialskubernetes" href="/docs/tutorials/kubernetes/"></a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/references/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">References</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsreferences">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsreferencesspec" href="/docs/references/spec/">Language Specification</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+  </nav>
+</div>
+
+
+
+
+          </div>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+            
+
+
+
+
+
+
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+
+
+
+
+
+<a href="https://github.com/cuelang/cuelang.org/edit/master/content/en/docs/concepts/logic.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+<a href="https://github.com/cuelang/cuelang.org/issues/new?title=The%20Logic%20of%20CUE" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+
+
+<a href="https://github.com/cuelang/cue/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
+
+</div>
+
+
+
+
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#types-are-values">Types are values</a></li>
+    <li><a href="#the-value-lattice">The Value Lattice</a>
+      <ul>
+        <li><a href="#what-is-a-lattice">What is a lattice?</a></li>
+        <li><a href="#cues-hierarchy">CUE&rsquo;s hierarchy</a>
+          <ul>
+            <li><a href="#booleans">Booleans</a></li>
+            <li><a href="#numbers">Numbers</a></li>
+            <li><a href="#cue-types">CUE types</a></li>
+            <li><a href="#structs">Structs</a></li>
+            <li><a href="#null">Null</a></li>
+          </ul>
+        </li>
+        <li><a href="#default-values">Default values</a>
+          <ul>
+            <li><a href="#relation-to-inheritance">Relation to inheritance</a></li>
+            <li><a href="#semantics">Semantics</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#reasoning-and-inference">Reasoning and Inference</a>
+      <ul>
+        <li><a href="#boilerplate-removal">Boilerplate removal</a></li>
+        <li><a href="#cycles">Cycles</a></li>
+        <li><a href="#file-organization">File organization</a></li>
+        <li><a href="#the-sky-is-the-limit">The sky is the limit</a></li>
+      </ul>
+    </li>
+    <li><a href="#references">References</a></li>
+    <li><a href="#footnotes">Footnotes</a></li>
+  </ul>
+</nav>
+
+
+
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+  
+
+            <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	<ol class="breadcrumb spb-1">
+		
+
+
+
+
+
+
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://cuelang.org/docs/">Documentation</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://cuelang.org/docs/concepts/">Concepts</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item active" aria-current="page">
+	<a href="https://cuelang.org/docs/concepts/logic/">The Logic of CUE</a>
+</li>
+
+	</ol>
+</nav	>
+
+            
+<div class="td-content">
+	<h1>The Logic of CUE</h1>
+	<div class="lead">Learn about CUE&rsquo;s theoretical basis and what makes it different.</div>
+	<p>This page explains the core concept on which pretty much everything that is CUE
+depends.
+It helps to get a top-down understanding and frame of reference,
+but is not necessary to learn the language.</p>
+<!--
+## Types ~~and~~ are values
+-->
+<h2 id="types-are-values">Types are values</h2>
+<p>There are two core aspects of CUE that make it different from
+the usual programming or configuration languages:</p>
+<ul>
+<li>Types <em>are</em> values</li>
+<li>Values (and thus types) are ordered into a lattice</li>
+</ul>
+<p>These properties are relevant almost to everything that makes CUE what it is.
+They simplify the language, as many concepts that are distinct in other
+languages fold together.
+The resulting order independence
+simplifies reasoning about values for both humans and machines.</p>
+<p>It also forces formal rigor on the language, such as defining
+exactly what it means to be optional, a default value, or null.
+Making sure all values fit in a value lattice leaves no wiggle room.</p>
+<p>Finally, the combination of all this allows for many unique features,
+for instance:</p>
+<ul>
+<li>a single language for specifying data, schema, validation
+and policy constraints,</li>
+<li>meta reasoning, such as  determining whether
+a new schema version is backwards compatible,</li>
+<li>automated rewriting, such as is done by <code>cue trim</code>,</li>
+<li>creating multi-source constraint pipelines, retaining documentation
+across normalization,</li>
+</ul>
+<p>and so on.</p>
+<h2 id="the-value-lattice">The Value Lattice</h2>
+<p>Every value in CUE, including what would in most programming languages
+be considered types, is partially ordered in a single hierarchy
+(a lattice, to be precise).
+Even entire configurations and schemas are placed in this hierarchy.</p>
+<h3 id="what-is-a-lattice">What is a lattice?</h3>
+
+
+<div class="alert alert-primary" role="alert">
+
+This section is useful to understand what a lattice is,
+but is not strictly needed to grasp the following sections,
+nor the specifics of CUE itself. Skip at will.
+</div>
+
+<p>A lattice is a partially ordered set, in which every two elements
+have a unique least upper bound (join) and greatest lower bound (meet).
+By definition this means there is always a single root (top) and a single
+leaf (bottom).
+Let&rsquo;s consider what this means by looking at an example.
+This diagrams below show a lattice of all values of respectively a
+2- and 3- element set, ordered by the subset relation.</p>
+
+
+
+<a id="td-block-1" class="td-offset-anchor"></a>
+<section class="row td-box td-box--white td-box--gradient td-box--height-auto">
+    <div class="col-lg-1">
+</div>
+<div class="col-lg-3">
+<div class="mermaid">
+graph TD
+    xy("{x, y}")
+    xy --> x("{x}")
+    xy --> y("{y}")
+    x --> B("{}")
+    y --> B
+</div>
+</div>
+<div class="col-lg-1">
+</div>
+<div class="col-lg-5">
+<div class="mermaid">
+graph TD
+    linkStyle default interpolate basis
+    xyz("{x, y, z}")
+    xyz --> xy("{x, y}")
+    xyz --> xz("{x, z}")
+    xyz --> yz("{y, z}")
+    xy --> x
+    xy --> y
+    xz --> x
+    xz --> z
+    yz --> y
+    yz --> z
+    x("{x}") --> B
+    y("{y}") --> B
+    z("{z}") --> B
+    B("{}")
+</div>
+Squint harder if you can't recognize the cube.
+</div>
+</section>
+
+<p>
+<p>
+If an element B is a subset of element A, there is a path from A to B.
+In more general terms, we then say that A _subsumes_ B, or that
+B is an _instance of_ A.
+In our examples, `{x}` is an instance of `{x, y}`,
+because we defined our lattice to use the subset relation.
+But we can use any relation we want as long as the properties of a lattice
+are upheld.
+<p>An important aspect of a lattice is that for every two elements,
+there is a <em>unique</em> instance of both elements that subsumes all other
+elements that are an instance of both elements.
+This is called the greatest lower bound, or meet.
+Now let&rsquo;s imagine we could define a lattice for, say,
+all configurations, schemas and data.
+In that case, we could always unambiguously merge two such configurations
+independently of order.
+This is exactly what CUE does!</p>
+<h3 id="cues-hierarchy">CUE&rsquo;s hierarchy</h3>
+<p>In this section we will introduce CUE&rsquo;s value hierarchy.
+The goal here is to get the big picture, and will only present the details
+when it helps for this purpose.</p>
+<h4 id="booleans">Booleans</h4>
+<p>Let&rsquo;s start simple, with booleans.</p>
+
+
+
+<div class="mermaid" align="center">
+graph TD
+    B(bool)
+    B --> T(true)
+    B --> F(false)
+    T --> E
+    F --> E
+    E("⊥ (bottom)")
+</div>
+<p>
+<p>This diagram shows that CUE interprets both <code>true</code> and <code>false</code> as
+an instance of <code>bool</code>.
+No surprises there.
+What is less ordinary is that, to CUE, <code>bool</code> is just as much a value
+as <code>true</code> and <code>false</code>.
+For instance, when we say that a value is both a <code>bool</code> and <code>true</code>,
+or in lattice terms,
+if we find the greatest lower bound of these values,
+the answer is <code>true</code>.
+Again maybe no suprise, except that in CUE this is actually
+an operation, denoted <code>bool &amp; true</code>.</p>
+<p>This also explains the odd fourth element in the graph labeled bottom.
+Bottom, in this example, is the result of computing <code>true &amp; false</code>.
+A value cannot be both true and false, so this an error.
+Bottom is analogous to an error in many other languages.
+Bottom is an instance of every value and type, in fact.
+More on errors later.</p>
+<p>One more detail:
+besides the meet operator (<code>&amp;</code>), CUE also has a join operator (<code>|</code>),
+which computes the least upper bound.
+The result of <code>true | false</code> is indeed <code>bool</code> in CUE.</p>
+<h4 id="numbers">Numbers</h4>
+<p>With numbers things get a bit more interesting.
+CUE has gone through various iterations of the number type system
+to find the mix of being practical and strict, while still being simple.
+CUE recognizes <code>number</code>, and the instances <code>int</code> and <code>float</code> as classes
+of numbers.
+For now it suffices to only consider <code>number</code> and <code>int</code>, the latter being
+an instance of the former.</p>
+<p>Let&rsquo;s consider a lattice with some example numeric values.
+We cannot show a complete lattice, of course, as the number of elements is
+infinite (it actually is, CUE has arbitrary precision arithmetic).</p>
+
+
+
+<div class="mermaid" align="center">
+graph TD
+    N(number)
+    N --> I("int")
+    N --> GEH(">=0.5")
+    N --> LTC("<10")
+    I --> Z("0")
+    I --> One("1")
+    IFI("1.1")
+    GEH --> One
+    GEH --> IFI
+    GEH --> CCF("20.0")
+    LTC --> One
+    LTC --> IFI
+    Z --> E
+    One --> E
+    IFI --> E
+    CCF --> E
+    E("⊥ (bottom)")
+</div>
+<p>
+<p>Here we see what is tradionally a type class (number and int)
+and some concrete instances, that is, specific numbers.
+They are ordered as expected: <code>0</code> and <code>1</code> are
+integral numbers, whereas <code>20.0</code> (by definition) and <code>1.1</code> are numbers,
+but not integers.
+But we also see &ldquo;constraints&rdquo;, a category of values that falls between
+the traditional concepts of value and type.</p>
+<p>CUE defines the constraints we see here in terms of its binary operators
+<code>&gt;=</code> and <code>&lt;</code>.
+It allows all binary operators that result in a boolean, except <code>==</code>,
+to be used as a constraint by leaving off the left value,
+where <code>op B</code> defines the set of all values <code>A</code> for which <code>A op B</code> is true.
+The constraint <code>&lt;10</code> means all numbers less than <code>10</code>.
+Note that we say all numbers, even though <code>10</code> is an integer.
+This is because CUE allows implicit conversion between
+number types in comparisons.</p>
+<!----
+
+
+
+<div class="mermaid" align="center">
+graph TD
+    N(number)
+    N -- > I("int")
+    N -- > GEZ(">=0")
+    N -- > LTC("<100")
+    I -- > One("1")
+    F -- > IFI("1.1")
+    N -- > F(float)
+    GEZ -- > One
+    GEZ -- > IFI
+    LTC -- > One
+    LTC -- > IFI
+    One -- > E
+    IFI -- > E
+    E("⊥ (bottom)")
+</div>
+<p>
+---->
+<h4 id="cue-types">CUE types</h4>
+<p>Let&rsquo;s look at all types CUE supports.</p>
+
+
+
+<div class="mermaid" align="center">
+graph TD
+    A("⊤ (top)")
+    A --> B(bool)
+    A --> U(null)
+    A --> D(bytes)
+    N --> I("int")
+    A --> N(number)
+    A --> T(struct)
+    A --> L(list)
+    A --> S(string)
+    D --> E
+    S --> E
+    B --> E
+    I --> E
+    U --> E
+    T --> E
+    L --> E
+    E("⊥ (bottom)")
+</div>
+<p>
+<p>There are actually values between top and the basic types.
+The <code>|</code> operator in CUE allows one to define &ldquo;sum types&rdquo; like <code>int | string</code>.
+The same operator can also be used to describe what are called &ldquo;enums&rdquo;
+in other languages, for instance, <code>1 | 2 | 3</code>.
+To CUE these two things—disjunctions of types and disjunctions of values—are the same thing.
+You can also mix types and values in a disjunction, as in <code>*1 | int</code>to define defaults (marked by <code>*</code>),
+and you can use expressions as well, like <code>*pet.species | &quot;cat&quot;</code>.
+The latter evaluates to the value of <code>pet.species</code>, or <code>&quot;cat&quot;</code> if
+<code>pet.species</code> is null; this is called null coalescing in some languages.</p>
+<p>These various uses of <code>|</code> are not the result of operator overloading: they are
+all the same operation in CUE.</p>
+<!--
+
+
+
+<div class="mermaid" align="center">
+graph TD
+    A("⊤ (top)")
+    A -- > B(bytes)
+    B -- > D(data)
+    B -- > U(string)
+    D -- > E
+    U -- > E
+    E("⊥ (bottom)")
+</div>
+<p>
+-->
+<h4 id="structs">Structs</h4>
+<p>Ordering of scalar types, like numbers and strings, is fairly straightforward
+and will feel familiar to anyone that has worked with a typed programming
+language.
+But ordering structs might seem a bit unusual.</p>
+<p>Below are two examples of an ordering defined on structs.</p>
+
+
+
+<a id="td-block-7" class="td-offset-anchor"></a>
+<section class="row td-box td-box--white td-box--gradient td-box--height-auto">
+    <div class="col-lg-1">
+</div>
+<div class="col-lg-4">
+<div class="mermaid" align="center">
+graph TD
+    M["<i>municipality</i><br/>name: string<br/>population: int"]
+    C["<i>big city</i><br/>name: string<br/>population: >1M"]
+    L["<i>London</i><br/>name: 'London'<br/>population: 8M"]
+    M --> C
+    C --> L
+    classDef node text-align:left
+</div>London is a big city, which is a municipality
+<p>
+</div>
+<div class="col-lg-4">
+<div class="mermaid" align="center">
+graph TD
+    T("⊤")
+    T --> ai["a: int"]
+    T --> bi["b: int"]
+    ai --> a1["a: 1"]
+    ai --> aibi
+    aibi["a: int<br/>b: int"]
+    bi --> aibi
+    a1b1["a: 1<br/>b: 1"]
+    aibi --> a1b1
+    a1b1 --> E
+    a1 --> E
+    a1 --> a1b1
+    bi --> b1["b: 1"]
+    b1 --> a1b1
+    b1 --> E
+    E("⊥")
+</div>
+<p>
+</div>
+
+</section>
+
+<p>Loosely speaking, a struct is an instance of another if it has at least
+all the fields defined by the parent and if its constraints on these fields
+are at least as strict as those defined by its parent.</p>
+<p>The instance relation for structs has an analogy in
+software engineering: backwards compatibility.
+For a newer version of an API to be backwards compatible with the previous
+version it must subsume it.
+In other words, the old version must be an instance of the new one.
+Or yet another way to say it: a new version may not forbid what was allowed
+in the older version.</p>
+<p>With optional fields it gets a bit more subtle, but basically,
+an instance may change an optional field to required, but not remove it.
+The backwards compatibility metaphor applies here as well.</p>
+
+
+
+<a id="td-block-8" class="td-offset-anchor"></a>
+<section class="row td-box td-box--white td-box--gradient td-box--height-auto">
+    <div class="col-lg-1">
+</div>
+<div class="col-lg-4">
+<div class="mermaid">
+graph TD
+    ao["a?: int"]
+    ao --> ar["a: int"]
+    ao --> aolt["a?: int & <10"]
+    aolt --> arlt["a: int & <10"]
+    ar --> arlt
+</div>
+<i>Required is more specific than optional</i>
+</div>
+<div class="col-lg-5">
+<div class="mermaid">
+graph TD
+    ao0["a?: 0"]
+    ao1["a?: 1"]
+    aob["a?: ⊥"]
+    ao0 --> aob
+    ao1 --> aob
+    ar0["a: 0"]
+    ar1["a: 1"]
+    aob --> E
+    ar0 --> E
+    ar1 --> E
+    E("⊥")
+</div>
+<i>Conflicting values for optional fields result in
+disallowing that field,
+conflicting required fields result in a faulty struct</i>
+</div>
+</section>
+
+<p>
+<p>
+An important thing to note is that, unlike for required fields,
+conflicting values for an optional fields do not cause a struct to be faulty.
+This definition was a result from fitting the notion of closed structs into
+the value lattice.
+<!-- (jba) First mention of closed; no one knows what it means. 
+Rest of paragraph is a bit obscure; explain in plain English instead.
+E.g. "If an optional field's value is inconsistent, we can just drop the field from the struct.
+If a required field's value is inconsistent, we can't drop the field, so the whole struct is bad."
+-->
+But it can also be explained with some logic.
+A common practice in interpretations of logic is to allow
+infering $\neg P$ from $P \rightarrow \perp$.
+If for an optional field we find the value $\perp$, we can infer
+"not that field", or, drop it.
+If we derive $\perp$ for a required field, we have a problem,
+as a required field cannot be omitted.
+
+
+<div class="alert alert-info" role="alert">
+<h4 class="alert-heading">The answer to life, the universe and everything.</h4>
+<p>CUE has its own equivalent of 42, the answer to life, the universe and
+everything, albeit more than 2 characters.
+Graph unification of typed feature structures,
+CUE&rsquo;s theoretical foundation, can be described at many levels of abstraction.
+CUE&rsquo;s language specification, and most literature,
+take a less abstract and more comprehensible approach,
+but in its most abstract form, it can loosely be defined as follows:</p>
+<div style="margin-left: 40px">
+Subsumption: given a set $\mathcal{F}$ of all TFSs (graphs, CUE values, basically),
+and $F$ and $F'$ in $\mathcal{F}$,
+$F$ subsumes $F'$, denoted $F \sqsubseteq F'$, if and only if:
+$$\begin{eqnarray}
+    & & \pi \equiv_\mathcal{F} \pi' \text{ implies } \pi \equiv_\mathcal{F'} \pi' \\
+    & & \mathcal{P}_\mathcal{F}(\pi) = t  \text{ implies }
+    \mathcal{P}_\mathcal{F'}(\pi) = t' \text{ and } t' \sqsubseteq t \\
+\end{eqnarray}$$
+where $\pi \equiv_\mathcal{F} \pi'$ means that
+$F\in\mathcal{F}$ contains a path equivalence or reentrancy between
+the paths $\pi$ and $\pi'$
+(two references starting from the root of a config end up at the same node)
+and $\mathcal{P}_\mathcal{F}(\pi) = t$ means the type
+at path $\pi$ is $t$ (itself a graph in $\mathcal{F}$).
+</div>
+<p>
+<div style="margin-left: 40px">
+Unification $F \sqcap F'$ of two TFSs $F$ and $F'$ is then the greatest lower
+bound of $F$ and $F'$ in $\mathcal{F}$ ordered by subsumption.
+</div>
+<p>
+<div>
+This highly abstract definition determines almost everything about CUE.
+For instance, lazy binding was not a design decision,
+but a direct consequence of following this definition.
+It determines the possible evaluation strategies and
+what cycles mean, if allowed.
+Optional fields, definitions and default values were added to the language
+by choice,
+but what they can mean strictly follows from this definition.
+</div>
+
+</div>
+
+<h4 id="null">Null</h4>
+<p>We conveniently left out the discussion of <code>null</code> before.
+Not only does it make an uninspiring example to describe a lattice,
+it is also actually surprisingly complicated to pin down what it means.
+This is partly due to lack of guidance from the JSON</p>
+<!-- (jba) First mention of JSON. What does JSON have to do with CUE? Are we talking about
+JSON's null here? Why? -->
+<p>standard regarding its
+meaning and the different interpretations it gets in practice.</p>
+<p>Typescript creates some order in the chaos by introducing the concepts
+<code>undefined</code> and <code>void</code> in addition to <code>null</code>.
+It is a necessary evil to give <code>null</code> some meaning
+that is compatible with common practices,
+within the context of its type system.</p>
+<p>CUE got lucky.
+CUE&rsquo;s interpretation of <code>null</code>, optionality, and related concepts
+is actually inspired by TypeScript.
+But because types are values in CUE, TypeScript&rsquo;s concepts of
+<code>undefined</code>, <code>void</code> and <code>null</code> and optional fields, roughly collapse onto CUE&rsquo;s
+<code>null</code>, bottom (<code>_|_</code>), and optional fields,
+resulting in a somewhat simpler model.</p>
+<!-- (jba) Without more discussion and examples, the whole null section is confusing. -->
+<h3 id="default-values">Default values</h3>
+<!-- (jba) This section is too brief to be helpful. We don't really grasp what default values are at this point,
+so we can't quite see your point about boilerplate removal. I think you should start with a simple explanation of a default value, and add a couple of simple examples, like:
+
+  `a: int | *1` => a: 1 if there are no other mentions of `a`
+  
+  `a: int | *1
+   a: 2
+   ` => a: 2
+-->
+<p>Default values are CUE&rsquo;s equivalant of inheritance,
+specifically the kind that allows instances to override any value of its parent.
+Without it, very little boilerplate removal would be possible.
+That is fine if CUE is used just for validation,
+but as it aims to be useful across the entire configuration continuum,
+it seemed too restrictive to not have such a construct.</p>
+<h4 id="relation-to-inheritance">Relation to inheritance</h4>
+<p>In CUE, if one sees a concrete value for a field,
+it is guaranteed that this will be the final result.
+If a value is not concrete (like <code>string</code>), it is clear the search
+for a concrete value is not over.
+In other words, an instance may never violate the constraints of its parent.
+This property makes it very hard to inadvertently make false conclusions in CUE.
+Default values do not change this property; they syntactically appear as
+non-concrete values.
+CUE also bails out and requires explicit values if two conflicting defaults
+are specified for the same field, again limiting the search space.</p>
+<p>With approaches that allow overrides, whether it be the complex inheritance
+used in languages like GCL and Jsonnet
+or the much simpler file-based approaches as used in HCL and Kustomize,
+finding a declaration for a concrete field value does not guarantee
+a final answer,
+because another concrete value that occurs elsewhere can override it.
+When one needs to change a value of such a field,
+it can be time-consuming and,
+especially when under pressure,
+very tempting to skip following complicated inheritance chains,
+double-check a configuration file specifying overlay order,
+or look for a file that is lexically sorted after the one under consideration.</p>
+<!-- (jba) I think it's worth making the more general point that order-independence
+makes life much simpler. Compare with functional vs. imperative languages? -->
+<p>So there is a clear benefit to having fully expanded configurations
+over such override methods.
+CUE simulates that benefit by guaranteeing that any observed field value
+holds for the final result.</p>
+<p>If the user makes the false assumption that no concrete value is specified to discard the default value,
+CUE will catch an erroneous change to that value and report the conflicting
+locations.</p>
+<p>But there is more.
+In CUE one can apply a constraint to a group of values at once,
+even across files.
+Once set, there is no need to look at the individual values and files to
+know these constraints apply.
+Such information is not readily available for
+fully expanded configurations.<a href="#footnotes">$^1$</a>
+But also with inheritance-based solutions
+that allow arbitrary overrides, templates give little information.</p>
+<p>The ability to enforce constraints top down is crucial for any
+large-scale configuration setup.
+GCL and Jsonnet address this with assertions.
+Assertions, however, are typically decoupled from their fields,
+making them both hard to discover and hard to reason about.
+Where CUE simplifies constraints
+(<code>&gt;=3 &amp; &lt;=10</code> and <code>&gt;=5 &amp; &lt;=20</code> become <code>&gt;=5 &amp; &lt;=10</code>, <code>&gt;=1 &amp; &lt;=1</code> becomes <code>1</code>),
+GCL and Jsonnet do not (it would be quite complex),
+causing an ever-growing pile of assertions.</p>
+<h4 id="semantics">Semantics</h4>
+<p>CUE defaults, which are values marked with a <code>*</code> in disjunctions,
+preserve the beneficial properties of the lattice.
+In order to do so,
+CUE must ensure that the order of picking defaults does not influence the outcome.
+Suppose we define two fields, each with the same default value.
+We also define that these fields are equal to each other.
+<pre><code class="language-cue" data-lang="cue">a: int | *1
+b: int | *1
+a: b
+b: a</code></pre>
+This is fine.
+The obvious answer is <code>a: 1, b: 1</code>.</p>
+<p>But now suppose we change one of the default values:</p>
+<pre><code class="language-cue" data-lang="cue">a: int | *1
+b: int | *2
+a: b
+b: a</code></pre>
+<p>What should the answer be?
+Picking either <code>1</code> or <code>2</code> as the default would result in a resolution of the
+constraints, but would also be highly undesirable, as the result would depend
+on the mood of the implementation.
+This also starts to smell like an NP-complete constraint solving problem.
+(Basic graph unification itself is pseudo linear.)
+CUE wants no part of these shenanigans.
+So the answer in this case is that there are no concrete values
+as the defaults cannot be used.</p>
+<p>The model for this is actually quite simple.
+Conceptually, CUE keeps two parallel values, one for all possible values
+and one for the default, which must be an instance of the former.
+Roughly speaking, for the example with the conflict,
+it simultaneously evaluates:</p>
+
+
+
+<a id="td-block-12" class="td-offset-anchor"></a>
+<section class="row td-box td-box--white td-box--gradient td-box--height-auto">
+    <div class="col">
+<pre><code class="language-cue" data-lang="cue">// All allowed values
+a: int
+b: int
+a: b
+b: a</code></pre>
+</div>
+<div class="col">
+<pre><code class="language-cue" data-lang="cue">// Default
+a: 1
+b: 2
+a: b
+b: a</code></pre>
+</div>
+
+</section>
+
+<p>Equating <code>a</code> and <code>b</code> clearly results in a conflict (<code>1 != 2</code>) and each will
+result in <code>_|_</code>, leaving the left values as the only viable answer.</p>
+<p>Now consider the two values corresponding to the original example:</p>
+
+
+
+<a id="td-block-13" class="td-offset-anchor"></a>
+<section class="row td-box td-box--white td-box--gradient td-box--height-auto">
+    <div class="col">
+<pre><code class="language-cue" data-lang="cue">// All allowed values
+a: int
+b: int
+a: b
+b: a</code></pre>
+</div>
+<div class="col">
+<pre><code class="language-cue" data-lang="cue">// Default
+a: 1
+b: 1
+a: b
+b: a</code></pre>
+</div>
+
+</section>
+
+<p>Here the defaults are not in conflict and can safely be returned.
+Note that it is not an all-or-nothing game.
+The parallel values are determined on a field-by-field basis.
+So defaults can be selected, or not, independently for fields
+that do not depend on each other.</p>
+<h2 id="reasoning-and-inference">Reasoning and Inference</h2>
+<p>The values lattice brings CUE another advantage: the ability to reason about
+values, schemas, and constraints.</p>
+<p>We already discussed how limiting inheritance,
+whether language-based or file-based,
+makes it easier for people to reason about values.
+But it also makes it easier for machines.</p>
+<h3 id="boilerplate-removal">Boilerplate removal</h3>
+<p>CUE&rsquo;s severe restrictions on inheritance limit its
+ability to define hierarchies of templates to remove boilerplate.
+But CUE provides some new mechanisms for removing boilerplate.</p>
+<p>Suppose a node must inherit from multiple templates, or mixins.
+Because order is irrelevant in CUE,
+there is no need to specify these in a particular order or even in one location.
+One can even say on a single line that a collection of
+fields must mix in a template.
+For instance,</p>
+<pre><code>jobs: [string]: acmeMonitoring
+</code></pre><p>tells CUE that <em>all</em> jobs in <code>jobs</code> must mix in <code>acmeMonitoring</code>.
+There is no need to repeat this at every node.</p>
+<!-- (jba) first use of angle-bracket syntax, I think. Needs some explanation. -->
+<p>In CUE, though, we typically refer to <code>acmeMonitoring</code> as a constraint.
+After all, applying it will guarantee
+that a job implements monitoring in a certain way.
+If such a constraint also contains sensible defaults, however,
+it simultaneously validates <em>and</em> reduces boilerplate.<a href="#footnotes">$^2$</a></p>
+<p>This ability to simultaneously
+enforce constraints and remove boilerplate
+was a key factor in the success of
+the typed feature structure systems that inspired the creation of CUE. <!--(jba) add footnote --></p>
+<p>This property is also useful in automation.
+The <code>cue trim</code> tool can automatically remove boilerplate from configurations
+using the same logic.</p>
+<h3 id="cycles">Cycles</h3>
+<p>An astute reader may have noticed that there were cyclic references
+between fields in some of the examples,
+something that is not allowed in your typical programming or
+configuration language.
+CUE&rsquo;s underlying model allows reasoning over cycles.
+Consider a CUE program defining two fields;
+<pre><code class="language-cue" data-lang="cue">a: b
+b: a</code></pre></p>
+<p>This can only be interpreted to mean that <code>a</code> and <code>b</code> must be equal.
+If there is no concrete value assigned to <code>a</code> or <code>b</code>,
+they remain unspecified in the same way as if each had been declared as <code>string</code>.</p>
+<p>This particular case comes in handy in Kubernetes, for instance,
+if one wants to equate a set
+of labels with a set of selectors
+(regardless of whether that is good practice).</p>
+<p>But it goes further. Consider</p>
+<pre><code>a: b + 1
+b: a - 1
+b: 1
+</code></pre><p>When evaluating <code>a</code>, CUE will attempt to resolve <code>b</code> and will find
+<code>(a-1) &amp; 1</code> after unifying the two declarations for <code>b</code>.
+It cannot recursively resolve <code>a</code>, as this would result in an
+evaluation cycle.
+However, the expression <code>(a-1) &amp; 1</code> is an error
+unless <code>(a-1)</code> is <code>1</code>.
+So if this configuration is ever to be a valid, we can safely assume
+the answer is <code>1</code> and verify that <code>a-1 == 1</code> after resolving <code>a</code>.</p>
+<p>So CUE happily resolves this to</p>
+<pre><code>a: 2
+b: 1
+</code></pre><p>without resorting to any fancy algebraic constraint satisfaction solvers,
+just plain ol&rsquo; logic.
+Most cycles that do not result in inifite structures can be handled by CUE.
+In fact, it could handle most infinite structures in bounded time
+as well, but it puts limits on such cycles for
+practical reasons.<a href="#footnotes">$^3$</a></p>
+<h3 id="file-organization">File organization</h3>
+<p>What applies at the language level also applies at the file level.
+Within a package, or project, there is no need for files to mutually
+import each other.</p>
+<p>Files can be split across organizational lines each with a different set
+of policies, all implemented with the same familiar constraints.</p>
+<h3 id="the-sky-is-the-limit">The sky is the limit</h3>
+<p>Many other things are possible.
+Take for instance querying.
+Whereas validating data is the problem of finding data that is inconsistent with
+some constraints,
+querying is the problem of finding data that <em>matches</em> some given constraints.
+Clearly these two concepts are related.</p>
+<p>Computing backwards compatibility (instance of),
+computing the most general schema mutually compatible with a set of others
+(greatest lower bound),
+inferring optimal templates from concrete instances (least upper bound):
+all of these fall in the realm of possibilities of CUE&rsquo;s model.</p>
+<h2 id="references">References</h2>
+<p>The title of this section refers to Bob Carpenter&rsquo;s
+&ldquo;The Logic of Typed Feature Structures&rdquo;
+(1992, Cambridge University Press, ISBN:0-521-41932-8).
+Most of the inspiration for the underlying work
+presented here comes from the Lingo and LKB project.
+One can read more about this in Ann Copestake&rsquo;s
+&ldquo;Implementing Typed Feature Structure Grammars.&rdquo;
+(2002, CSLI Publications, ISBN 1-57586-261-1).</p>
+<h2 id="footnotes">Footnotes</h2>
+<small>
+<ol>
+<li> Although CUE could be used to verify those properties in such
+   data-only configurations.
+<li> TFSs typically don't have default values, it is the structure
+   itself that is boilerplate removing, as the structure itself
+   is what is the useful value.
+   But that is a different topic.
+   It doesn't work quite as well if one needs numeric values.
+   This is why CUE adds defaults.
+<li> Detection of structural cycles (an occurs check)
+   is not yet implemented, and thus printing inifinite structures
+   will still result in a loop.
+</ol>
+</small>
+
+	
+	
+	<div class="text-muted mt-5 pt-3 border-top">Last modified January 4, 2021: <a  href="https://github.com/cuelang/cuelang.org/commit/96d5540139d0590596d495ae1c0834587d75dcaf">Update logic.md (#117) (96d5540)</a>
+</div>
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code' ],
+    ignoreClass: "mermaid",
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+
+<link href="https://cuelang.org/mermaid/mermaid.css" rel="stylesheet" />
+<script src="https://cuelang.org/mermaid/mermaid.js"></script>
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        flowchart: {
+            curve: 'basis'
+        }
+    });
+</script>
+
+
+    </div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+<script src="/js/main.min.2187fca64cce5b93625c3b6ebbc286d5a6026eaa944cef7319ed98d12dd39c91.js" integrity="sha256-IYf8pkzOW5NiXDtuu8KG1aYCbqqUTO9zGe2Y0S3TnJE=" crossorigin="anonymous"></script>
+
+<script src=https://cuelang.org/js/asciinema-player.js></script>
+
+  </body>
+</html>

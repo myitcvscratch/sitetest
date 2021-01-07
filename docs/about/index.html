@@ -1,0 +1,958 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.67.0" />
+
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>About | CUE</title><meta property="og:title" content="About" />
+<meta property="og:description" content="How did CUE come about and what are its principles." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://cuelang.org/docs/about/" />
+<meta property="og:site_name" content="CUE" />
+<meta itemprop="name" content="About">
+<meta itemprop="description" content="How did CUE come about and what are its principles."><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="About"/>
+<meta name="twitter:description" content="How did CUE come about and what are its principles."/>
+
+
+
+
+
+<link rel="preload" href="/scss/main.min.f56d687752891909019b7a425ae3aefe3e6508a54e92b7a1dc91a12c9a948211.css" as="style">
+<link href="/scss/main.min.f56d687752891909019b7a425ae3aefe3e6508a54e92b7a1dc91a12c9a948211.css" rel="stylesheet" integrity="">
+
+
+<link rel="stylesheet" type="text/css" href=https://cuelang.org/css/asciinema-player.css />
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+    <title>About | CUE</title>
+  </head>
+  <body class="td-section">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/">
+		<span class="navbar-logo"></span><span class="text-uppercase font-weight-bold">CUE</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/" ><span>Documentation</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/community/" ><span>Community</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				<a class="nav-link" href="https://github.com/cuelang/cue" target="_blank" ><span>GitHub</span></a>
+			</li>
+			
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+
+
+
+
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  
+  <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+    
+    
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Documentation</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="docs">
+      
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/about/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">About</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="docsabout">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/install/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Getting Started</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsinstall">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/usecases/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Use Cases</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsusecases">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesconfiguration" href="/docs/usecases/configuration/">Configuration</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesvalidation" href="/docs/usecases/validation/">Data Validation</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesdatadef" href="/docs/usecases/datadef/">Schema Definition</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesgenerate" href="/docs/usecases/generate/">Code Generation and Extraction</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesquery" href="/docs/usecases/query/">Querying</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsusecasesscripting" href="/docs/usecases/scripting/">Scripting</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/integrations/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Integrations</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsintegrations">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsjson" href="/docs/integrations/json/">JSON</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsyaml" href="/docs/integrations/yaml/">YAML</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsgo" href="/docs/integrations/go/">Go</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsprotobuf" href="/docs/integrations/protobuf/">Protobuf</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsopenapi" href="/docs/integrations/openapi/">OpenAPI and CRDs</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsintegrationsk8s" href="/docs/integrations/k8s/">Kubernetes</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/concepts/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Concepts</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsconcepts">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconceptslogic" href="/docs/concepts/logic/">The Logic of CUE</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/concepts/packages/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Modules, Packages, and Instances</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsconceptspackages">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/tutorials/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Tutorials</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docstutorials">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docstutorialskubernetes" href="/docs/tutorials/kubernetes/"></a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/references/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">References</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsreferences">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsreferencesspec" href="/docs/references/spec/">Language Specification</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+  </nav>
+</div>
+
+
+
+
+          </div>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+            
+
+
+
+
+
+
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+
+
+
+
+
+<a href="https://github.com/cuelang/cuelang.org/edit/master/content/en/docs/about/_index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+<a href="https://github.com/cuelang/cuelang.org/issues/new?title=About" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+
+
+<a href="https://github.com/cuelang/cue/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
+
+</div>
+
+
+
+
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#intro">Intro</a></li>
+    <li><a href="#applications">Applications</a></li>
+    <li><a href="#history">History</a></li>
+    <li><a href="#philosophy-and-principles">Philosophy and principles</a>
+      <ul>
+        <li><a href="#types-are-values">Types are Values</a></li>
+        <li><a href="#push-not-pull-constraints">Push, not pull, constraints</a></li>
+        <li><a href="#separate-configuration-from-computation">Separate configuration from computation</a></li>
+        <li><a href="#be-useful-at-all-scales">Be useful at all scales</a></li>
+        <li><a href="#tooling">Tooling</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+  
+
+            <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	<ol class="breadcrumb spb-1">
+		
+
+
+
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://cuelang.org/docs/">Documentation</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item active" aria-current="page">
+	<a href="https://cuelang.org/docs/about/">About</a>
+</li>
+
+	</ol>
+</nav	>
+
+            
+<div class="td-content">
+	<h1>About</h1>
+	<div class="lead">How did CUE come about and what are its principles.</div>
+	<h2 id="intro">Intro</h2>
+<p>CUE is an open-source data validation language and inference engine
+with its roots in logic programming.
+Although the language is not a general-purpose programming language,
+it has many applications, such as
+data validation, data templating, configuration, querying,
+code generation and even scripting.
+The inference engine can be used to validate
+data in code or to include it as part of a code generation pipeline.</p>
+<p>A key thing that sets CUE apart from its peer languages
+is that it merges types and values into a single concept.
+Whereas in most languages types and values are strictly distinct,
+CUE orders them in a single hierarchy (a lattice, to be precise).
+This is a very powerful concept that allows CUE to do
+many fancy things.
+It also simplifies matters.
+For instance, there is no need for generics and enums, sum types
+and null coalescing are all the same thing.</p>
+<h2 id="applications">Applications</h2>
+<p>CUE&rsquo;s design ensures that combining CUE values in any
+order always gives the same result
+(it is associative, commutative and idempotent).
+This makes CUE particularly well-suited for cases where CUE
+constraints are combined from different sources:</p>
+<ul>
+<li>
+<p>Data validation: different departments or groups can each
+define their own constraints to apply to the same set of data.</p>
+</li>
+<li>
+<p>Code extraction and generation: extract CUE definitions from
+multiple sources (Go code, Protobuf), combine them into a single
+definition, and use that to generate definitions in another
+format (e.g. OpenAPI).</p>
+</li>
+<li>
+<p>Configuration: values can be combined from different sources
+without one having to import the other.</p>
+</li>
+</ul>
+<p>The ordering of values also allows set containment analysis of entire
+configurations.
+Where most validation systems are limited to checking whether a concrete
+value matches a schema, CUE can validate whether any instance of
+one schema is also an instance of another (is it backwards compatible?),
+or compute a new schema that represents all instances that match
+two other schema.</p>
+<h2 id="history">History</h2>
+<p>Although it is a very different language, the roots of CUE lie in GCL,
+the dominant configuration language in use at Google as of this writing.
+It was originally designed to configure Borg, the predecessor of Kubernetes.
+In fact, the original idea was to use graph unification as used in CUE for GCL.
+One of the authors of GCL had extensive experience with such systems and
+experienced the benefit of being able to compute and reason with types for the
+creation of powerful tooling.</p>
+<p>The graph unification model CUE is based on
+was in common use in computational linguistics at that time and was
+successfully used to manage grammars and lexicons of over 100k lines of
+declarative definitions.
+These were effectively very large
+configurations of something as irregular and complex as a human language.
+A property of these systems were that the types, or constraints, one
+defines validate the data while simultaneously reducing boilerplate.
+Overall, this approach seemed to be extremely well-suited
+for cloud configuration.</p>
+<p>However, the early design of GCL went for something simpler that coincidentally
+was also incompatible with the notion of graph unification.
+This simpler approach proved insufficient, but it was already too late to
+move to the earlier foreseen approach.
+Instead, an inheritance-based override model was adopted.
+Its complexity made the earlier foreseen tooling intractable
+and they never materialized.
+The same holds for the GCL offsprings that copied its model.</p>
+<p>CUE goes back to the original idea of using a constraint-based approach and
+also makes an effort to incorporate lessons learned from 15 years of GCL usage.
+This also includes lessons learned from offsprings and different approaches to
+configuration altogether.</p>
+<h2 id="philosophy-and-principles">Philosophy and principles</h2>
+<h3 id="types-are-values">Types are Values</h3>
+<p>CUE does not distinguish between values and types.
+This is a powerful notion that allows CUE to define ultra-detailed
+constraints, but it also simplifies things considerably:
+there is no separate schema or data definition language to learn
+and related language constructs such as sum types, enums,
+and even null coalescing collapse onto a single construct.</p>
+<p>Below is a demonstration of this concept.
+On the left one can see a JSON object (in CUE syntax) with some properties
+about the city of Moscow.
+The middle columns shows a possible schema for any municipality.
+On the right one sees a mix between data and schema as is exemplary of CUE.</p>
+
+
+
+<a id="td-block-0" class="td-offset-anchor"></a>
+<section class="row td-box td-box--white td-box--gradient td-box--height-auto">
+    <div class="col">
+Data
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000">moscow</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#000">name</span><span style="color:#000;font-weight:bold">:</span>    <span style="color:#4e9a06">&#34;Moscow&#34;</span>
+  <span style="color:#000">pop</span><span style="color:#000;font-weight:bold">:</span>     <span style="color:#0000cf;font-weight:bold">11.92</span><span style="color:#000">M</span>
+  <span style="color:#000">capital</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#204a87;font-weight:bold">true</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+</div>
+<div class="col">
+Schema
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000">municipality</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#000">name</span><span style="color:#000;font-weight:bold">:</span>    <span style="color:#204a87;font-weight:bold">string</span>
+  <span style="color:#000">pop</span><span style="color:#000;font-weight:bold">:</span>     <span style="color:#204a87;font-weight:bold">int</span>
+  <span style="color:#000">capital</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#204a87;font-weight:bold">bool</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+</div>
+<div class="col">
+CUE
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000">largeCapital</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#000">name</span><span style="color:#000;font-weight:bold">:</span>    <span style="color:#204a87;font-weight:bold">string</span>
+  <span style="color:#000">pop</span><span style="color:#000;font-weight:bold">:</span>     <span style="color:#000;font-weight:bold">&gt;</span><span style="color:#0000cf;font-weight:bold">5</span><span style="color:#000">M</span>
+  <span style="color:#000">capital</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#204a87;font-weight:bold">true</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+</div>
+
+</section>
+
+<p>In general, in CUE one starts with a broad definition of a type, describing
+all possible instances.
+One then narrows down these definitions, possibly by combining constraints
+from different sources (departments, users), until a concrete data instance
+remains.</p>
+<h3 id="push-not-pull-constraints">Push, not pull, constraints</h3>
+<p>CUE&rsquo;s constraints act as data validators, but also double as
+a mechanism to reduce boilerplate.
+This is a powerful approach, but requires some different thinking.
+With traditional inheritance approaches one specifies the templates that
+are to be inherited from at each point they should be used.
+In CUE, instead, one selects a set of nodes in the configuration to which
+to apply a template.
+This selection can be at a different point in the configuration altogether.</p>
+<p>Another way to view this, a JSON configuration, say, can be
+defined as a sequence of path-leaf values.
+For instance,</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#204a87;font-weight:bold">&#34;a&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#0000cf;font-weight:bold">3</span><span style="color:#000;font-weight:bold">,</span>
+  <span style="color:#204a87;font-weight:bold">&#34;b&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#204a87;font-weight:bold">&#34;c&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;foo&#34;</span>
+  <span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>could be represented as</p>
+<pre><code>&quot;a&quot;: 3
+&quot;b&quot;: &quot;c&quot;: &quot;foo&quot;
+</code></pre><p>All the information of the original JSON file is retained in this
+representation.</p>
+<p>CUE generalizes this notion to the following pattern:</p>
+<pre><code>&lt;set of nodes&gt;: &lt;constraints&gt;
+</code></pre><p>Each field declaration in CUE defines a set of nodes to which to apply
+a specific constraint.
+Because order doesn&rsquo;t matter, multiple constraints can be applied to the
+same nodes, all of which need to apply simultaneously.
+Such constraints may even be in different files.
+But they may never contradict each other:
+if one declaration says a field is <code>5</code>, another may not override it to be <code>6</code>.
+Declaring a field to be both <code>&gt;5</code> and <code>&lt;10</code> is valid, though.</p>
+<p>This approach is more restricted than full-blown inheritance;
+it may not be possible to reuse existing configurations.
+On the other hand, it is also a more powerful boilerplate remover.
+For instance, suppose each job in a set needs to use a specific
+template.
+Instead of having to spell this out at each point,
+one can declare this separately in a one blanket statement.</p>
+<p>So instead of</p>
+<pre><code>jobs: {
+  foo: acmeMonitoring &amp; { /* ... */ }
+  bar: acmeMonitoring &amp; { /* ... */ }
+  baz: acmeMonitoring &amp; { /* ... */ }
+}
+</code></pre><p>one can write</p>
+<pre><code>jobs: [string]: acmeMonitoring
+
+jobs: {
+    foo: { /* ... */ }
+    bar: { /* ... */ }
+    baz: { /* ... */ }
+}
+</code></pre><p>There is no need to repeat the reference to the monitoring template for
+each job, as the first already states that all jobs <em>must</em> use <code>acmeMonitoring</code>.
+Such requirements can be specified across files.</p>
+<p>This approach not only reduces the boilerplate contained in <code>acmeMonitoring</code>
+but also removes the repetitiveness of having to specify
+this template for each job in <code>jobs</code>.
+At the same time, this statement act as a type enforcement.
+This dual function is a key aspect of CUE and
+typed feature structure languages in general.</p>
+<p>This approach breaks down, of course, if the restrictions in
+<code>acmeMonitoring</code> are too stringent and jobs need to override them.
+To this extent, CUE provides mechanisms to allow defaults, opt-out, and
+soft constraints.</p>
+<h3 id="separate-configuration-from-computation">Separate configuration from computation</h3>
+<p>There comes a time that one (seemingly) will need do complex
+computations to generate some configuration data.
+But simplicity of a configuration language can be paramount when one quickly
+needs to make changes.
+These are obviously conflicting interests.</p>
+<p>CUE takes the stance that computation and configuration should
+be separated.
+And CUE actually makes this easy.
+The data that needs to be computed can be generated outside of CUE
+and put in a file that is to be mixed in.
+The data can even be generated in CUE&rsquo;s scripting layer and automatically
+injected in a configuration pipeline.
+Both approaches rely on CUE&rsquo;s property that the order in which this data gets
+added is irrelevant.</p>
+<h3 id="be-useful-at-all-scales">Be useful at all scales</h3>
+<p>The usefulness of a language may depend on the scale of the project.
+Having too many different languages can put a cognitive strain on
+developers, though, and migrating from one language to another as
+scaling requirements change can be very costly.
+CUE aims to minimize these costs
+by covering a myriad of data- and configuration-related tasks at all scales.</p>
+<p><strong>Small scale</strong>
+At small scales, reducing boilerplate in configurations is not necessarily
+the best thing to do.
+Even at a small scale, however, repetition can be error prone.
+For such cases, CUE can define schema to validate otherwise
+typeless data files.</p>
+<p><strong>Medium scale</strong>
+As soon the desire arises to reduce boilerplate, the <code>cue</code> tool can
+help to automatically rewrite configurations.
+See the Quick and Dirty section of the
+<a href="/docs/tutorials/kubernetes">Kubernetes tutorial</a>
+for an example using the <code>import</code> and <code>trim</code> tool.
+Thousands of lines can be obliterated automatically using this approach.</p>
+<p><strong>Large scale</strong>
+CUE&rsquo;s underlying formalism was developed for large-scale configuration.
+Its import model incorporates best practices for large-scale engineering
+and it is optimized for automation.
+A key to this is advanced tooling.
+The mathematical model underlying CUE&rsquo;s operations allows for
+automation that is untractable for most other approaches.
+CUE&rsquo;s <code>trim</code> command is an example of this.</p>
+<h3 id="tooling">Tooling</h3>
+<p>Automation is key.
+Nowadays, a good chunk of code gets generated, analyzed, reformatted,
+and so on by machines.
+The CUE language, APIs, and tooling have been designed to allow for
+machine manipulation.
+Aspects of this are:</p>
+<ul>
+<li>make the language easy to scan and parse,</li>
+<li>restrictions on imports,</li>
+<li>allow any piece of data to be split across files and generated
+from different sources,</li>
+<li>define packages at the directory level,</li>
+<li>and of course its value and type model.</li>
+</ul>
+<p>The order independence also plays a key role in this.
+It allows combining constraints from various sources without having
+to define any order in which they are to be applied to get
+predictable results.</p>
+<!-- something about this?
+Not turing complete.
+Run in contexts where cost is hard to attribute.
+Easier to make claims about termination (smart contracts).
+-->
+
+        <div class="section-index">
+    
+    
+    
+    
+    <hr class="panel-line">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+</div>
+
+	
+	
+	<div class="text-muted mt-5 pt-3 border-top">Last modified October 4, 2020: <a  href="https://github.com/cuelang/cuelang.org/commit/5abb6f7ddaf28f08052f7861a7c4eceec4c340eb">Improve grammar (#113) (5abb6f7)</a>
+</div>
+</div>
+
+          </main>
+        </div>
+      </div>
+      
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code' ],
+    ignoreClass: "mermaid",
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+
+<link href="https://cuelang.org/mermaid/mermaid.css" rel="stylesheet" />
+<script src="https://cuelang.org/mermaid/mermaid.js"></script>
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        flowchart: {
+            curve: 'basis'
+        }
+    });
+</script>
+
+
+    </div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+<script src="/js/main.min.2187fca64cce5b93625c3b6ebbc286d5a6026eaa944cef7319ed98d12dd39c91.js" integrity="sha256-IYf8pkzOW5NiXDtuu8KG1aYCbqqUTO9zGe2Y0S3TnJE=" crossorigin="anonymous"></script>
+
+<script src=https://cuelang.org/js/asciinema-player.js></script>
+
+  </body>
+</html>
